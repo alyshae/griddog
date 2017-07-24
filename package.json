@@ -9,6 +9,7 @@
   "author": "ASW",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^3.5.2",
     "express": "^4.15.3",
     "materialize-css": "^0.100.1",
     "mongoose": "^4.11.4"
