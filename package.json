@@ -7,13 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-   "type": "git",
-   "url": "https://github.com/alyshae/griddog"
- },
+    "type": "git",
+    "url": "https://github.com/alyshae/griddog"
+  },
   "author": "ASW",
   "license": "ISC",
   "dependencies": {
     "animate.css": "^3.5.2",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "materialize-css": "^0.100.1",
     "mongoose": "^4.11.4"
