@@ -34,9 +34,14 @@ app.get('/', function(req, res) {
 
 //JSON End-points (actions)
 
-//get all scores
-app.get('/scores', function(req, res) {
-  res.json(scores);
+//index: get all scores
+app.get('/scores', function index(req, res) {
+  db.Score.find(function(err, scores) {
+    if (err) {
+      return console.log("index error: " + err);
+    }
+    res.json(scores);
+  });
 });
 
 
