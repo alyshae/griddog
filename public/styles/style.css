@@ -8,37 +8,32 @@ body {
 
 .container-A {
   height: 91vh;
-  border: solid 4px red;
   display: flex;
   flex-direction: column;
 }
 
 .container-B {
-  border: solid 4px yellow;
   display: flex;
   flex: 2;
 }
 
 .container-C {
-  border: solid 4px blue;
   display: flex;
   flex: 1;
 }
 
-.flex-item.flex-grow-1 {
-  border: solid 4px green;
+.flex-item.flex-1 {
   flex: 1;
 }
 
-.flex-item.flex-grow-2 {
-  border: solid 4px purple;
+.flex-item.flex-2 {
   flex: 2;
 }
 
-.flex-item-vert-2 {
+.vert-2 {
   flex: 2;
 }
 
-.flex-item-vert-1 {
+.vert-1 {
   flex: 1;
 }
