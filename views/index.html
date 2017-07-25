@@ -4,15 +4,27 @@
     <meta charset="utf-8">
     <title>GridDog</title>
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css" rel="stylesheet" href="styles/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper amber">
+        <a href="#" class="brand-logo cyan-text text-darken-4">GridDog</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="cyan-text text-darken-4" >SCORE: 0</li>
+          <li><a class="waves-effect waves-light btn red accent-2">New Game</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="scores-target"></div>
 
     <!-- VENDOR SCRIPTS -->
     <script src="scripts/jquery.js"></script>
-
+    <script type="text/javascript" src="scripts/materialize.js"></script>
+    </body>
     <!-- APPLICATION SCRIPTS -->
     <script src="scripts/app.js"></script>
-  </head>
-  <body>
-    <div id="scores-target"></div>
   </body>
 </html>
