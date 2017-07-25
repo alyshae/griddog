@@ -1,5 +1,5 @@
 body {
-  background-color: azure;
+  background-color: white;
 }
 
 .brand-logo {
@@ -13,11 +13,13 @@ body {
 }
 
 .container-B {
+  text-align: center;
   display: flex;
   flex: 2;
 }
 
 .container-C {
+  text-align: center;
   display: flex;
   flex: 1;
 }
@@ -36,4 +38,47 @@ body {
 
 .vert-1 {
   flex: 1;
+}
+
+.game-grid-box {
+  margin-left: 100px ;
+}
+
+.game-info-box {
+  padding: 8%;
+}
+
+.top-dogs-box {
+  padding: 5px;
+}
+
+.full-dog-box {
+  width: 300px;
+}
+
+
+/**********
+ GAME GRID
+ *********/
+
+/* whole grid */
+.game-grid {
+  width: 355px;
+  margin: 10%;
+}
+
+/* grid columns */
+.grid-column {
+  border: solid 1px black;
+  width: 115px;
+  height: 115px;
+  display: inline;
+  float: left;
+  margin: auto;
+}
+
+/* grid rows */
+.grid-row {
+  width: 100%;
+  margin: auto;
 }
