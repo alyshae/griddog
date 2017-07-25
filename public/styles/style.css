@@ -7,26 +7,28 @@ body {
 }
 
 .container-A {
+  border: solid 4px red;
   display: flex;
   flex-direction: column;
 }
 
 .container-B {
+  border: solid 4px yellow;
   display: flex;
-  align-items: center;
 }
 
 .container-C {
+  border: solid 4px blue;
   display: flex;
-  align-items: center;
+
 }
 
 .flex-item.flex-grow-1 {
-
+  border: solid 5px green;
   flex-grow: 1;
 }
 
 .flex-item.flex-grow-2 {
-
+  border: solid 5px purple;
   flex-grow: 2;
 }
