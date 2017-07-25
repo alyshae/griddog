@@ -1,5 +1,6 @@
 console.log("Sanity Check!")
 
+
 $(document).ready(function() {
   $.ajax({
     method: 'GET',
@@ -9,7 +10,9 @@ $(document).ready(function() {
   });
 
   function handleSuccess(jsonData) {
-    $('#scores-target').text(`${jsonData}`)
+    jsonData.forEach(function(e) {
+      $('#scores-target').text(`${e.name}`);
+    });
   }
 
   function handleError(e) {
