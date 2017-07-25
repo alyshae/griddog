@@ -5,3 +5,28 @@ body {
 .brand-logo {
   margin-left: 20px;
 }
+
+.container-A {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-B {
+  display: flex;
+  align-items: center;
+}
+
+.container-C {
+  display: flex;
+  align-items: center;
+}
+
+.flex-item.flex-grow-1 {
+
+  flex-grow: 1;
+}
+
+.flex-item.flex-grow-2 {
+
+  flex-grow: 2;
+}
