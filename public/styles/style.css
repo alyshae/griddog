@@ -1,5 +1,5 @@
 body {
-  background-color: azure;
+  background-color: white;
 }
 
 .brand-logo {
@@ -13,11 +13,13 @@ body {
 }
 
 .container-B {
+  text-align: center;
   display: flex;
   flex: 2;
 }
 
 .container-C {
+  text-align: center;
   display: flex;
   flex: 1;
 }
@@ -37,3 +39,15 @@ body {
 .vert-1 {
   flex: 1;
 }
+
+.top-dogs-box {
+  padding: 5px;
+}
+
+.full-dog-pic {
+  width: 300px;
+}
+
+/**********
+ GAME GRID
+ *********/

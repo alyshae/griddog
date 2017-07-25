@@ -53,7 +53,23 @@
 
       <div class="container-B flex-item vert-2">
         <div class="grid-area flex-item flex-1">
-          <h1>BOX 1</h1>
+          <div id="game-grid" class="game-grid">
+            <div class="grid-row">
+              <div class="grid-column">A1</div>
+              <div class="grid-column">A2</div>
+              <div class="grid-column">A3</div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-column">B1</div>
+              <div class="grid-column">B2</div>
+              <div class="grid-column">B3</div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-column">C1</div>
+              <div class="grid-column">C2</div>
+              <div class="grid-column">C3</div>
+            </div>
+          </div>
         </div>
         <div class="game-info flex-item flex-1">
           <h1>BOX 2</h1>
@@ -61,13 +77,12 @@
       </div> <!-- End of container-B -->
 
       <div class="container-C flex-item vert-1">
-        <div class="flex-item flex-1">
-          <h5>BOX 1</h5><br />
-          <h5>TOP DOGS:</h5>
-          <ol id="scores-target"></ol>
+        <div class="flex-item flex-1 top-dogs-box">
+          <h5 class="top-dogs-header">TOP DOGS:</h5>
+          <ol id="scores-target" class="scores-target"></ol>
         </div>
-        <div class="flex-item flex-2"><h5>BOX 2</h5></div>
-        <div class="flex-item flex-1"><h5>BOX 3</h5></div>
+        <div class="flex-item flex-2 instructions-box"><h5>BOX 2</h5></div>
+        <div class="flex-item flex-1 full-dog-box"><img class="full-dog-pic" src="images/full-dog.png"  /></div>
       </div> <!-- End of container-C -->
 
     </div> <!-- End of container-A -->
