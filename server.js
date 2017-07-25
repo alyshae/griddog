@@ -59,6 +59,7 @@ app.post('/scores', function(req, res) {
   let newScore = new Score(req.body);
   newScore.save(function handleScoreSave(err, savedScore) {
     if (err) {
+      res.sendStatus(500);
       console.log('error creating new score in server.js: ' + err)
     }
     res.json(savedScore);

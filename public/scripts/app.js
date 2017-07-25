@@ -52,7 +52,7 @@ $(document).ready(function() {
   function indexSuccess(jsonData) {
     let allScores = jsonData;
     let topScores = allScores.sort(function(a,b) {
-      return a.highScore - b.highScore
+      return b.highScore - a.highScore
     });
     console.log(topScores)
     let topDogs = topScores.splice(0,3);
