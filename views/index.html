@@ -52,7 +52,7 @@
     <div class="container-A">
 
       <div class="container-B flex-item vert-2">
-        <div class="grid-area flex-item flex-1">
+        <div class="game-grid-box flex-item flex-1">
           <div id="game-grid" class="game-grid">
             <div class="row grid-row">
               <div class="column grid-column">A1</div>
@@ -70,19 +70,29 @@
               <div class="column grid-column">C3</div>
             </div>
           </div>
-        </div>
-        <div class="game-info flex-item flex-1">
-          <h1>BOX 2</h1>
-        </div>
+        </div> <!-- End of game-grid-box -->
+        <div class="game-info-box flex-item flex-1">
+          <h4 class="game-info-text level-header" id="level-header">LEVEL: ONE</h4>
+          <a class="waves-effect waves-light btn lime black-text">GO FETCH!</a>
+          <h4 class="game-info-text command" id="command">COMMAND: text</h4>
+          <h4 class="game-info-text timer" id="timer">TIMER</h4>
+        </div> <!-- End of game-info-box -->
       </div> <!-- End of container-B -->
 
       <div class="container-C flex-item vert-1">
-        <div class="flex-item flex-1 top-dogs-box">
+        <div class="top-dogs-box flex-item flex-1">
           <h5 class="top-dogs-header">TOP DOGS:</h5>
           <ol id="scores-target" class="scores-target"></ol>
         </div>
-        <div class="flex-item flex-2 instructions-box"><h5>BOX 2</h5></div>
-        <div class="flex-item flex-1 full-dog-box"><img class="full-dog-pic" src="images/full-dog.png"  /></div>
+        <div class="instructions-box flex-item flex-2">
+          <h5>INSTRUCTIONS: </h5>
+          <p>
+            Puppy sit good dog foot stick. Teeth Mittens grooming vaccine walk swimming good boy furry tongue heel furry treats snack love. Cage run fast dinnertime ball run foot park fleas throw house train licks stick dinnertime window.
+          </p>
+        </div>
+        <div class="full-dog-box flex-item flex-1">
+          <img class="full-dog-box" src="images/full-dog.png"  />
+        </div>
       </div> <!-- End of container-C -->
 
     </div> <!-- End of container-A -->

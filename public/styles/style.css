@@ -40,13 +40,22 @@ body {
   flex: 1;
 }
 
+.game-grid-box {
+  margin-left: 100px ;
+}
+
+.game-info-box {
+  padding: 8%;
+}
+
 .top-dogs-box {
   padding: 5px;
 }
 
-.full-dog-pic {
+.full-dog-box {
   width: 300px;
 }
+
 
 /**********
  GAME GRID
