@@ -1,0 +1,19 @@
+{
+  "name": "GridDog",
+  "description": "Voice Controlled Game",
+  "type": "privileged",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Alison S. Walas",
+    "url": "https://github.com/alyshae"
+  },
+  "default_locale": "en",
+  "permissions": {
+    "audio-capture" : {
+      "description" : "Audio capture"
+    },
+    "speech-recognition" : {
+      "description" : "Speech recognition"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GridDog</title>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css" rel="stylesheet" href="styles/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper amber">
+        <a href="#" class="brand-logo cyan-text text-darken-4">GridDog</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="cyan-text text-darken-4" >SCORE: 0</li>
+          <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
+          <li><a class="waves-effect waves-light btn red accent-2">New Game</a></li>
+        </ul>
+      </div>
+    </nav>
+    <h6>TOP DOGS:</h6>
+    <div id="scores-target"></div>
+
+    <!-- New High Score Modal -->
+    <div id="newHSmodal" class="modal">
+      <div class="modal-content">
+        <form id="newHSForm" class="col s12">
+          <h4>CONGRATS, you're a TOP DOG!</h4>
+          <p>
+            Enter your name to appear on the TOP DOGS list!
+          </p>
+          <div class="row">
+            <div class="input-field col s6" >
+              <input placeholder="max 10 characters" id="name" type="text" class="validate" name="name">
+              <label for="name">Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <!--the input field below will need to be modified to grab the game score -->
+              <input id="highScore" type="number" class="validate" name="highScore">
+              <label for="highScore">Score</label>
+            </div>
+          </div>
+          <div class="row">
+            <button class="right btn waves-effect waves-light modal-action modal-close" type="submit" name="action">Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- VENDOR SCRIPTS -->
+    <script src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/materialize.js"></script>
+    </body>
+    <!-- APPLICATION SCRIPTS -->
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
