@@ -14,12 +14,34 @@
         <a href="#" class="brand-logo cyan-text text-darken-4">GridDog</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="cyan-text text-darken-4" >SCORE: 0</li>
+          <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
           <li><a class="waves-effect waves-light btn red accent-2">New Game</a></li>
         </ul>
       </div>
     </nav>
     <div id="scores-target"></div>
 
+    <!-- New High Score Modal -->
+    <div id="newHSmodal" class="modal">
+      <div class="modal-content">
+        <h4>CONGRATS, you're a TOP DOG!</h4>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="max 10 characters" id="name" type="text" class="validate">
+            <label for="name">Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input disabled value="SCORE VALUE" id="highScore" type="text" class="validate">
+            <label for="highScore">Score</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+      </div>
+    </div>
     <!-- VENDOR SCRIPTS -->
     <script src="scripts/jquery.js"></script>
     <script type="text/javascript" src="scripts/materialize.js"></script>

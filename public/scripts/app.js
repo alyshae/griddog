@@ -3,6 +3,8 @@ console.log("Sanity Check!")
 
 $(document).ready(function() {
 
+  $('.modal').modal();
+
 /********************************
  *   AJAX REQUESTS to Express   *
  *******************************/
