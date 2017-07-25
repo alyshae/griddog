@@ -23,20 +23,28 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /**************
+ *    DATA    *
+ **************/
+var db = require("./models");
+var Score = db.Score;
+
+
+
+/**************
  *   ROUTES   *
  **************/
 
 //HTML End-points
 
 app.get('/', function(req, res) {
-  res.sendFile('views/index.html' , { root : __dirname});
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 //JSON End-points (actions)
 
 //index: get all scores
 app.get('/scores', function index(req, res) {
-  db.Score.find(function(err, scores) {
+  Score.find(function(err, scores) {
     if (err) {
       return console.log("index error: " + err);
     }

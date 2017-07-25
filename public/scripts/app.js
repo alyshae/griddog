@@ -9,11 +9,11 @@ $(document).ready(function() {
   });
 
   function handleSuccess(jsonData) {
-    return jsonData
+    $('#scores-target').text(`${jsonData}`)
   }
 
   function handleError(e) {
-
+    $('#scores-target').text("Failed to load TOP DOGS.")
   }
 
 }); //end of doc.ready function
