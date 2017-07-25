@@ -5,3 +5,35 @@ body {
 .brand-logo {
   margin-left: 20px;
 }
+
+.container-A {
+  height: 91vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-B {
+  display: flex;
+  flex: 2;
+}
+
+.container-C {
+  display: flex;
+  flex: 1;
+}
+
+.flex-item.flex-1 {
+  flex: 1;
+}
+
+.flex-item.flex-2 {
+  flex: 2;
+}
+
+.vert-2 {
+  flex: 2;
+}
+
+.vert-1 {
+  flex: 1;
+}

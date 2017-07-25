@@ -50,15 +50,16 @@ $(document).ready(function() {
 
   //GET all scores
   function indexSuccess(jsonData) {
-    let allScores = jsonData;
+    allScores = jsonData;
     let topScores = allScores.sort(function(a,b) {
       return b.highScore - a.highScore
     });
     console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
-      $('#scores-target').append(`<p>${el.name}, ${el.highScore}<p>`);
+      $('#scores-target').append(`<li>${el.name}, ${el.highScore}</li>`);
     });
+    allScores = topDogs;
   }
 
   //error with GET all scores
