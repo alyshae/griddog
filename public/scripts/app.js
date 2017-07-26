@@ -8,6 +8,7 @@ let allScores = [];
 
 $(document).ready(function() {
 
+
   //give the array of all the scores as HTML to the scores-target
   $scoresList = $("scores-target");
 
@@ -94,6 +95,7 @@ $(document).ready(function() {
 
   let g1 = new Game(p1, trgt, 1);
   console.log(g1.score, g1.seconds);
+  console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
   document.getElementById('score').innerHTML = `<h5>SCORE: ${g1.score}</h5>`;
 
@@ -113,7 +115,7 @@ $(document).ready(function() {
 
 
   //when go fetch is clicked:
-  $('#go-fetch').on('click', function(e) {
+  $('#go-fetch').on('click', function() {
 
     //////////********************************** TIMER **********************************//////////
     //timer-related variables
@@ -147,6 +149,21 @@ $(document).ready(function() {
 
     //////////********************************** MOVES **********************************//////////
 
+    window.addEventListener('keypress', function(ele) {
+      let dog = document.querySelector("#player");
+        if (ele.keyCode === 119) {
+          p1.moveUp();
+        } else if (ele.keyCode === 115) {
+          p1.moveDown();
+        } else if (ele.keyCode === 97) {
+          p1.moveLeft();
+        } else if (ele.keyCode === 100) {
+          p1.moveRight();
+        }
+        console.log(p1.loc);
+        let square = document.querySelector(p1.loc);
+        square.appendChild(dog);
+    });
 
   }); //end of GO-FETCH on-click function
 
@@ -172,21 +189,28 @@ $(document).ready(function() {
     calcLocation() {
       return `.row-${this.row}.col-${this.col}`;
     }
-    // move() {}
     moveUp() {
-      this.row = this.row - 1;
+      if (this.row > 1) {
+        this.row = this.row - 1;
+      }
       return this.loc;
     }
     moveDown() {
-      this.row = this.row + 1;
+      if (this.row < this.game.rowMax) {
+        this.row = this.row + 1;
+      }
       return this.loc;
     }
     moveRight() {
-      this.col = this.col + 1;
+      if (this.col < this.game.colMax) {
+        this.col = this.col + 1;
+      }
       return this.loc;
     }
-    moveRight() {
-      this.col = this.col - 1;
+    moveLeft() {
+      if (this.col > 1) {
+        this.col = this.col - 1;
+      }
       return this.loc;
     }
   }
@@ -194,6 +218,7 @@ $(document).ready(function() {
   class Game {
     constructor(player, target, level) {
       this.player = player;
+      player.game = this;
       this.target = target;
       this.level = level;
     }
@@ -214,6 +239,22 @@ $(document).ready(function() {
         secs = 30;
       }
       return secs;
+    }
+    get rowMax() {
+      return this.calcRowMax();
+    }
+    get colMax() {
+      return this.calcColMax();
+    }
+    calcRowMax() {
+      if (this.level === 1) {
+        return 3;
+      }
+    }
+    calcColMax() {
+      if (this.level === 1) {
+        return 3;
+      }
     }
   }
 
