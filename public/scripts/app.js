@@ -86,10 +86,16 @@ $(document).ready(function() {
  *   HELPER/OTHER FUNCTIONS   *
  ******************************/
 
+  //when go fetch is clicked:
   $('#go-fetch').on('click', function(e) {
+
+    //timer-related variables
+    /*TODO: when different levels/grid-sizes are incorporated, the count will need
+      to be set according to difficulty (so, not always set to 10 seconds) */
     var count = 10;
     var counter=setInterval(timer, 1000);
 
+    //timer function
     function timer() {
       $('.timer').removeClass("animated tada");
       count = count -1;
@@ -112,3 +118,17 @@ $(document).ready(function() {
   }); //end of GO-FETCH on-click function
 
 }); //end of doc.ready function
+
+
+
+/* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
+/* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
+
+/* TODO: IMPORTANT  add ids to each game-grid square with the names currently in the boxes (A1-C3) */
+/* TODO: "P" or some symbol representing Player rendering on game-grid in bottom-left corner */
+/* TODO: "T" or some symbol representing Target rendering in random square of game-grid other than
+    bottom-left corner */
+/* QUESTION: should the "P" & "T" appear on doc.ready or when go-fetch is clicked? */
+
+/* TODO: initialize score variable to zero */
+/* TODO: connect value of the score variable to be displayed as "SCORE: " in navbar */
