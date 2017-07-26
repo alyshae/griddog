@@ -103,14 +103,14 @@ $(document).ready(function() {
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.getElementById(player.loc).innerHTML = '<h1>P</h1>'
+    document.getElementById(player.loc).innerHTML = '<h1 id="player">P</h1>'
   }
   setPlayer();
 
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.getElementById(target.loc).innerHTML = '<h1>T</h1>'
+    document.getElementById(target.loc).innerHTML = '<h1 id="target">T</h1>'
   }
   setTarget();
 
@@ -151,26 +151,47 @@ $(document).ready(function() {
 
     //////////********************************** MOVES **********************************//////////
 
-    // $("body").on("keypress", move)
-    //
-    // function move(el) {
-    //
-    //   let keyPress = el.charCode
-    //   if (keyPress === 38) {
-    //     console.log('up')
-    //     player.row -= 1;
-    //   }
-    //     setPlayer();
-    // }
-
 
   }); //end of GO-FETCH on-click function
 
 
-
-
-
 }); //end of doc.ready function
+
+
+
+/***************
+ *   CLASSES   *
+ **************/
+
+  class Player {
+    constructor(row, col) {
+      this.row = row;
+      this.col = col;
+    }
+    get loc() {
+      return this.calcLocation();
+    }
+
+    calcLocation() {
+      return `${this.row}.${this.col}`;
+    }
+  }
+
+  let p1 = new Player(3,1);
+  console.log(p1.loc);
+
+
+
+  //
+  // class Game {
+  //   constructor() {
+  //
+  //   }
+  // }
+
+
+
+
 
 
 
