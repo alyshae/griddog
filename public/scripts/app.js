@@ -82,19 +82,44 @@ $(document).ready(function() {
   }
 
 
-/******************************
- *   HELPER/OTHER FUNCTIONS   *
- ******************************/
+/**********************
+ *   GAME FUNCTIONS   *
+ **********************/
+
+  let player = {};
+  player.row = 3;
+  player.col = 1;
+  player.loc = getLoc(player.row, player.col);
+
+  let target = {};
+  target.row = 1;
+  target.col = 3;
+  target.loc = getLoc(target.row, target.col);
+
+
+  function getLoc(row, col) {
+    return `${row}.${col}`;
+  }
 
   //initial game-grid showing P for player in bottom-left corner
-  document.getElementById('c1').innerHTML = '<h1>P</h1>'
+  function setPlayer() {
+    document.getElementById(player.loc).innerHTML = '<h1>P</h1>'
+  }
+  setPlayer();
+
+
   //initial game-grid will have hard-coded target (T) in top-right corner
-  document.getElementById('a3').innerHTML = '<h1>T</h1>'
+  function setTarget() {
+    document.getElementById(target.loc).innerHTML = '<h1>T</h1>'
+  }
+  setTarget();
+
 
 
   //when go fetch is clicked:
   $('#go-fetch').on('click', function(e) {
 
+    //////////********************************** TIMER **********************************//////////
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
       to be set according to difficulty (so, not always set to 10 seconds) */
@@ -123,7 +148,27 @@ $(document).ready(function() {
         document.getElementById('timer').innerHTML = count + ' seconds';
       };
     }; //end of timer function
+
+    //////////********************************** MOVES **********************************//////////
+
+    // $("body").on("keypress", move)
+    //
+    // function move(el) {
+    //
+    //   let keyPress = el.charCode
+    //   if (keyPress === 38) {
+    //     console.log('up')
+    //     player.row -= 1;
+    //   }
+    //     setPlayer();
+    // }
+
+
   }); //end of GO-FETCH on-click function
+
+
+
+
 
 }); //end of doc.ready function
 
