@@ -95,16 +95,18 @@ $(document).ready(function() {
   let g1 = new Game(p1, trgt, 1);
   console.log(g1.score, g1.seconds);
 
+  document.getElementById('score').innerHTML = `<h5>SCORE: ${g1.score}</h5>`;
+
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.getElementById(p1.loc).innerHTML = '<h1 id="player">P</h1>'
+    document.querySelector(p1.loc).innerHTML = '<h1 id="player">P</h1>'
   }
   setPlayer();
 
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.getElementById(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
+    document.querySelector(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
   }
   setTarget();
 
