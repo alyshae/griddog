@@ -86,6 +86,12 @@ $(document).ready(function() {
  *   HELPER/OTHER FUNCTIONS   *
  ******************************/
 
+  //initial game-grid showing P for player in bottom-left corner
+  document.getElementById('c1').innerHTML = '<h1>P</h1>'
+  //initial game-grid will have hard-coded target (T) in top-right corner
+  document.getElementById('a3').innerHTML = '<h1>T</h1>'
+
+
   //when go fetch is clicked:
   $('#go-fetch').on('click', function(e) {
 

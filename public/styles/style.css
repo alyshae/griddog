@@ -2,8 +2,10 @@ body {
   background-color: white;
 }
 
-.brand-logo {
+.logo {
   margin-left: 20px;
+  color: #144A74;
+  font-size: 32px;
 }
 
 .container-A {
@@ -52,8 +54,14 @@ body {
   padding: 5px;
 }
 
+.instructions-box {
+  padding: 0 20px 0 20px;
+  margin: 0 20px 0 20px;
+  text-align: center;
+}
+
 .full-dog-box {
-  width: 300px;
+  width: 330px;
 }
 
 
@@ -65,11 +73,12 @@ body {
 .game-grid {
   width: 355px;
   margin: 10%;
+  /*background-color: #eceff1;*/
 }
 
 /* grid columns */
 .grid-column {
-  border: solid 1px black;
+  border: solid 3px #144A74;
   width: 115px;
   height: 115px;
   display: inline;
