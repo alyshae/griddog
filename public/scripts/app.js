@@ -209,16 +209,19 @@ $(document).ready(function() {
     calcSeconds() {
       let secs;
       if (this.level <= 3) {
-        secs = 30;
+        secs = 15;
       } else {
-        secs = 45;
+        secs = 30;
       }
       return secs;
     }
   }
 
 
-
+// Event loop
+// wait for keypress,
+// determine which key was pressed ---> 11: "up"
+// fire corresponding method            player.move("up") or player.up(), player.down()...
 
 
 
