@@ -117,6 +117,9 @@ $(document).ready(function() {
         document.getElementById('timer').innerHTML = 'TIME UP!';
         $('.timer').removeClass("animated swing infinite");
         $('.timer').addClass("animated tada");
+      }
+      if (count === 1) {
+        document.getElementById('timer').innerHTML = count + ' second';
       } else {
         document.getElementById('timer').innerHTML = count + ' seconds';
       };
