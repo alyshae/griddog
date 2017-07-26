@@ -170,7 +170,24 @@ $(document).ready(function() {
       return this.calcLocation();
     }
     calcLocation() {
-      return `${this.row}.${this.col}`;
+      return `.row-${this.row}.col-${this.col}`;
+    }
+    // move() {}
+    moveUp() {
+      this.row = this.row - 1;
+      return this.loc;
+    }
+    moveDown() {
+      this.row = this.row + 1;
+      return this.loc;
+    }
+    moveRight() {
+      this.col = this.col + 1;
+      return this.loc;
+    }
+    moveRight() {
+      this.col = this.col - 1;
+      return this.loc;
     }
   }
 
