@@ -31,8 +31,8 @@ $(document).ready(function() {
   });
 
   //ajax NEW 'POST' request
-  $('#newHSForm').on('submit', function(e) {
-    e.preventDefault();
+  $('#newHSForm').on('submit', function(ele) {
+    ele.preventDefault();
     $.ajax({
       method: 'POST',
       url: '/scores',
@@ -63,7 +63,7 @@ $(document).ready(function() {
   }
 
   //error with GET all scores
-  function indexError(e) {
+  function indexError() {
     $('#scores-target').text("Failed to load TOP DOGS.")
   }
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
   }
 
   //error with POST new high score
-  function newHSError(e) {
+  function newHSError() {
     console.log('error posting new high score');
   }
 
@@ -86,10 +86,22 @@ $(document).ready(function() {
  *   HELPER/OTHER FUNCTIONS   *
  ******************************/
 
+  //initial game-grid showing P for player in bottom-left corner
+  document.getElementById('c1').innerHTML = '<h1>P</h1>'
+  //initial game-grid will have hard-coded target (T) in top-right corner
+  document.getElementById('a3').innerHTML = '<h1>T</h1>'
+
+
+  //when go fetch is clicked:
   $('#go-fetch').on('click', function(e) {
-    var count = 10;
+
+    //timer-related variables
+    /*TODO: when different levels/grid-sizes are incorporated, the count will need
+      to be set according to difficulty (so, not always set to 10 seconds) */
+    var count = 15;
     var counter=setInterval(timer, 1000);
 
+    //timer function
     function timer() {
       $('.timer').removeClass("animated tada");
       count = count -1;
@@ -105,6 +117,8 @@ $(document).ready(function() {
         document.getElementById('timer').innerHTML = 'TIME UP!';
         $('.timer').removeClass("animated swing infinite");
         $('.timer').addClass("animated tada");
+      } else if (count === 1) {
+          document.getElementById('timer').innerHTML = count + ' second';
       } else {
         document.getElementById('timer').innerHTML = count + ' seconds';
       };
@@ -112,3 +126,17 @@ $(document).ready(function() {
   }); //end of GO-FETCH on-click function
 
 }); //end of doc.ready function
+
+
+
+/* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
+/* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
+
+/* TODO: IMPORTANT  add ids to each game-grid square with the names currently in the boxes (A1-C3) */
+/* TODO: "P" or some symbol representing Player rendering on game-grid in bottom-left corner */
+/* TODO: "T" or some symbol representing Target rendering in random square of game-grid other than
+    bottom-left corner */
+/* QUESTION: should the "P" & "T" appear on doc.ready or when go-fetch is clicked? */
+
+/* TODO: initialize score variable to zero */
+/* TODO: connect value of the score variable to be displayed as "SCORE: " in navbar */
