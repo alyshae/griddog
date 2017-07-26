@@ -86,10 +86,8 @@ $(document).ready(function() {
  *   GAME FUNCTIONS   *
  **********************/
 
-  let player = {};
-  player.row = 3;
-  player.col = 1;
-  player.loc = getLoc(player.row, player.col);
+ let p1 = new Player(3,1);
+ console.log(p1.loc);
 
   let target = {};
   target.row = 1;
@@ -103,7 +101,7 @@ $(document).ready(function() {
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.getElementById(player.loc).innerHTML = '<h1 id="player">P</h1>'
+    document.getElementById(p1.loc).innerHTML = '<h1 id="player">P</h1>'
   }
   setPlayer();
 
@@ -177,8 +175,7 @@ $(document).ready(function() {
     }
   }
 
-  let p1 = new Player(3,1);
-  console.log(p1.loc);
+
 
 
 
