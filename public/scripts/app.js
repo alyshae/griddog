@@ -86,18 +86,12 @@ $(document).ready(function() {
  *   GAME FUNCTIONS   *
  **********************/
 
- let p1 = new Player(3,1);
- console.log(p1.loc);
+  let p1 = new Player(3,1);
+  console.log(p1.loc);
 
-  let target = {};
-  target.row = 1;
-  target.col = 3;
-  target.loc = getLoc(target.row, target.col);
+  const target = new Player(1,3);
+  console.log(target.loc);
 
-
-  function getLoc(row, col) {
-    return `${row}.${col}`;
-  }
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
