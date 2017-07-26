@@ -119,7 +119,7 @@ $(document).ready(function() {
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
       to be set according to difficulty (so, not always set to 10 seconds) */
-    var count = 15;
+    var count = g1.seconds;
     var counter=setInterval(timer, 1000);
 
     //timer function
@@ -149,6 +149,8 @@ $(document).ready(function() {
 
 
   }); //end of GO-FETCH on-click function
+
+
 
 
 }); //end of doc.ready function
