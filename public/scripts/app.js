@@ -31,8 +31,8 @@ $(document).ready(function() {
   });
 
   //ajax NEW 'POST' request
-  $('#newHSForm').on('submit', function(e) {
-    e.preventDefault();
+  $('#newHSForm').on('submit', function(ele) {
+    ele.preventDefault();
     $.ajax({
       method: 'POST',
       url: '/scores',
@@ -63,7 +63,7 @@ $(document).ready(function() {
   }
 
   //error with GET all scores
-  function indexError(e) {
+  function indexError() {
     $('#scores-target').text("Failed to load TOP DOGS.")
   }
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
   }
 
   //error with POST new high score
-  function newHSError(e) {
+  function newHSError() {
     console.log('error posting new high score');
   }
 
@@ -98,7 +98,7 @@ $(document).ready(function() {
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
       to be set according to difficulty (so, not always set to 10 seconds) */
-    var count = 10;
+    var count = 15;
     var counter=setInterval(timer, 1000);
 
     //timer function

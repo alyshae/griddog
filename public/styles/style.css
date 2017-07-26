@@ -48,13 +48,24 @@ body {
 
 .game-info-box {
   padding: 8%;
+  color: #144A74;
 }
 
 .level-header {
   font-size: 50px;
 }
 
+.timer {
+  background-color: #FF5252;
+  color: white;
+  box-shadow: 2px 2px 5px #888888;
+  width: 60%;
+  margin-left: 20%;
+  border-radius: 3px;
+}
+
 .top-dogs-box {
+  color: #144A74;
   padding: 5px;
 }
 
@@ -62,6 +73,7 @@ body {
   padding: 0 20px 0 20px;
   margin: 0 20px 0 20px;
   text-align: center;
+  color: #144A74;
 }
 
 .full-dog-box {
@@ -77,6 +89,7 @@ body {
 .game-grid {
   width: 355px;
   margin: 10%;
+  color: #cddc39;
   /*background-color: #eceff1;*/
 }
 
