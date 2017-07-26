@@ -89,9 +89,11 @@ $(document).ready(function() {
   let p1 = new Player(3,1);
   console.log(p1.loc);
 
-  const target = new Player(1,3);
-  console.log(target.loc);
+  const trgt = new Player(1,3);
+  console.log(trgt.loc);
 
+  let g1 = new Game(p1, trgt, 1);
+  console.log(g1.score, g1.seconds);
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
@@ -102,7 +104,7 @@ $(document).ready(function() {
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.getElementById(target.loc).innerHTML = '<h1 id="target">T</h1>'
+    document.getElementById(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
   }
   setTarget();
 
@@ -163,22 +165,36 @@ $(document).ready(function() {
     get loc() {
       return this.calcLocation();
     }
-
     calcLocation() {
       return `${this.row}.${this.col}`;
     }
   }
 
-
-
-
-
-  //
-  // class Game {
-  //   constructor() {
-  //
-  //   }
-  // }
+  class Game {
+    constructor(player, target, level) {
+      this.player = player;
+      this.target = target;
+      this.level = level;
+    }
+    get score() {
+      return this.calcScore();
+    }
+    calcScore() {
+      return (this.level - 1) * 100;
+    }
+    get seconds() {
+      return this.calcSeconds();
+    }
+    calcSeconds() {
+      let secs;
+      if (this.level <= 3) {
+        secs = 30;
+      } else {
+        secs = 45;
+      }
+      return secs;
+    }
+  }
 
 
 
