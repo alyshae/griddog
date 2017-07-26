@@ -81,10 +81,34 @@ $(document).ready(function() {
     console.log('error posting new high score');
   }
 
-/************************
- *   HELPER FUNCTIONS   *
- ***********************/
 
+/******************************
+ *   HELPER/OTHER FUNCTIONS   *
+ ******************************/
 
+  $('#go-fetch').on('click', function(e) {
+    var count = 10;
+    var counter=setInterval(timer, 1000);
+
+    function timer() {
+      $('.timer').removeClass("animated tada");
+      count = count -1;
+      if (count < 0) {
+        clearInterval(counter);
+        return;
+      };
+
+      if (count < 6) {
+        $('.timer').addClass("animated swing infinite");
+      }
+      if (count === 0) {
+        document.getElementById('timer').innerHTML = 'TIME UP!';
+        $('.timer').removeClass("animated swing infinite");
+        $('.timer').addClass("animated tada");
+      } else {
+        document.getElementById('timer').innerHTML = count + ' seconds';
+      };
+    }; //end of timer function
+  }); //end of GO-FETCH on-click function
 
 }); //end of doc.ready function
