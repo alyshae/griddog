@@ -82,23 +82,44 @@ $(document).ready(function() {
   }
 
 
-/******************************
- *   HELPER/OTHER FUNCTIONS   *
- ******************************/
+/**********************
+ *   GAME FUNCTIONS   *
+ **********************/
+
+  let p1 = new Player(3,1);
+  console.log(p1.loc);
+
+  const trgt = new Player(1,3);
+  console.log(trgt.loc);
+
+  let g1 = new Game(p1, trgt, 1);
+  console.log(g1.score, g1.seconds);
+
+  document.getElementById('score').innerHTML = `<h5>SCORE: ${g1.score}</h5>`;
 
   //initial game-grid showing P for player in bottom-left corner
-  document.getElementById('c1').innerHTML = '<h1>P</h1>'
+  function setPlayer() {
+    document.querySelector(p1.loc).innerHTML = '<h1 id="player">P</h1>'
+  }
+  setPlayer();
+
+
   //initial game-grid will have hard-coded target (T) in top-right corner
-  document.getElementById('a3').innerHTML = '<h1>T</h1>'
+  function setTarget() {
+    document.querySelector(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
+  }
+  setTarget();
+
 
 
   //when go fetch is clicked:
   $('#go-fetch').on('click', function(e) {
 
+    //////////********************************** TIMER **********************************//////////
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
       to be set according to difficulty (so, not always set to 10 seconds) */
-    var count = 15;
+    var count = g1.seconds;
     var counter=setInterval(timer, 1000);
 
     //timer function
@@ -123,9 +144,85 @@ $(document).ready(function() {
         document.getElementById('timer').innerHTML = count + ' seconds';
       };
     }; //end of timer function
+
+    //////////********************************** MOVES **********************************//////////
+
+
   }); //end of GO-FETCH on-click function
 
+
+
+
 }); //end of doc.ready function
+
+
+
+/***************
+ *   CLASSES   *
+ **************/
+
+  class Player {
+    constructor(row, col) {
+      this.row = row;
+      this.col = col;
+    }
+    get loc() {
+      return this.calcLocation();
+    }
+    calcLocation() {
+      return `.row-${this.row}.col-${this.col}`;
+    }
+    // move() {}
+    moveUp() {
+      this.row = this.row - 1;
+      return this.loc;
+    }
+    moveDown() {
+      this.row = this.row + 1;
+      return this.loc;
+    }
+    moveRight() {
+      this.col = this.col + 1;
+      return this.loc;
+    }
+    moveRight() {
+      this.col = this.col - 1;
+      return this.loc;
+    }
+  }
+
+  class Game {
+    constructor(player, target, level) {
+      this.player = player;
+      this.target = target;
+      this.level = level;
+    }
+    get score() {
+      return this.calcScore();
+    }
+    calcScore() {
+      return (this.level - 1) * 100;
+    }
+    get seconds() {
+      return this.calcSeconds();
+    }
+    calcSeconds() {
+      let secs;
+      if (this.level <= 3) {
+        secs = 15;
+      } else {
+        secs = 30;
+      }
+      return secs;
+    }
+  }
+
+
+// Event loop
+// wait for keypress,
+// determine which key was pressed ---> 11: "up"
+// fire corresponding method            player.move("up") or player.up(), player.down()...
+
 
 
 

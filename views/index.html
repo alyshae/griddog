@@ -14,7 +14,7 @@
       <div class="nav-wrapper amber">
         <a href="#" class="logo blue-grey-text text-darken-2">GridDog</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="cyan-text text-darken-4">SCORE: 0</li>
+          <li class="cyan-text text-darken-4 score" id="score"></li>
           <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
           <li><a class="waves-effect waves-light btn red accent-2">New Game</a></li>
         </ul>
@@ -56,22 +56,23 @@
         <div class="game-grid-box flex-item flex-1">
           <div id="game-grid" class="game-grid">
             <div class="row grid-row">
-              <div class="column grid-column" id="a1"></div>
-              <div class="column grid-column" id="a2"></div>
-              <div class="column grid-column" id="a3"></div>
+              <div class="column grid-column row-1 col-1"></div>
+              <div class="column grid-column row-1 col-2"></div>
+              <div class="column grid-column row-1 col-3"></div>
             </div>
             <div class="row grid-row">
-              <div class="column grid-column" id="b1"></div>
-              <div class="column grid-column" id="b2"></div>
-              <div class="column grid-column" id="b3"></div>
+              <div class="column grid-column row-2 col-1"></div>
+              <div class="column grid-column row-2 col-2"></div>
+              <div class="column grid-column row-2 col-3"></div>
             </div>
             <div class="row grid-row">
-              <div class="column grid-column" id="c1"></div>
-              <div class="column grid-column" id="c2"></div>
-              <div class="column grid-column" id="c3"></div>
+              <div class="column grid-column row-3 col-1"></div>
+              <div class="column grid-column row-3 col-2"></div>
+              <div class="column grid-column row-3 col-3"></div>
             </div>
           </div>
         </div> <!-- End of game-grid-box -->
+
         <div class="game-info-box flex-item flex-1">
           <h4 class="game-info-text level-header" id="level-header">LEVEL: 1</h4>
           <a class="waves-effect waves-light btn lime black-text go-fetch" id="go-fetch">GO FETCH!</a>

@@ -2,6 +2,9 @@ body {
   background-color: white;
 }
 
+.score {
+  margin-top: 9px;
+}
 .logo {
   margin-left: 20px;
   color: #144A74;
