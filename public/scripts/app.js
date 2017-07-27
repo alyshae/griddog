@@ -170,7 +170,7 @@ $(document).ready(function() {
           console.log(p1.loc);
           let square = document.querySelector(p1.loc);
           if (p1.loc === trgt.loc) {
-            //removeChild(end)
+            count = 1;
             square.removeChild(end);
           }
           square.appendChild(dog);
@@ -270,14 +270,20 @@ $(document).ready(function() {
       return this.calcColMax();
     }
     calcRowMax() {
-      if (this.level === 1) {
+      if (this.level < 4) {
         return 3;
       }
     }
     calcColMax() {
-      if (this.level === 1) {
+      if (this.level < 4) {
         return 3;
       }
+    }
+    get onWin() {
+      return this.win();
+    }
+    win() {
+      return this.score = this.score + 100;
     }
   }
 
