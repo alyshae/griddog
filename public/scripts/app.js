@@ -186,8 +186,10 @@ $(document).ready(function() {
   function checkForWin() {
     if (p1.loc === trgt.loc) {
       return true;
+      console.log(win);
       alert("WIN!");
     }
+    console.log("not a winning move");
     return false;
   }
 
