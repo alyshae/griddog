@@ -109,7 +109,7 @@ $(document).ready(function() {
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.querySelector(g1.target.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
+    document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" id="target" class="ball"/>'
   }
   setTarget();
 
