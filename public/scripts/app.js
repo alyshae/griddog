@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 
   //give the array of all the scores as HTML to the scores-target
-  $scoresList = $("scores-target");
+  $scoresList = $("#scores-target");
 
   /*this is currently what allows the test button to trigger the newHSForm
     modal to open when clicked. This will later need to be replaced so that
@@ -58,14 +58,14 @@ $(document).ready(function() {
     console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
-      $('#scores-target').append(`<li>${el.name}, ${el.highScore}</li>`);
+      $scoresList.append(`<li>${el.name}, ${el.highScore}</li>`);
     });
     allScores = topDogs;
   }
 
   //error with GET all scores
   function indexError() {
-    $('#scores-target').text("Failed to load TOP DOGS.")
+    $scoresList.text("Failed to load TOP DOGS.")
   }
 
   //POST new high score
@@ -73,7 +73,7 @@ $(document).ready(function() {
     console.log('reached new high score success function' + jsonData)
     allScores.push(jsonData);
     console.log(allScores);
-    $("#scores-target").empty();
+    $scoresList.empty();
     indexSuccess(allScores);
   }
 
@@ -97,13 +97,16 @@ $(document).ready(function() {
 
   let g1 = new Game(p1, trgt1, 1);
   console.log(g1.score, g1.seconds);
-  console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
+  console.log(g1.rowMax, g1.colMax);
 
+  //Level & Score appear on page:
   function renderLevelAndScore() {
     document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
     document.querySelector('.level').innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
   };
   renderLevelAndScore();
+
+
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
     document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
@@ -115,8 +118,6 @@ $(document).ready(function() {
     document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" id="target" class="ball"/>'
   }
   setTarget();
-
-
 
   /**************************
    *   GAME PLAY FUNCTIONS  *
@@ -174,6 +175,7 @@ $(document).ready(function() {
           }
           console.log(p1.loc);
           let square = document.querySelector(p1.loc);
+          //if WIN:
           if (p1.loc === trgt1.loc) {
             count = 1;
             square.removeChild(end);
@@ -181,11 +183,11 @@ $(document).ready(function() {
             $('.continue').on('click', function() {
               p1 = p2;
               trgt1 = trgt2;
-              let g1 = new Game(p2, trgt2, 2);
+              g1 = new Game(p2, trgt2, 2);
         /***********  THREE FUNCTIONS BELOW NOT WORKING WITHIN THIS CONTEXT ************/
-              // setPlayer();
-              // setTarget();
-              // renderLevelAndScore();
+              setPlayer();
+              setTarget();
+              renderLevelAndScore();
               console.log(g1.score, g1.level);
             });
           }
@@ -199,8 +201,6 @@ $(document).ready(function() {
    *   WIN/LOSE FUNCTIONS   *
    *************************/
 
-
-
   function checkForWin() {
     if (p1.loc === trgt1.loc) {
       console.log("win");
@@ -211,17 +211,17 @@ $(document).ready(function() {
     return false;
   }
 
-  function onWin() {
-    p1 = p2;
-    trgt1 = trgt2;
-    let g1 = new Game(p2, trgt2, 2);
-    setPlayer();
-    setTarget();
-  }
+  // function onWin() {
+  //   p1 = p2;
+  //   trgt1 = trgt2;
+  //   g1 = new Game(p2, trgt2, 2);
+  //   setPlayer();
+  //   setTarget();
+  // }
 
-  function levelUp(game) {
-    return this.level = this.level + 1;
-  }
+  // function levelUp(game) {
+  //   return this.level = this.level + 1;
+  // }
 
   function reset() {
 
