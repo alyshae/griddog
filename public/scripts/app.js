@@ -99,8 +99,11 @@ $(document).ready(function() {
   console.log(g1.score, g1.seconds);
   console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
-  document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
-
+  function renderLevelAndScore() {
+    document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
+    document.querySelector('.level').innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
+  };
+  renderLevelAndScore();
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
     document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
@@ -174,10 +177,17 @@ $(document).ready(function() {
           if (p1.loc === trgt1.loc) {
             count = 1;
             square.removeChild(end);
-            //below, NOT WORKING
-            // levelUp(g1);
-            // console.log(g1.level);
             $('#levelWinModal').modal('open');
+            $('.continue').on('click', function() {
+              p1 = p2;
+              trgt1 = trgt2;
+              let g1 = new Game(p2, trgt2, 2);
+        /***********  THREE FUNCTIONS BELOW NOT WORKING WITHIN THIS CONTEXT ************/
+              // setPlayer();
+              // setTarget();
+              // renderLevelAndScore();
+              console.log(g1.score, g1.level);
+            });
           }
           square.appendChild(dog);
         }
@@ -316,6 +326,7 @@ $(document).ready(function() {
 // wait for keypress,
 // determine which key was pressed ---> 11: "up"
 // fire corresponding method            player.move("up") or player.up(), player.down()...
+
 
 
 
