@@ -90,6 +90,7 @@ nav {
 .top-dogs-header {
   text-align: left;
   margin-left: 37px;
+  font-size: 30px;
 }
 
 .top-dogs-box {
@@ -98,6 +99,10 @@ nav {
   text-align: left;
   margin-left: 20px;
   font-size: 18px;
+}
+
+.instructions-header {
+  font-size: 30px;
 }
 
 .instructions-box {
