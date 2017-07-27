@@ -82,7 +82,6 @@ $(document).ready(function() {
     console.log('error posting new high score');
   }
 
-
 /**************************
  *   PLAYER/GAME SET-UP   *
  *************************/
@@ -160,6 +159,7 @@ $(document).ready(function() {
         if (count > 0) {
           let dog = document.querySelector("#player");
           let end = document.querySelector("#target");
+          let done = end;
           if (ele.keyCode === 119) {
             p1.moveUp();
             checkForWin();
@@ -175,21 +175,14 @@ $(document).ready(function() {
           }
           console.log(p1.loc);
           let square = document.querySelector(p1.loc);
+
           //if WIN:
           if (p1.loc === trgt1.loc) {
             count = 1;
             square.removeChild(end);
             $('#levelWinModal').modal('open');
-            $('.continue').on('click', function() {
-              p1 = p2;
-              trgt1 = trgt2;
-              g1 = new Game(p2, trgt2, 2);
-        /***********  THREE FUNCTIONS BELOW NOT WORKING WITHIN THIS CONTEXT ************/
-              setPlayer();
-              setTarget();
-              renderLevelAndScore();
-              console.log(g1.score, g1.level);
-            });
+            $('.continue').on('click', levelTwo());
+            done.empty();
           }
           square.appendChild(dog);
         }
@@ -204,122 +197,119 @@ $(document).ready(function() {
   function checkForWin() {
     if (p1.loc === trgt1.loc) {
       console.log("win");
-      // adjust game accordingly
       return true;
     }
     console.log("not a winning move");
     return false;
   }
 
-  // function onWin() {
-  //   p1 = p2;
-  //   trgt1 = trgt2;
-  //   g1 = new Game(p2, trgt2, 2);
-  //   setPlayer();
-  //   setTarget();
-  // }
-
-  // function levelUp(game) {
-  //   return this.level = this.level + 1;
-  // }
-
-  function reset() {
-
+  function levelTwo() {
+    //reset GO FETCH button
+    //reset timer
+    //remove dog from previous level's winning square
+    p1 = p2;
+    trgt1 = trgt2;
+    g1 = new Game(p2, trgt2, 2);
+    setPlayer();
+    setTarget();
+    renderLevelAndScore();
   }
 
 }); //end of doc.ready function
 
+/********************
+ *   NEW FUNCTIONS  *
+ *******************/
 
+function reset() {
+
+}
 
 /***************
  *   CLASSES   *
  **************/
 
-  class Player {
-    constructor(row, col) {
-      this.row = row;
-      this.col = col;
-    }
-    get loc() {
-      return this.calcLocation();
-    }
-    calcLocation() {
-      return `.row-${this.row}.col-${this.col}`;
-    }
-    moveUp() {
-      if (this.row > 1) {
-        this.row = this.row - 1;
-      }
-      return this.loc;
-    }
-    moveDown() {
-      if (this.row < this.game.rowMax) {
-        this.row = this.row + 1;
-      }
-      return this.loc;
-    }
-    moveRight() {
-      if (this.col < this.game.colMax) {
-        this.col = this.col + 1;
-      }
-      return this.loc;
-    }
-    moveLeft() {
-      if (this.col > 1) {
-        this.col = this.col - 1;
-      }
-      return this.loc;
-    }
+//   PLAYER CLASS, CONSTRUCTOR & METHODS:
+class Player {
+  constructor(row, col) {
+    this.row = row;
+    this.col = col;
   }
+  get loc() {
+    return this.calcLocation();
+  }
+  calcLocation() {
+    return `.row-${this.row}.col-${this.col}`;
+  }
+  moveUp() {
+    if (this.row > 1) {
+      this.row = this.row - 1;
+    }
+    return this.loc;
+  }
+  moveDown() {
+    if (this.row < this.game.rowMax) {
+      this.row = this.row + 1;
+    }
+    return this.loc;
+  }
+  moveRight() {
+    if (this.col < this.game.colMax) {
+      this.col = this.col + 1;
+    }
+    return this.loc;
+  }
+  moveLeft() {
+    if (this.col > 1) {
+      this.col = this.col - 1;
+    }
+    return this.loc;
+  }
+} //end of PLAYER class
 
-  class Game {
-    constructor(player, target, level) {
-      this.player = player;
-      player.game = this;
-      this.target = target;
-      this.level = level;
-    }
-    get score() {
-      return this.calcScore();
-    }
-    calcScore() {
-      return (this.level - 1) * 100;
-    }
-    get seconds() {
-      return this.calcSeconds();
-    }
-    calcSeconds() {
-      let secs;
-      if (this.level <= 3) {
-        secs = 15;
-      } else {
-        secs = 30;
-      }
-      return secs;
-    }
-    get rowMax() {
-      return this.calcRowMax();
-    }
-    get colMax() {
-      return this.calcColMax();
-    }
-    calcRowMax() {
-      if (this.level < 4) {
-        return 3;
-      }
-    }
-    calcColMax() {
-      if (this.level < 4) {
-        return 3;
-      }
-    }
-    // get onWin() {
-    //   return this.win();
-    // }
-    // win() {
-    //   return this.level = this.level + 1;
-    // }
+//   GAME CLASS, CONSTRUCTOR & METHODS:
+class Game {
+  constructor(player, target, level) {
+    this.player = player;
+    player.game = this;
+    this.target = target;
+    this.level = level;
   }
+  get score() {
+    return this.calcScore();
+  }
+  calcScore() {
+    return (this.level - 1) * 100;
+  }
+  get seconds() {
+    return this.calcSeconds();
+  }
+  calcSeconds() {
+    let secs;
+    if (this.level <= 3) {
+      secs = 15;
+    } else {
+      secs = 30;
+    }
+    return secs;
+  }
+  get rowMax() {
+    return this.calcRowMax();
+  }
+  get colMax() {
+    return this.calcColMax();
+  }
+  calcRowMax() {
+    if (this.level < 4) {
+      return 3;
+    }
+  }
+  calcColMax() {
+    if (this.level < 4) {
+      return 3;
+    }
+  }
+} //end of GAME class
 
 
 // Event loop
