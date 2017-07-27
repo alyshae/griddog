@@ -83,9 +83,9 @@ $(document).ready(function() {
   }
 
 
-/**********************
- *   GAME FUNCTIONS   *
- **********************/
+/**************************
+ *   PLAYER/GAME SET-UP   *
+ *************************/
 
   let p1 = new Player(3,1);
   console.log(p1.loc);
@@ -105,7 +105,6 @@ $(document).ready(function() {
   }
   setPlayer();
 
-
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
     document.querySelector(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
@@ -114,7 +113,9 @@ $(document).ready(function() {
 
 
 
-  //when go fetch is clicked:
+  /**************************
+   *   GAME PLAY FUNCTIONS  *
+   *************************/
   $('#go-fetch').on('click', function() {
 
     //////////********************************** TIMER **********************************//////////
@@ -149,28 +150,46 @@ $(document).ready(function() {
 
     //////////********************************** MOVES **********************************//////////
 
-
       window.addEventListener('keypress', function(ele) {
         if (count > 0) {
           let dog = document.querySelector("#player");
+          let end = document.querySelector("#target");
           if (ele.keyCode === 119) {
             p1.moveUp();
+            checkForWin();
           } else if (ele.keyCode === 115) {
             p1.moveDown();
+            checkForWin();
           } else if (ele.keyCode === 97) {
             p1.moveLeft();
+            checkForWin();
           } else if (ele.keyCode === 100) {
             p1.moveRight();
+            checkForWin();
           }
           console.log(p1.loc);
           let square = document.querySelector(p1.loc);
+          if (p1.loc === trgt.loc) {
+            //removeChild(end)
+            square.removeChild(end);
+          }
           square.appendChild(dog);
         }
       });
 
   }); //end of GO-FETCH on-click function
 
+  /**************************
+   *   WIN/LOSE FUNCTIONS   *
+   *************************/
 
+  function checkForWin() {
+    if (p1.loc === trgt.loc) {
+      return true;
+      alert("WIN!");
+    }
+    return false;
+  }
 
 
 }); //end of doc.ready function
