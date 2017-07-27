@@ -2,6 +2,15 @@ body {
   background-color: white;
 }
 
+nav {
+  height: 70px;
+}
+
+.logo {
+  margin-top: 4px;
+  height: 90%;
+}
+
 .score {
   margin-top: 9px;
 }
@@ -12,7 +21,7 @@ body {
 }
 
 .container-A {
-  height: 91vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
 }
@@ -38,7 +47,7 @@ body {
 }
 
 .vert-2 {
-  flex: 2;
+  flex: 1.8;
 }
 
 .vert-1 {
@@ -47,6 +56,17 @@ body {
 
 .game-grid-box {
   margin-left: 100px ;
+}
+
+.dog-head {
+  margin-top: 10px;
+  padding-top: 5px;
+  height: 80%;
+}
+
+.ball {
+  margin-top: 7px;
+  height: 90%;
 }
 
 .game-info-box {
@@ -67,9 +87,17 @@ body {
   border-radius: 3px;
 }
 
+.top-dogs-header {
+  text-align: left;
+  margin-left: 37px;
+}
+
 .top-dogs-box {
   color: #144A74;
   padding: 5px;
+  text-align: left;
+  margin-left: 20px;
+  font-size: 18px;
 }
 
 .instructions-box {
@@ -80,7 +108,7 @@ body {
 }
 
 .full-dog-box {
-  width: 330px;
+  height: 230px;
 }
 
 

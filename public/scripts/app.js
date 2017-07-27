@@ -101,13 +101,13 @@ $(document).ready(function() {
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.querySelector(p1.loc).innerHTML = '<h1 id="player">P</h1>'
+    document.querySelector(p1.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
   }
   setPlayer();
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.querySelector(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
+    document.querySelector(trgt.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
   }
   setTarget();
 
