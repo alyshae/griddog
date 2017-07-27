@@ -14,6 +14,11 @@ nav {
 .score {
   margin-top: 9px;
 }
+
+.score-text {
+  color: #144A74;
+}
+
 .logo {
   margin-left: 20px;
   color: #144A74;

@@ -97,7 +97,7 @@ $(document).ready(function() {
   console.log(g1.score, g1.seconds);
   console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
-  document.getElementById('score').innerHTML = `<h5>SCORE: ${g1.score}</h5>`;
+  document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
