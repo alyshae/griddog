@@ -149,21 +149,24 @@ $(document).ready(function() {
 
     //////////********************************** MOVES **********************************//////////
 
-    window.addEventListener('keypress', function(ele) {
-      let dog = document.querySelector("#player");
-        if (ele.keyCode === 119) {
-          p1.moveUp();
-        } else if (ele.keyCode === 115) {
-          p1.moveDown();
-        } else if (ele.keyCode === 97) {
-          p1.moveLeft();
-        } else if (ele.keyCode === 100) {
-          p1.moveRight();
+
+      window.addEventListener('keypress', function(ele) {
+        if (count > 0) {
+          let dog = document.querySelector("#player");
+          if (ele.keyCode === 119) {
+            p1.moveUp();
+          } else if (ele.keyCode === 115) {
+            p1.moveDown();
+          } else if (ele.keyCode === 97) {
+            p1.moveLeft();
+          } else if (ele.keyCode === 100) {
+            p1.moveRight();
+          }
+          console.log(p1.loc);
+          let square = document.querySelector(p1.loc);
+          square.appendChild(dog);
         }
-        console.log(p1.loc);
-        let square = document.querySelector(p1.loc);
-        square.appendChild(dog);
-    });
+      });
 
   }); //end of GO-FETCH on-click function
 
