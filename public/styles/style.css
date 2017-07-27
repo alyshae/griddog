@@ -26,7 +26,7 @@ nav {
 }
 
 .container-A {
-  height: 90vh;
+  height: 88vh;
   display: flex;
   flex-direction: column;
 }
@@ -99,7 +99,7 @@ nav {
 
 .top-dogs-header {
   text-align: left;
-  margin-left: 37px;
+  margin: 20px 0 0 37px;
   font-size: 30px;
 }
 
@@ -112,6 +112,7 @@ nav {
 }
 
 .instructions-header {
+  margin-top: 30px;
   font-size: 30px;
 }
 

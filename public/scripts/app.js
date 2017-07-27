@@ -90,10 +90,10 @@ $(document).ready(function() {
   let p1 = new Player(3,1);
   console.log(p1.loc);
 
-  const trgt = new Player(1,3);
+  const trgt1 = new Player(1,3);
   console.log(trgt.loc);
 
-  let g1 = new Game(p1, trgt, 1);
+  let g1 = new Game(p1, trgt1, 1);
   console.log(g1.score, g1.seconds);
   console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
@@ -107,7 +107,7 @@ $(document).ready(function() {
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.querySelector(trgt.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
+    document.querySelector(trgt1.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
   }
   setTarget();
 
@@ -172,6 +172,9 @@ $(document).ready(function() {
           if (p1.loc === trgt.loc) {
             count = 1;
             square.removeChild(end);
+            //below, NOT WORKING
+            // levelUp(g1);
+            // console.log(g1.level);
           }
           square.appendChild(dog);
         }
@@ -183,15 +186,29 @@ $(document).ready(function() {
    *   WIN/LOSE FUNCTIONS   *
    *************************/
 
+  g2 =
+
   function checkForWin() {
     if (p1.loc === trgt.loc) {
       console.log("win");
+      // adjust game accordingly
       return true;
     }
     console.log("not a winning move");
     return false;
   }
 
+  function onWin() {
+
+  }
+
+  function levelUp(game) {
+    return this.level = this.level + 1;
+  }
+
+  function reset() {
+
+  }
 
 }); //end of doc.ready function
 
@@ -279,12 +296,12 @@ $(document).ready(function() {
         return 3;
       }
     }
-    get onWin() {
-      return this.win();
-    }
-    win() {
-      return this.score = this.score + 100;
-    }
+    // get onWin() {
+    //   return this.win();
+    // }
+    // win() {
+    //   return this.level = this.level + 1;
+    // }
   }
 
 
