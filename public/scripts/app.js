@@ -83,9 +83,9 @@ $(document).ready(function() {
   }
 
 
-/**********************
- *   GAME FUNCTIONS   *
- **********************/
+/**************************
+ *   PLAYER/GAME SET-UP   *
+ *************************/
 
   let p1 = new Player(3,1);
   console.log(p1.loc);
@@ -101,20 +101,21 @@ $(document).ready(function() {
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.querySelector(p1.loc).innerHTML = '<h1 id="player">P</h1>'
+    document.querySelector(p1.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
   }
   setPlayer();
 
-
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.querySelector(trgt.loc).innerHTML = '<h1 id="target">T</h1>'
+    document.querySelector(trgt.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
   }
   setTarget();
 
 
 
-  //when go fetch is clicked:
+  /**************************
+   *   GAME PLAY FUNCTIONS  *
+   *************************/
   $('#go-fetch').on('click', function() {
 
     //////////********************************** TIMER **********************************//////////
@@ -149,25 +150,47 @@ $(document).ready(function() {
 
     //////////********************************** MOVES **********************************//////////
 
-    window.addEventListener('keypress', function(ele) {
-      let dog = document.querySelector("#player");
-        if (ele.keyCode === 119) {
-          p1.moveUp();
-        } else if (ele.keyCode === 115) {
-          p1.moveDown();
-        } else if (ele.keyCode === 97) {
-          p1.moveLeft();
-        } else if (ele.keyCode === 100) {
-          p1.moveRight();
+      window.addEventListener('keypress', function(ele) {
+        if (count > 0) {
+          let dog = document.querySelector("#player");
+          let end = document.querySelector("#target");
+          if (ele.keyCode === 119) {
+            p1.moveUp();
+            checkForWin();
+          } else if (ele.keyCode === 115) {
+            p1.moveDown();
+            checkForWin();
+          } else if (ele.keyCode === 97) {
+            p1.moveLeft();
+            checkForWin();
+          } else if (ele.keyCode === 100) {
+            p1.moveRight();
+            checkForWin();
+          }
+          console.log(p1.loc);
+          let square = document.querySelector(p1.loc);
+          if (p1.loc === trgt.loc) {
+            //removeChild(end)
+            square.removeChild(end);
+          }
+          square.appendChild(dog);
         }
-        console.log(p1.loc);
-        let square = document.querySelector(p1.loc);
-        square.appendChild(dog);
-    });
+      });
 
   }); //end of GO-FETCH on-click function
 
+  /**************************
+   *   WIN/LOSE FUNCTIONS   *
+   *************************/
 
+  function checkForWin() {
+    if (p1.loc === trgt.loc) {
+      console.log("win");
+      return true;
+    }
+    console.log("not a winning move");
+    return false;
+  }
 
 
 }); //end of doc.ready function
