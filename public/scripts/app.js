@@ -96,7 +96,6 @@ $(document).ready(function() {
   console.log(trgt1.loc);
 
   let g1 = new Game(p1, trgt1, 1);
-  let g2 = new Game(p2, trgt2, 2);
   console.log(g1.score, g1.seconds);
   console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
@@ -178,6 +177,7 @@ $(document).ready(function() {
             //below, NOT WORKING
             // levelUp(g1);
             // console.log(g1.level);
+            $('#levelWinModal').modal('open');
           }
           square.appendChild(dog);
         }
@@ -195,11 +195,6 @@ $(document).ready(function() {
     if (p1.loc === trgt1.loc) {
       console.log("win");
       // adjust game accordingly
-      p1 = p2;
-      trgt1 = trgt2;
-      g1 = g2;
-      setPlayer();
-      setTarget();
       return true;
     }
     console.log("not a winning move");
@@ -207,7 +202,11 @@ $(document).ready(function() {
   }
 
   function onWin() {
-
+    p1 = p2;
+    trgt1 = trgt2;
+    let g1 = new Game(p2, trgt2, 2);
+    setPlayer();
+    setTarget();
   }
 
   function levelUp(game) {
