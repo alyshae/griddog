@@ -88,12 +88,15 @@ $(document).ready(function() {
  *************************/
 
   let p1 = new Player(3,1);
+  let p2 = new Player(1,2);
   console.log(p1.loc);
 
-  const trgt1 = new Player(1,3);
-  console.log(trgt.loc);
+  let trgt1 = new Player(1,3);
+  let trgt2 = new Player(3,3);
+  console.log(trgt1.loc);
 
   let g1 = new Game(p1, trgt1, 1);
+  let g2 = new Game(p2, trgt2, 2);
   console.log(g1.score, g1.seconds);
   console.log(g1.rowMax, g1.colMax, g1.rowMin, g1.colMin);
 
@@ -101,13 +104,13 @@ $(document).ready(function() {
 
   //initial game-grid showing P for player in bottom-left corner
   function setPlayer() {
-    document.querySelector(p1.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
+    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
   }
   setPlayer();
 
   //initial game-grid will have hard-coded target (T) in top-right corner
   function setTarget() {
-    document.querySelector(trgt1.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
+    document.querySelector(g1.target.loc).innerHTML = '<img src="images/grid-dog-ball.png" id="target" class="ball"/>'
   }
   setTarget();
 
@@ -169,7 +172,7 @@ $(document).ready(function() {
           }
           console.log(p1.loc);
           let square = document.querySelector(p1.loc);
-          if (p1.loc === trgt.loc) {
+          if (p1.loc === trgt1.loc) {
             count = 1;
             square.removeChild(end);
             //below, NOT WORKING
@@ -186,12 +189,17 @@ $(document).ready(function() {
    *   WIN/LOSE FUNCTIONS   *
    *************************/
 
-  g2 =
+
 
   function checkForWin() {
-    if (p1.loc === trgt.loc) {
+    if (p1.loc === trgt1.loc) {
       console.log("win");
       // adjust game accordingly
+      p1 = p2;
+      trgt1 = trgt2;
+      g1 = g2;
+      setPlayer();
+      setTarget();
       return true;
     }
     console.log("not a winning move");
