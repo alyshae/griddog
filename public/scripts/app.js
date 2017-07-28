@@ -6,6 +6,7 @@ console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
 
+
 //feed the right objects to browsers for speech recognition compatibility
 //////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -135,10 +136,13 @@ $(document).ready(function() {
   let trgt2 = new Player(3,3);
   let trgt3 = new Player(2,3);
   console.log(trgt1.loc);
-
-  let g1 = new Game(p1, trgt1, 1);
-  console.log(g1.score, g1.seconds);
-  console.log(g1.rowMax, g1.colMax);
+  const levels = [
+    [],
+    [p1, trgt1],
+    [p2, trgt2],
+    [p3, trgt3]
+  ];
+  setLevel(1);
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
@@ -150,7 +154,10 @@ $(document).ready(function() {
 
   //set the dog in its square on the grid
   function setPlayer() {
-    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" class="dog-head player"/>'
+    let square = document.querySelector(g1.player.loc);
+    let dog = document.querySelector(".player");
+    square.appendChild(dog);
+    //document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" class="dog-head player"/>'
   }
   setPlayer();
 
@@ -178,8 +185,7 @@ $(document).ready(function() {
         if (count > 0) {
           let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let allSquares = document.querySelectorAll(".grid-column");
-
+          let done = end;
           //identify/grab the last element in the event.results array
           let last = event.results.length -1;
           //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
@@ -190,25 +196,23 @@ $(document).ready(function() {
           let commands = direction.split(" ")
           commands.forEach(function(ele) {
             if (ele === "up") {
-              p1.moveUp();
-              checkForWin();
+              g1.player.moveUp();
             } else if (ele === "right") {
-              p1.moveRight();
-              checkForWin();
+              g1.player.moveRight();
             }
             //see how sure/confident the web speech API is in the word(s) it has identified
             console.log('Confidence: ' + event.results[0][0].confidence);
-            let square = document.querySelector(p1.loc);
+            let square = document.querySelector(g1.player.loc);
 
             //if WIN:
-            if (p1.loc === trgt1.loc) {
+            if (checkForWin()) {
               count = 1;
               square.removeChild(end);
-              $('#levelWinModal').modal('open');
-              $('.continue').on('click', levelUp());
-              allSquares.empty();
+              $('.levelWinModal').modal('open');
+              $('.continue').on('click', levelUp);
+              // done.removeClass(".player");
             }
-            square.appendChild(dog);
+            setPlayer();
         });
       };
     };
@@ -260,32 +264,30 @@ $(document).ready(function() {
         if (count > 0) {
           let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let allSquares = document.querySelectorAll(".grid-column");
+          let done = end;
           if ((ele.keyCode === 119)) {
-            p1.moveUp();
+            g1.player.moveUp();
             checkForWin();
           } else if (ele.keyCode === 115) {
-            p1.moveDown();
+            g1.player.moveDown();
             checkForWin();
           } else if (ele.keyCode === 97) {
-            p1.moveLeft();
+            g1.player.moveLeft();
             checkForWin();
           } else if (ele.keyCode === 100) {
-            p1.moveRight();
+            g1.player.moveRight();
             checkForWin();
           }
-          console.log(p1.loc);
-          let square = document.querySelector(p1.loc);
+          let square = document.querySelector(g1.player.loc);
 
           //if WIN:
-          if (p1.loc === trgt1.loc) {
+          if (g1.player.loc === g1.target.loc) {
             count = 1;
             square.removeChild(end);
             $('#levelWinModal').modal('open');
-            $('.continue').on('click', levelUp());
-            allSquares.empty();
+            $('.continue').on('click', levelUp);
           }
-          square.appendChild(dog);
+          setPlayer();
         }
       });
 
@@ -296,7 +298,7 @@ $(document).ready(function() {
    *************************/
 
   function checkForWin() {
-    if (p1.loc === trgt1.loc) {
+    if (g1.player.loc === g1.target.loc) {
       console.log("win");
       return true;
     }
@@ -305,34 +307,16 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-
-    let level = g1.level + 1;
-      if (level === 2) {
-      p1 = p2;
-      trgt1 = trgt2;
-      g1 = new Game(p2, trgt2, level);
-    } else if (level === 3) {
-      p1 = p3;
-      trgt1 = trgt3;
-      g1 = new Game(p3, trgt3, level);
-    }
+    setLevel(g1.level + 1)
+  }
+  function setLevel(level) {
+    g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
     setTarget();
     renderLevelAndScore();
   }
 
 }); //end of doc.ready function
-
-/********************
- *   NEW FUNCTIONS  *
- *******************/
-
-function reset() {
-
-}
-
-
-
 
 /***************
  *   CLASSES   *
@@ -375,6 +359,8 @@ class Player {
     return this.loc;
   }
 } //end of PLAYER class
+
+
 
 //   GAME CLASS, CONSTRUCTOR & METHODS:
 class Game {
