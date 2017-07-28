@@ -6,8 +6,49 @@ console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
 
-$(document).ready(function() {
+//feed the right objects to browsers for speech recognition compatibility
+//////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
+//words to recognize which will be used to trigger the player's move functions
+let directions = ["move", "up", "down", "left", "right"];
+
+//set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
+let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
+
+//define a speech recogntion instance to control the recognition for the app
+let recognition = new SpeechRecognition();
+//create a new speech grammar list to contain our grammar
+let speechRecognitionList = new SpeechGrammarList();
+//add our grammar to the SpeechGrammarList
+speechRecognitionList.addFromString(grammar, 1);
+//add the above to the speech recognition instance by setting it as the value of the "grammars" property/key.
+recognition.grammars = speechRecognitionList;
+
+//setting additional SR properties:
+//set the language
+recognition.lang = "en-US";
+//set whether or not the SR system should return interim results
+recognition.interimResults = true;
+//set the number of alternative potenetial matches which should be returned per result
+recognition.maxAlternatives = 1;
+
+//starting the speech recognition & telling it what to do with the speech received:
+
+//grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
+let diagnostic = document.querySelector(".output");
+//grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
+let bg = document.querySelector(".player")
+//can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
+let directionHTML = "";
+//populate the directionHTML variable with the list of words
+directions.forEach(function(ele) {
+  directionHTML += "<span class='directionHTML'>" + ele + " </span>";
+});
+
+$(document).ready(function() {
 
   //give the array of all the scores as HTML to the scores-target
   $scoresList = $("#scores-target");
@@ -16,8 +57,7 @@ $(document).ready(function() {
     modal to open when clicked. This will later need to be replaced so that
     the modal is triggered to open when a user's score is in the top 3!
   */
-  $('.modal').modal();
-
+  $(".modal").modal();
 
 /********************************
  *   AJAX REQUESTS to Express   *
@@ -88,10 +128,12 @@ $(document).ready(function() {
 
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
+  let p3 = new Player(1,1);
   console.log(p1.loc);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
+  let trgt3 = new Player(2,3);
   console.log(trgt1.loc);
 
   let g1 = new Game(p1, trgt1, 1);
@@ -106,23 +148,82 @@ $(document).ready(function() {
   renderLevelAndScore();
 
 
-  //initial game-grid showing P for player in bottom-left corner
+  //set the dog in its square on the grid
   function setPlayer() {
-    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
+    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" class="dog-head player"/>'
   }
   setPlayer();
 
-  //initial game-grid will have hard-coded target (T) in top-right corner
+  //set the ball in its square on the grid
   function setTarget() {
-    document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" id="target" class="ball"/>'
+    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
   }
   setTarget();
 
   /**************************
    *   GAME PLAY FUNCTIONS  *
    *************************/
-  $('#go-fetch').on('click', function() {
+  $(".go-fetch").on("click", function() {
 
+    ////////************** below: if I want to use a GIVE COMMAND button **************////////
+    // document.querySelector(".command-btn-target").innerHTML = "<a class='waves-effect waves-light btn orange darken-3 black-text go-fetch' id='command-btn'>Give Command</a>"
+
+    //////////**************************** SPEECH RECOGNITION ****************************//////////
+    // $(".command-btn").on("click", function() {
+
+      recognition.start();
+      console.log("Ready to receive command.")
+
+      recognition.onresult = function(event) {
+        if (count > 0) {
+          let dog = document.querySelector(".player");
+          let end = document.querySelector(".target");
+          let done = end;
+
+          //identify/grab the last element in the event.results array
+          let last = event.results.length -1;
+          //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
+          let direction = event.results[last][0].transcript;
+          //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
+          diagnostic.textContent = direction;
+
+          let commands = direction.split(" ")
+          commands.forEach(function(ele) {
+            if (ele === "up") {
+              p1.moveUp();
+              checkForWin();
+            } else if (ele === "right") {
+              p1.moveRight();
+              checkForWin();
+            }
+            //see how sure/confident the web speech API is in the word(s) it has identified
+            console.log('Confidence: ' + event.results[0][0].confidence);
+            let square = document.querySelector(p1.loc);
+
+            //if WIN:
+            if (p1.loc === trgt1.loc) {
+              count = 1;
+              square.removeChild(end);
+              $('#levelWinModal').modal('open');
+              $('.continue').on('click', levelUp());
+              done.toggleClass(".player");
+            }
+            square.appendChild(dog);
+        });
+      };
+    };
+  // });
+    recognition.onspeechend = function() {
+      recognition.stop();
+    };
+
+    recognition.onnomatch = function(event) {
+      diagnostic.textContent = "GridDog doesn't recognize that command."
+    };
+
+    recognition.onerror = function(event) {
+      diagnostic.textContent = "Error occured in recognition " + event.error;
+    }
     //////////********************************** TIMER **********************************//////////
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
@@ -157,10 +258,10 @@ $(document).ready(function() {
 
       window.addEventListener('keypress', function(ele) {
         if (count > 0) {
-          let dog = document.querySelector("#player");
-          let end = document.querySelector("#target");
+          let dog = document.querySelector(".player");
+          let end = document.querySelector(".target");
           let done = end;
-          if (ele.keyCode === 119) {
+          if ((ele.keyCode === 119)) {
             p1.moveUp();
             checkForWin();
           } else if (ele.keyCode === 115) {
@@ -181,8 +282,8 @@ $(document).ready(function() {
             count = 1;
             square.removeChild(end);
             $('#levelWinModal').modal('open');
-            $('.continue').on('click', levelTwo());
-            done.empty();
+            $('.continue').on('click', levelUp());
+            done.toggleClass(".player");
           }
           square.appendChild(dog);
         }
@@ -203,13 +304,17 @@ $(document).ready(function() {
     return false;
   }
 
-  function levelTwo() {
-    //reset GO FETCH button
-    //reset timer
-    //remove dog from previous level's winning square
-    p1 = p2;
-    trgt1 = trgt2;
-    g1 = new Game(p2, trgt2, 2);
+  function levelUp() {
+    let level = g1.level + 1;
+      if (level === 2) {
+      p1 = p2;
+      trgt1 = trgt2;
+      g1 = new Game(p2, trgt2, level);
+    } else if (level === 3) {
+      p1 = p3;
+      trgt1 = trgt3;
+      g1 = new Game(p3, trgt3, level);
+    }
     setPlayer();
     setTarget();
     renderLevelAndScore();
@@ -224,6 +329,9 @@ $(document).ready(function() {
 function reset() {
 
 }
+
+
+
 
 /***************
  *   CLASSES   *
