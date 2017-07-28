@@ -51,7 +51,7 @@ directions.forEach(function(ele) {
 $(document).ready(function() {
 
   //give the array of all the scores as HTML to the scores-target
-  $scoresList = $("#scores-target");
+  $scoresList = $(".scores-target");
 
   /*this is currently what allows the test button to trigger the newHSForm
     modal to open when clicked. This will later need to be replaced so that
@@ -98,7 +98,7 @@ $(document).ready(function() {
     console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
-      $scoresList.append(`<li>${el.name}, ${el.highScore}</li>`);
+      $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
     allScores = topDogs;
   }
@@ -178,7 +178,7 @@ $(document).ready(function() {
         if (count > 0) {
           let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let done = end;
+          let allSquares = document.querySelectorAll(".grid-column");
 
           //identify/grab the last element in the event.results array
           let last = event.results.length -1;
@@ -206,7 +206,7 @@ $(document).ready(function() {
               square.removeChild(end);
               $('#levelWinModal').modal('open');
               $('.continue').on('click', levelUp());
-              done.toggleClass(".player");
+              allSquares.empty();
             }
             square.appendChild(dog);
         });
@@ -260,7 +260,7 @@ $(document).ready(function() {
         if (count > 0) {
           let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let done = end;
+          let allSquares = document.querySelectorAll(".grid-column");
           if ((ele.keyCode === 119)) {
             p1.moveUp();
             checkForWin();
@@ -283,7 +283,7 @@ $(document).ready(function() {
             square.removeChild(end);
             $('#levelWinModal').modal('open');
             $('.continue').on('click', levelUp());
-            done.toggleClass(".player");
+            allSquares.empty();
           }
           square.appendChild(dog);
         }
@@ -305,6 +305,7 @@ $(document).ready(function() {
   }
 
   function levelUp() {
+
     let level = g1.level + 1;
       if (level === 2) {
       p1 = p2;
