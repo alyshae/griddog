@@ -6,8 +6,20 @@ console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
 
-$(document).ready(function() {
+//feed the right objects to browsers for speech recognition compatibility
+//////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
+//words to recognize which will be used to trigger the player's move functions
+let directions = ["up", "down", "left", "right"];
+
+//set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
+let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
+
+
+$(document).ready(function() {
 
   //give the array of all the scores as HTML to the scores-target
   $scoresList = $("#scores-target");
@@ -16,8 +28,37 @@ $(document).ready(function() {
     modal to open when clicked. This will later need to be replaced so that
     the modal is triggered to open when a user's score is in the top 3!
   */
-  $('.modal').modal();
+  $(".modal").modal();
 
+  //define a speech recogntion instance to control the recognition for the app
+  let recognition = new SpeechRecognition();
+  //create a new speech grammar list to contain our grammar
+  let speechRecognitionList = new SpeechGrammarList();
+  //add our grammar to the SpeechGrammarList
+  speechRecognitionList.addFromString(grammar, 1);
+  //add the above to the speech recognition instance by setting it as the value of the "grammars" property/key.
+  recognition.grammars = speechRecognitionList;
+
+  //setting additional SR properties:
+  //set the language
+  recognition.lang = "en-US";
+  //set whether or not the SR system should return interim results
+  recognition.interimResults = false;
+  //set the number of alternative potenetial matches which should be returned per result
+  recognition.maxAlternatives = 1;
+
+  //starting the speech recognition & telling it what to do with the speech received:
+
+  //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
+  let diagnostic = document.querySelector(".output");
+  //grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
+  let bg = document.querySelector(".player")
+  //can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
+  let directionHTML = "";
+  //populate the directionHTML variable with the list of words
+  directions.forEach(function(ele) {
+    directionHTML += "<span class='directionHTML'>" + ele + " </span>";
+  })
 
 /********************************
  *   AJAX REQUESTS to Express   *
@@ -124,6 +165,11 @@ $(document).ready(function() {
    *   GAME PLAY FUNCTIONS  *
    *************************/
   $('#go-fetch').on('click', function() {
+
+    //////////**************************** SPEECH RECOGNITION ****************************//////////
+    recognition.start();
+    console.log("Ready to receive command.")
+
 
     //////////********************************** TIMER **********************************//////////
     //timer-related variables
