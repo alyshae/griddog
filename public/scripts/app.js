@@ -170,7 +170,30 @@ $(document).ready(function() {
     recognition.start();
     console.log("Ready to receive command.")
 
+    recognition.onresult = function(event) {
+      //identify/grab the last element in the event.results array
+      let last = event.results.length -1;
+      //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
+      let direction = event.results[last][0].transcript;
+      //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
+      diagnostic.textContent = direction;
+      ////////////////////// TODO: ???? use bg variable to move player ???
 
+      //see how sure/confident the web speech API is in the word(s) it has identified
+      console.log('Confidence: ' + event.results[0][0].confidence);
+    };
+
+    recognition.onspeechend = function() {
+      recognition.stop();
+    };
+
+    recognition.onnomatch = function(event) {
+      diagnostic.textContent = "GridDog doesn't recognize that command."
+    };
+
+    recognition.onerror = function(event) {
+      diagnostic.textContent = "Error occured in recognition " + event.error;
+    }
     //////////********************************** TIMER **********************************//////////
     //timer-related variables
     /*TODO: when different levels/grid-sizes are incorporated, the count will need
@@ -276,6 +299,9 @@ $(document).ready(function() {
 function reset() {
 
 }
+
+
+
 
 /***************
  *   CLASSES   *
