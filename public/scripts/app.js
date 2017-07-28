@@ -31,7 +31,7 @@ recognition.grammars = speechRecognitionList;
 //set the language
 recognition.lang = "en-US";
 //set whether or not the SR system should return interim results
-recognition.interimResults = false;
+recognition.interimResults = true;
 //set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
 
@@ -156,57 +156,63 @@ $(document).ready(function() {
 
   //set the ball in its square on the grid
   function setTarget() {
-    document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" class="ball target"/>'
+    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
   }
   setTarget();
 
   /**************************
    *   GAME PLAY FUNCTIONS  *
    *************************/
-  $('#go-fetch').on('click', function() {
+  $(".go-fetch").on("click", function() {
+
+    ////////************** below: if I want to use a GIVE COMMAND button **************////////
+    // document.querySelector(".command-btn-target").innerHTML = "<a class='waves-effect waves-light btn orange darken-3 black-text go-fetch' id='command-btn'>Give Command</a>"
 
     //////////**************************** SPEECH RECOGNITION ****************************//////////
-    recognition.start();
-    console.log("Ready to receive command.")
+    // $(".command-btn").on("click", function() {
 
-    recognition.onresult = function(event) {
-      if (count > 0) {
-        let dog = document.querySelector(".player");
-        let end = document.querySelector(".target");
-        let done = end;
+      recognition.start();
+      console.log("Ready to receive command.")
 
+      recognition.onresult = function(event) {
+        if (count > 0) {
+          let dog = document.querySelector(".player");
+          let end = document.querySelector(".target");
+          let done = end;
 
-        //identify/grab the last element in the event.results array
-        let last = event.results.length -1;
-        //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
-        let direction = event.results[last][0].transcript;
-        //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
-        diagnostic.textContent = direction;
-        ////////////////////// TODO: ???? use bg variable to move player ???
-        let commands = direction.split(" ")
-        commands.forEach(function(ele) {
-          if (ele === "up") {
-            p1.moveUp();
-            checkForWin();
-          } else {
-            console.log("the command was not MOVE UP")
-          }
-          //see how sure/confident the web speech API is in the word(s) it has identified
-          console.log('Confidence: ' + event.results[0][0].confidence);
-          let square = document.querySelector(p1.loc);
+          //identify/grab the last element in the event.results array
+          let last = event.results.length -1;
+          //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
+          let direction = event.results[last][0].transcript;
+          //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
+          diagnostic.textContent = direction;
 
-          //if WIN:
-          if (p1.loc === trgt1.loc) {
-            count = 1;
-            square.removeChild(end);
-            $('#levelWinModal').modal('open');
-            $('.continue').on('click', levelUp());
-            done.toggleClass(".player");
-          }
-          square.appendChild(dog);
-      });
+          let commands = direction.split(" ")
+          commands.forEach(function(ele) {
+            if (ele === "up") {
+              p1.moveUp();
+              checkForWin();
+            } else if (ele === "right") {
+              p1.moveRight();
+              checkForWin();
+            }
+            //see how sure/confident the web speech API is in the word(s) it has identified
+            console.log('Confidence: ' + event.results[0][0].confidence);
+            let square = document.querySelector(p1.loc);
+
+            //if WIN:
+            if (p1.loc === trgt1.loc) {
+              count = 1;
+              square.removeChild(end);
+              $('#levelWinModal').modal('open');
+              $('.continue').on('click', levelUp());
+              done.toggleClass(".player");
+            }
+            square.appendChild(dog);
+        });
+      };
     };
-  };
+  // });
     recognition.onspeechend = function() {
       recognition.stop();
     };
