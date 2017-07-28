@@ -88,10 +88,12 @@ $(document).ready(function() {
 
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
+  let p3 = new Player(1,1);
   console.log(p1.loc);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
+  let trgt3 = new Player(2,3);
   console.log(trgt1.loc);
 
   let g1 = new Game(p1, trgt1, 1);
@@ -106,15 +108,15 @@ $(document).ready(function() {
   renderLevelAndScore();
 
 
-  //initial game-grid showing P for player in bottom-left corner
+  //set the dog in its square on the grid
   function setPlayer() {
-    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" id="player" class="dog-head"/>'
+    document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" class="dog-head player"/>'
   }
   setPlayer();
 
-  //initial game-grid will have hard-coded target (T) in top-right corner
+  //set the ball in its square on the grid
   function setTarget() {
-    document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" id="target" class="ball"/>'
+    document.querySelector(g1.target.loc).innerHTML = '<img src="images/ball-2.png" class="ball target"/>'
   }
   setTarget();
 
@@ -157,8 +159,8 @@ $(document).ready(function() {
 
       window.addEventListener('keypress', function(ele) {
         if (count > 0) {
-          let dog = document.querySelector("#player");
-          let end = document.querySelector("#target");
+          let dog = document.querySelector(".player");
+          let end = document.querySelector(".target");
           let done = end;
           if (ele.keyCode === 119) {
             p1.moveUp();
@@ -181,8 +183,8 @@ $(document).ready(function() {
             count = 1;
             square.removeChild(end);
             $('#levelWinModal').modal('open');
-            $('.continue').on('click', levelTwo());
-            done.empty();
+            $('.continue').on('click', levelUp());
+            done.toggleClass(".player");
           }
           square.appendChild(dog);
         }
@@ -203,13 +205,17 @@ $(document).ready(function() {
     return false;
   }
 
-  function levelTwo() {
-    //reset GO FETCH button
-    //reset timer
-    //remove dog from previous level's winning square
-    p1 = p2;
-    trgt1 = trgt2;
-    g1 = new Game(p2, trgt2, 2);
+  function levelUp() {
+    let level = g1.level + 1;
+      if (level === 2) {
+      p1 = p2;
+      trgt1 = trgt2;
+      g1 = new Game(p2, trgt2, level);
+    } else if (level === 3) {
+      p1 = p3;
+      trgt1 = trgt3;
+      g1 = new Game(p3, trgt3, level);
+    }
     setPlayer();
     setTarget();
     renderLevelAndScore();
