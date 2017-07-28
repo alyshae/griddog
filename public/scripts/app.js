@@ -13,11 +13,40 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 //words to recognize which will be used to trigger the player's move functions
-let directions = ["up", "down", "left", "right"];
+let directions = ["move", "up", "down", "left", "right"];
 
 //set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
 let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
 
+//define a speech recogntion instance to control the recognition for the app
+let recognition = new SpeechRecognition();
+//create a new speech grammar list to contain our grammar
+let speechRecognitionList = new SpeechGrammarList();
+//add our grammar to the SpeechGrammarList
+speechRecognitionList.addFromString(grammar, 1);
+//add the above to the speech recognition instance by setting it as the value of the "grammars" property/key.
+recognition.grammars = speechRecognitionList;
+
+//setting additional SR properties:
+//set the language
+recognition.lang = "en-US";
+//set whether or not the SR system should return interim results
+recognition.interimResults = false;
+//set the number of alternative potenetial matches which should be returned per result
+recognition.maxAlternatives = 1;
+
+//starting the speech recognition & telling it what to do with the speech received:
+
+//grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
+let diagnostic = document.querySelector(".output");
+//grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
+let bg = document.querySelector(".player")
+//can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
+let directionHTML = "";
+//populate the directionHTML variable with the list of words
+directions.forEach(function(ele) {
+  directionHTML += "<span class='directionHTML'>" + ele + " </span>";
+});
 
 $(document).ready(function() {
 
@@ -29,36 +58,6 @@ $(document).ready(function() {
     the modal is triggered to open when a user's score is in the top 3!
   */
   $(".modal").modal();
-
-  //define a speech recogntion instance to control the recognition for the app
-  let recognition = new SpeechRecognition();
-  //create a new speech grammar list to contain our grammar
-  let speechRecognitionList = new SpeechGrammarList();
-  //add our grammar to the SpeechGrammarList
-  speechRecognitionList.addFromString(grammar, 1);
-  //add the above to the speech recognition instance by setting it as the value of the "grammars" property/key.
-  recognition.grammars = speechRecognitionList;
-
-  //setting additional SR properties:
-  //set the language
-  recognition.lang = "en-US";
-  //set whether or not the SR system should return interim results
-  recognition.interimResults = false;
-  //set the number of alternative potenetial matches which should be returned per result
-  recognition.maxAlternatives = 1;
-
-  //starting the speech recognition & telling it what to do with the speech received:
-
-  //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
-  let diagnostic = document.querySelector(".output");
-  //grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
-  let bg = document.querySelector(".player")
-  //can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
-  let directionHTML = "";
-  //populate the directionHTML variable with the list of words
-  directions.forEach(function(ele) {
-    directionHTML += "<span class='directionHTML'>" + ele + " </span>";
-  })
 
 /********************************
  *   AJAX REQUESTS to Express   *
@@ -171,18 +170,43 @@ $(document).ready(function() {
     console.log("Ready to receive command.")
 
     recognition.onresult = function(event) {
-      //identify/grab the last element in the event.results array
-      let last = event.results.length -1;
-      //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
-      let direction = event.results[last][0].transcript;
-      //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
-      diagnostic.textContent = direction;
-      ////////////////////// TODO: ???? use bg variable to move player ???
+      if (count > 0) {
+        let dog = document.querySelector(".player");
+        let end = document.querySelector(".target");
+        let done = end;
 
-      //see how sure/confident the web speech API is in the word(s) it has identified
-      console.log('Confidence: ' + event.results[0][0].confidence);
+
+        //identify/grab the last element in the event.results array
+        let last = event.results.length -1;
+        //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
+        let direction = event.results[last][0].transcript;
+        //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
+        diagnostic.textContent = direction;
+        ////////////////////// TODO: ???? use bg variable to move player ???
+        let commands = direction.split(" ")
+        commands.forEach(function(ele) {
+          if (ele === "up") {
+            p1.moveUp();
+            checkForWin();
+          } else {
+            console.log("the command was not MOVE UP")
+          }
+          //see how sure/confident the web speech API is in the word(s) it has identified
+          console.log('Confidence: ' + event.results[0][0].confidence);
+          let square = document.querySelector(p1.loc);
+
+          //if WIN:
+          if (p1.loc === trgt1.loc) {
+            count = 1;
+            square.removeChild(end);
+            $('#levelWinModal').modal('open');
+            $('.continue').on('click', levelUp());
+            done.toggleClass(".player");
+          }
+          square.appendChild(dog);
+      });
     };
-
+  };
     recognition.onspeechend = function() {
       recognition.stop();
     };
@@ -231,7 +255,7 @@ $(document).ready(function() {
           let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
           let done = end;
-          if (ele.keyCode === 119) {
+          if ((ele.keyCode === 119)) {
             p1.moveUp();
             checkForWin();
           } else if (ele.keyCode === 115) {
