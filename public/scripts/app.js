@@ -176,54 +176,57 @@ $(document).ready(function() {
   $(".go-fetch").on("click", function() {
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
+    recognition.start();
+    console.log("Ready to receive command.")
 
-      recognition.start();
-      console.log("Ready to receive command.")
+    recognition.onresult = function(event) {
+      if (count > 0) {
+        let end = document.querySelector(".target");
+        //identify/grab the last element in the event.results array
+        let last = event.results.length -1;
+        //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
+        let direction = event.results[last][0].transcript;
+        //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
+        diagnostic.textContent = direction;
 
-      recognition.onresult = function(event) {
-        if (count > 0) {
-          let end = document.querySelector(".target");
-          //identify/grab the last element in the event.results array
-          let last = event.results.length -1;
-          //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
-          let direction = event.results[last][0].transcript;
-          //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
-          diagnostic.textContent = direction;
+        let commands = direction.split(" ")
+        commands.forEach(function(ele) {
+          if (ele === "up") {
+            g1.player.moveUp();
+          } else if (ele === "right") {
+            g1.player.moveRight();
+          } else if (ele === "left") {
+            g1.player.moveLeft();
+          } else if (ele === "down") {
+            g1.player.moveDown();
+          }
 
-          let commands = direction.split(" ")
-          commands.forEach(function(ele) {
-            if (ele === "up") {
-              g1.player.moveUp();
-            } else if (ele === "right") {
-              g1.player.moveRight();
-            }
+          //see how sure/confident the web speech API is in the word(s) it has identified
+          console.log('Confidence: ' + event.results[0][0].confidence);
+          let sq = document.querySelector(g1.player.loc);
 
-            //see how sure/confident the web speech API is in the word(s) it has identified
-            console.log('Confidence: ' + event.results[0][0].confidence);
-            let sq = document.querySelector(g1.player.loc);
-
-            //if WIN:
-            if (checkForWin()) {
-              recognition.stop();
-              diagnostic.textContent = "";
-              count = 1;
-              sq.removeChild(end);
-              $('.levelWinModal').modal('open');
-              $('.continue').on('click', levelUp);
-            }
-            setPlayer();
-        });
-
-      };
+          //if WIN:
+          if (checkForWin()) {
+            recognition.stop();
+            diagnostic.textContent = "";
+            count = 1;
+            sq.removeChild(end);
+            $('.levelWinModal').modal('open');
+            $('.continue').on('click', levelUp);
+          }
+          setPlayer();
+      });
     };
-  // });
+  };
+
+
     recognition.onspeechend = function() {
       recognition.stop();
     };
 
-    recognition.onspeechstart = function() {
-      recognition.start();
-    }
+    // recognition.onspeechstart = function() {
+    //   recognition.start();
+    // }
 
     recognition.onnomatch = function(event) {
       diagnostic.textContent = "GridDog doesn't recognize that command."
