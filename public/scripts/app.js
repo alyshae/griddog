@@ -143,6 +143,7 @@ $(document).ready(function() {
     [p3, trgt3]
   ];
   setLevel(1);
+  $(".agree-btn").on("click", reset);
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
@@ -305,11 +306,16 @@ $(document).ready(function() {
   function levelUp() {
     setLevel(g1.level + 1)
   }
+
   function setLevel(level) {
     g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
     setTarget();
     renderLevelAndScore();
+  }
+
+  function reset() {
+    setLevel(1);
   }
 
 }); //end of doc.ready function
