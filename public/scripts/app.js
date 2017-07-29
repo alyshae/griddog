@@ -32,7 +32,7 @@ recognition.grammars = speechRecognitionList;
 //set the language
 recognition.lang = "en-US";
 //set whether or not the SR system should return interim results
-recognition.interimResults = true;
+recognition.interimResults = false;
 //set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
 
@@ -224,9 +224,9 @@ $(document).ready(function() {
       recognition.stop();
     };
 
-    // recognition.onspeechstart = function() {
-    //   recognition.start();
-    // }
+    recognition.onspeechstart = function() {
+      recognition.start();
+    }
 
     recognition.onnomatch = function(event) {
       diagnostic.textContent = "GridDog doesn't recognize that command."
