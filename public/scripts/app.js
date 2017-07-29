@@ -36,6 +36,8 @@ recognition.interimResults = true;
 //set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
 
+recognition.continuous = true;
+
 //starting the speech recognition & telling it what to do with the speech received:
 
 //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
@@ -143,6 +145,7 @@ $(document).ready(function() {
     [p3, trgt3]
   ];
   setLevel(1);
+  $(".agree-btn").on("click", reset);
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
@@ -172,20 +175,14 @@ $(document).ready(function() {
    *************************/
   $(".go-fetch").on("click", function() {
 
-    ////////************** below: if I want to use a GIVE COMMAND button **************////////
-    // document.querySelector(".command-btn-target").innerHTML = "<a class='waves-effect waves-light btn orange darken-3 black-text go-fetch' id='command-btn'>Give Command</a>"
-
-    //////////**************************** SPEECH RECOGNITION ****************************//////////
-    // $(".command-btn").on("click", function() {
+  //////////**************************** SPEECH RECOGNITION ****************************//////////
 
       recognition.start();
       console.log("Ready to receive command.")
 
       recognition.onresult = function(event) {
         if (count > 0) {
-          let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let done = end;
           //identify/grab the last element in the event.results array
           let last = event.results.length -1;
           //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
@@ -200,26 +197,33 @@ $(document).ready(function() {
             } else if (ele === "right") {
               g1.player.moveRight();
             }
+
             //see how sure/confident the web speech API is in the word(s) it has identified
             console.log('Confidence: ' + event.results[0][0].confidence);
-            let square = document.querySelector(g1.player.loc);
+            let sq = document.querySelector(g1.player.loc);
 
             //if WIN:
             if (checkForWin()) {
+              recognition.stop();
+              diagnostic.textContent = "";
               count = 1;
-              square.removeChild(end);
+              sq.removeChild(end);
               $('.levelWinModal').modal('open');
               $('.continue').on('click', levelUp);
-              // done.removeClass(".player");
             }
             setPlayer();
         });
+
       };
     };
   // });
     recognition.onspeechend = function() {
       recognition.stop();
     };
+
+    recognition.onspeechstart = function() {
+      recognition.start();
+    }
 
     recognition.onnomatch = function(event) {
       diagnostic.textContent = "GridDog doesn't recognize that command."
@@ -262,28 +266,22 @@ $(document).ready(function() {
 
       window.addEventListener('keypress', function(ele) {
         if (count > 0) {
-          let dog = document.querySelector(".player");
           let end = document.querySelector(".target");
-          let done = end;
           if ((ele.keyCode === 119)) {
             g1.player.moveUp();
-            checkForWin();
           } else if (ele.keyCode === 115) {
             g1.player.moveDown();
-            checkForWin();
           } else if (ele.keyCode === 97) {
             g1.player.moveLeft();
-            checkForWin();
           } else if (ele.keyCode === 100) {
             g1.player.moveRight();
-            checkForWin();
           }
-          let square = document.querySelector(g1.player.loc);
+          let sq = document.querySelector(g1.player.loc);
 
           //if WIN:
-          if (g1.player.loc === g1.target.loc) {
+          if (checkForWin()) {
             count = 1;
-            square.removeChild(end);
+            sq.removeChild(end);
             $('#levelWinModal').modal('open');
             $('.continue').on('click', levelUp);
           }
@@ -307,13 +305,20 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-    setLevel(g1.level + 1)
+
+    setLevel(g1.level + 1);
+
   }
+
   function setLevel(level) {
     g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
     setTarget();
     renderLevelAndScore();
+  }
+
+  function reset() {
+    setLevel(1);
   }
 
 }); //end of doc.ready function
@@ -405,15 +410,6 @@ class Game {
     }
   }
 } //end of GAME class
-
-
-// Event loop
-// wait for keypress,
-// determine which key was pressed ---> 11: "up"
-// fire corresponding method            player.move("up") or player.up(), player.down()...
-
-
-
 
 
 /* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
