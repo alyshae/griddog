@@ -172,11 +172,7 @@ $(document).ready(function() {
    *************************/
   $(".go-fetch").on("click", function() {
 
-    ////////************** below: if I want to use a GIVE COMMAND button **************////////
-    // document.querySelector(".command-btn-target").innerHTML = "<a class='waves-effect waves-light btn orange darken-3 black-text go-fetch' id='command-btn'>Give Command</a>"
-
-    //////////**************************** SPEECH RECOGNITION ****************************//////////
-    // $(".command-btn").on("click", function() {
+  //////////**************************** SPEECH RECOGNITION ****************************//////////
 
       recognition.start();
       console.log("Ready to receive command.")
@@ -405,15 +401,6 @@ class Game {
     }
   }
 } //end of GAME class
-
-
-// Event loop
-// wait for keypress,
-// determine which key was pressed ---> 11: "up"
-// fire corresponding method            player.move("up") or player.up(), player.down()...
-
-
-
 
 
 /* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */

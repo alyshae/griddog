@@ -17,7 +17,7 @@ var app = express();
 var bodyParser = require('body-parser');
 
 //serve static files in public
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 //body parser config to accept our datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
