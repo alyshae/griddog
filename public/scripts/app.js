@@ -132,18 +132,24 @@ $(document).ready(function() {
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
   let p3 = new Player(1,1);
-  console.log(p1.loc);
+  let p4 = new Player(3,3);
+  let p5 = new Player(2,2);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
   let trgt3 = new Player(2,3);
-  console.log(trgt1.loc);
+  let trgt4 = new Player(1,1);
+  let trgt5 = new Player(1,1);
+
   const levels = [
     [],
     [p1, trgt1],
     [p2, trgt2],
-    [p3, trgt3]
+    [p3, trgt3],
+    [p4, trgt4],
+    [p5, trgt5]
   ];
+  
   setLevel(1);
   $(".agree-btn").on("click", reset);
 
@@ -170,10 +176,37 @@ $(document).ready(function() {
   }
   setTarget();
 
-  /**************************
-   *   GAME PLAY FUNCTIONS  *
-   *************************/
+/**************************
+ *   GAME PLAY FUNCTIONS  *
+ *************************/
   $(".go-fetch").on("click", function() {
+
+    //////////********************************** TIMER **********************************//////////
+    //timer-related variables
+    var count = g1.seconds;
+    var counter=setInterval(timer, 1000);
+
+    //timer function
+    function timer() {
+      $('.timer').removeClass("animated tada");
+      count = count -1;
+      if (count < 0) {
+        clearInterval(counter);
+        return;
+      };
+      if (count < 6) {
+        $('.timer').addClass("animated swing infinite");
+      };
+      if (count === 0) {
+        document.getElementById('timer').innerHTML = 'TIME UP!';
+        $('.timer').removeClass("animated swing infinite");
+        $('.timer').addClass("animated tada");
+      } else if (count === 1) {
+        document.getElementById('timer').innerHTML = count + ' second';
+      } else {
+        document.getElementById('timer').innerHTML = count + ' seconds';
+      };
+    }; //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
     recognition.start();
@@ -208,7 +241,6 @@ $(document).ready(function() {
           //if WIN:
           if (checkForWin()) {
             recognition.stop();
-            diagnostic.textContent = "";
             count = 1;
             sq.removeChild(end);
             $('.levelWinModal').modal('open');
@@ -218,7 +250,6 @@ $(document).ready(function() {
       });
     };
   };
-
 
     recognition.onspeechend = function() {
       recognition.stop();
@@ -235,37 +266,8 @@ $(document).ready(function() {
     recognition.onerror = function(event) {
       diagnostic.textContent = "Error occured in recognition " + event.error;
     }
-    //////////********************************** TIMER **********************************//////////
-    //timer-related variables
-    /*TODO: when different levels/grid-sizes are incorporated, the count will need
-      to be set according to difficulty (so, not always set to 10 seconds) */
-    var count = g1.seconds;
-    var counter=setInterval(timer, 1000);
 
-    //timer function
-    function timer() {
-      $('.timer').removeClass("animated tada");
-      count = count -1;
-      if (count < 0) {
-        clearInterval(counter);
-        return;
-      };
-
-      if (count < 6) {
-        $('.timer').addClass("animated swing infinite");
-      }
-      if (count === 0) {
-        document.getElementById('timer').innerHTML = 'TIME UP!';
-        $('.timer').removeClass("animated swing infinite");
-        $('.timer').addClass("animated tada");
-      } else if (count === 1) {
-          document.getElementById('timer').innerHTML = count + ' second';
-      } else {
-        document.getElementById('timer').innerHTML = count + ' seconds';
-      };
-    }; //end of timer function
-
-    //////////********************************** MOVES **********************************//////////
+  //////////***************************** KEYPRESS MOVES *******************************//////////
 
       window.addEventListener('keypress', function(ele) {
         if (count > 0) {
@@ -308,9 +310,9 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-
     setLevel(g1.level + 1);
-
+    diagnostic.textContent = "";
+    document.querySelector(".timer").innerHTML = "";
   }
 
   function setLevel(level) {
@@ -403,13 +405,17 @@ class Game {
     return this.calcColMax();
   }
   calcRowMax() {
-    if (this.level < 4) {
+    if (this.level < 5) {
       return 3;
+    } else {
+      return 4;
     }
   }
   calcColMax() {
-    if (this.level < 4) {
+    if (this.level < 5) {
       return 3;
+    } else {
+      return 4;
     }
   }
 } //end of GAME class
