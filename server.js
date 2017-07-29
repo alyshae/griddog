@@ -43,7 +43,7 @@ app.get('/', function(req, res) {
 //JSON End-points (actions)
 
 //index: get all scores
-app.get('/scores', function index(req, res) {
+app.get('/scores', function(req, res) {
   Score.find(function(err, scores) {
     if (err) {
       return console.log("index error: " + err);
@@ -53,7 +53,7 @@ app.get('/scores', function index(req, res) {
 });
 
 //create: post new score
-app.post('/', function(req, res) {
+app.post('/scores', function(req, res) {
   // create new score with form data (`req.body`)
   console.log('new score created: ', req.body);
   let newScore = new Score(req.body);
