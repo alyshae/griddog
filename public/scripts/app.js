@@ -294,17 +294,32 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
+
           $('#levelWinModal').modal('open');
         }
+
         setPlayer();
+
       }
     });
-    $('.continue-btn').on('click', levelUp);
-  }); //end of GO-FETCH on-click function
 
+  }); //end of GO-FETCH on-click function
+  $('.continue-btn').on('click', levelUp);
   /**************************
    *   WIN/LOSE FUNCTIONS   *
    *************************/
+
+   function setLevel(level) {
+     g1 = new Game(levels[level][0], levels[level][1], level);
+     setPlayer();
+     setTarget();
+     renderLevelAndScore();
+   }
+
+   function levelUp() {
+     setLevel(g1.level + 1);
+     diagnostic.textContent = "";
+   }
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
@@ -313,25 +328,9 @@ $(document).ready(function() {
     return false;
   }
 
-  function setLevel(level) {
-    console.log("setting level " + level);
-    g1 = new Game(levels[level][0], levels[level][1], level);
-    setPlayer();
-    setTarget();
-    renderLevelAndScore();
-  }
-
-  function levelUp() {
-    console.log("current level = " + g1.level);
-    setLevel(g1.level + 1);
-    diagnostic.textContent = "";
-    console.log("new level = " + g1.level);
-  }
-
   function reset() {
     location.reload(true);
   }
-
 }); //end of doc.ready function
 
 /***************
@@ -411,14 +410,14 @@ class Game {
     return this.calcColMax();
   }
   calcRowMax() {
-    if (this.level < 5) {
+    if (this.level < 6) {
       return 3;
     } else {
       return 4;
     }
   }
   calcColMax() {
-    if (this.level < 5) {
+    if (this.level < 6) {
       return 3;
     } else {
       return 4;
