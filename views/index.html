@@ -62,7 +62,7 @@
           <p>Would you like to continue to the next level (fetch again)?</p>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close continue" type="button" name="action">YES
+          <button class="right btn waves-effect waves-light modal-action modal-close continue-btn" type="button" name="action">YES
           </button>
         </div>
       </div>
@@ -84,16 +84,15 @@
       </div>
     </div> <!-- End of New Game Modal -->
 
-
     <div class="container-A">
 
       <div class="container-B flex-item vert-2">
         <div class="game-grid-box flex-item flex-1">
-          <div id="game-grid" class="game-grid">
+          <div id="game-grid" class="game-grid chapter-1">
             <div class="row grid-row">
               <div class="column grid-column row-1 col-1"></div>
               <div class="column grid-column row-1 col-2"></div>
-              <div class="column grid-column row-1 col-3"></div>
+              <div class="column grid-column row-1 col-3"><img src='images/ball-2.png' class='ball target'/></div>
             </div>
             <div class="row grid-row">
               <div class="column grid-column row-2 col-1"></div>
@@ -108,6 +107,26 @@
           </div>
         </div> <!-- End of game-grid-box -->
 
+        <!-- Chapter-1 Grid
+        <div id="game-grid" class="game-grid chapter-1">
+          <div class="row grid-row">
+            <div class="column grid-column row-1 col-1"></div>
+            <div class="column grid-column row-1 col-2"></div>
+            <div class="column grid-column row-1 col-3"></div>
+          </div>
+          <div class="row grid-row">
+            <div class="column grid-column row-2 col-1"></div>
+            <div class="column grid-column row-2 col-2"></div>
+            <div class="column grid-column row-2 col-3"></div>
+          </div>
+          <div class="row grid-row">
+            <div class="column grid-column row-3 col-1"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
+            <div class="column grid-column row-3 col-2"></div>
+            <div class="column grid-column row-3 col-3"></div>
+          </div>
+        </div> End of Chapter-1 Grid -->
+
+        <!-- Game Info Box -->
         <div class="game-info-box flex-item flex-1">
           <div class="game-info-text level"></div>
           <a class="waves-effect waves-light btn lime black-text go-fetch">GO FETCH!</a>

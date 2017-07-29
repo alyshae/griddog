@@ -150,7 +150,9 @@ $(document).ready(function() {
     [p5, trgt5]
   ];
 
-  setLevel(1);
+  let g1 = new Game(levels[1][0], levels[1][1], 1);
+  // setLevel(1);
+
   $(".agree-btn").on("click", reset);
 
   //Level & Score appear on page:
@@ -160,18 +162,21 @@ $(document).ready(function() {
   };
   renderLevelAndScore();
 
-
   //set the dog in its square on the grid
   function setPlayer() {
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
     square.appendChild(dog);
-    //document.querySelector(g1.player.loc).innerHTML = '<img src="images/grid-dog-head.png" class="dog-head player"/>'
   }
   setPlayer();
 
   //set the ball in its square on the grid
   function setTarget() {
+    //these 3 lines don't work when you hit level 2
+    // let box = document.querySelector(g1.target.loc);
+    // let ball = document.querySelector(".target");
+    // box.appendChild(ball);
+
     document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
   }
   setTarget();
@@ -214,7 +219,7 @@ $(document).ready(function() {
 
     recognition.onresult = function(event) {
       if (count > 0) {
-        let end = document.querySelector(".target");
+
         //identify/grab the last element in the event.results array
         let last = event.results.length -1;
         //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
@@ -235,14 +240,16 @@ $(document).ready(function() {
           }
           //see how sure/confident the web speech API is in the word(s) it has identified
           console.log('Confidence: ' + event.results[0][0].confidence);
-          let sq = document.querySelector(g1.player.loc);
+
           //if WIN:
           if (checkForWin()) {
+            console.log("checkForWin === true line 242");
+            let end = document.querySelector(".target");
+            let sq = document.querySelector(g1.player.loc);
             recognition.stop();
             count = 1;
             sq.removeChild(end);
             $('.levelWinModal').modal('open');
-            $('.continue').on('click', levelUp);
           }
           setPlayer();
       });
@@ -269,7 +276,7 @@ $(document).ready(function() {
 
     window.addEventListener('keypress', function(ele) {
       if (count > 0) {
-        let end = document.querySelector(".target");
+
         if ((ele.keyCode === 119)) {
           g1.player.moveUp();
         } else if (ele.keyCode === 115) {
@@ -279,18 +286,20 @@ $(document).ready(function() {
         } else if (ele.keyCode === 100) {
           g1.player.moveRight();
         }
-        let sq = document.querySelector(g1.player.loc);
+
         //if WIN:
         if (checkForWin()) {
-          count = 1;
+          let end = document.querySelector(".target");
+          let sq = document.querySelector(g1.player.loc);
           sq.removeChild(end);
+          count = 1;
           recognition.stop();
           $('#levelWinModal').modal('open');
-          $('.continue').on('click', levelUp);
         }
         setPlayer();
       }
     });
+    $('.continue-btn').on('click', levelUp);
   }); //end of GO-FETCH on-click function
 
   /**************************
@@ -299,28 +308,28 @@ $(document).ready(function() {
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
-      console.log("win");
       return true;
     }
-    console.log("not a winning move");
     return false;
   }
 
-  function levelUp() {
-    setLevel(g1.level + 1);
-    diagnostic.textContent = "";
-    document.querySelector(".timer").innerHTML = "";
-  }
-
   function setLevel(level) {
+    console.log("setting level " + level);
     g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
     setTarget();
     renderLevelAndScore();
   }
 
+  function levelUp() {
+    console.log("current level = " + g1.level);
+    setLevel(g1.level + 1);
+    diagnostic.textContent = "";
+    console.log("new level = " + g1.level);
+  }
+
   function reset() {
-    setLevel(1);
+    location.reload(true);
   }
 
 }); //end of doc.ready function
