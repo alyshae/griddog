@@ -304,6 +304,7 @@ $(document).ready(function() {
   }
 
   function levelUp() {
+    recognition.stop();
     setLevel(g1.level + 1)
   }
 
