@@ -10,6 +10,10 @@ nav {
   color: #144A74;
 }
 
+.agree-btn, .disagree-btn {
+  margin: 3px;
+}
+
 .logo {
   margin-top: 4px;
   height: 90%;
@@ -163,7 +167,7 @@ nav {
  *********/
 
 /* whole grid */
-.game-grid {
+.game-grid.chapter-1 {
   width: 355px;
   margin: 10%;
   color: #cddc39;
@@ -171,7 +175,7 @@ nav {
 }
 
 /* grid columns */
-.grid-column {
+.game-grid.chapter-1 .grid-column {
   border: solid 3px #144A74;
   width: 115px;
   height: 115px;
@@ -181,7 +185,30 @@ nav {
 }
 
 /* grid rows */
-.grid-row {
+.game-grid.chapter-1 .grid-row {
+  width: 100%;
+  margin: auto;
+}
+
+
+.game-grid.chapter-2 {
+  width: 407px;
+  margin: 10%;
+  /*background-color: #eceff1;*/
+}
+
+/* grid columns */
+.game-grid.chapter-2 .grid-column {
+  border: solid 3px #144A74;
+  width: 132px;
+  height: 132px;
+  display: inline;
+  float: left;
+  margin: auto;
+}
+
+/* grid rows */
+.game-grid.chapter-2 .grid-row {
   width: 100%;
   margin: auto;
 }
