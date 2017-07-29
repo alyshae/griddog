@@ -149,7 +149,7 @@ $(document).ready(function() {
     [p4, trgt4],
     [p5, trgt5]
   ];
-  
+
   setLevel(1);
   $(".agree-btn").on("click", reset);
 
@@ -233,11 +233,9 @@ $(document).ready(function() {
           } else if (ele === "down") {
             g1.player.moveDown();
           }
-
           //see how sure/confident the web speech API is in the word(s) it has identified
           console.log('Confidence: ' + event.results[0][0].confidence);
           let sq = document.querySelector(g1.player.loc);
-
           //if WIN:
           if (checkForWin()) {
             recognition.stop();
@@ -269,31 +267,30 @@ $(document).ready(function() {
 
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
-      window.addEventListener('keypress', function(ele) {
-        if (count > 0) {
-          let end = document.querySelector(".target");
-          if ((ele.keyCode === 119)) {
-            g1.player.moveUp();
-          } else if (ele.keyCode === 115) {
-            g1.player.moveDown();
-          } else if (ele.keyCode === 97) {
-            g1.player.moveLeft();
-          } else if (ele.keyCode === 100) {
-            g1.player.moveRight();
-          }
-          let sq = document.querySelector(g1.player.loc);
-
-          //if WIN:
-          if (checkForWin()) {
-            count = 1;
-            sq.removeChild(end);
-            $('#levelWinModal').modal('open');
-            $('.continue').on('click', levelUp);
-          }
-          setPlayer();
+    window.addEventListener('keypress', function(ele) {
+      if (count > 0) {
+        let end = document.querySelector(".target");
+        if ((ele.keyCode === 119)) {
+          g1.player.moveUp();
+        } else if (ele.keyCode === 115) {
+          g1.player.moveDown();
+        } else if (ele.keyCode === 97) {
+          g1.player.moveLeft();
+        } else if (ele.keyCode === 100) {
+          g1.player.moveRight();
         }
-      });
-
+        let sq = document.querySelector(g1.player.loc);
+        //if WIN:
+        if (checkForWin()) {
+          count = 1;
+          sq.removeChild(end);
+          recognition.stop();
+          $('#levelWinModal').modal('open');
+          $('.continue').on('click', levelUp);
+        }
+        setPlayer();
+      }
+    });
   }); //end of GO-FETCH on-click function
 
   /**************************
