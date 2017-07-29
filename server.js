@@ -53,7 +53,7 @@ app.get('/scores', function index(req, res) {
 });
 
 //create: post new score
-app.post('/scores', function(req, res) {
+app.post('/', function(req, res) {
   // create new score with form data (`req.body`)
   console.log('new score created: ', req.body);
   let newScore = new Score(req.body);
