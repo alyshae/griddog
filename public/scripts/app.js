@@ -1,11 +1,9 @@
 /******************************
  *   CLIENT SIDE JAVASCRIPT   *
  ******************************/
-
 console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
-
 
 //feed the right objects to browsers for speech recognition compatibility
 //////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
@@ -14,7 +12,7 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 //words to recognize which will be used to trigger the player's move functions
-let directions = ["move", "up", "down", "left", "right"];
+let directions = ["up", "down", "left", "right"];
 
 //set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
 let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
@@ -52,14 +50,9 @@ directions.forEach(function(ele) {
 });
 
 $(document).ready(function() {
-
   //give the array of all the scores as HTML to the scores-target
   $scoresList = $(".scores-target");
 
-  /*this is currently what allows the test button to trigger the newHSForm
-    modal to open when clicked. This will later need to be replaced so that
-    the modal is triggered to open when a user's score is in the top 3!
-  */
   $(".modal").modal();
 
 /********************************
@@ -85,8 +78,6 @@ $(document).ready(function() {
       error: newHSError
     });
   });
-
-
 
 /*********************************
  *   SUCCESS & ERROR FUNCTIONS   *
@@ -219,7 +210,6 @@ $(document).ready(function() {
 
     recognition.onresult = function(event) {
       if (count > 0) {
-
         //identify/grab the last element in the event.results array
         let last = event.results.length -1;
         //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
@@ -240,10 +230,8 @@ $(document).ready(function() {
           }
           //see how sure/confident the web speech API is in the word(s) it has identified
           console.log('Confidence: ' + event.results[0][0].confidence);
-
           //if WIN:
           if (checkForWin()) {
-            console.log("checkForWin === true line 242");
             let end = document.querySelector(".target");
             let sq = document.querySelector(g1.player.loc);
             recognition.stop();
@@ -286,7 +274,6 @@ $(document).ready(function() {
         } else if (ele.keyCode === 100) {
           g1.player.moveRight();
         }
-
         //if WIN:
         if (checkForWin()) {
           let end = document.querySelector(".target");
@@ -294,15 +281,11 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
-
           $('#levelWinModal').modal('open');
         }
-
         setPlayer();
-
       }
     });
-
   }); //end of GO-FETCH on-click function
   $('.continue-btn').on('click', levelUp);
   /**************************
