@@ -315,7 +315,9 @@ $(document).ready(function() {
   }
 
   function reset() {
+    console.log("p location-" + g1.player.loc + "t location-" + g1.target.loc);
     setLevel(1);
+    console.log("p location-" + g1.player.loc + "t location-" + g1.target.loc);
   }
 
 }); //end of doc.ready function
