@@ -2,7 +2,6 @@
  *   SERVER SIDE JAVASCRIPT   *
  ******************************/
 
-
 /********************
  *  SETUP & CONFIG  *
  ********************/
@@ -44,12 +43,12 @@ app.get('/', function(req, res) {
 
 //index: get all scores
 app.get('/scores', function(req, res) {
-  Score.find(function(err, scores) {
-    if (err) {
-      return console.log("index error: " + err);
-    }
+  // Score.find(function(err, scores) {
+  //   if (err) {
+  //     return console.log("index error: " + err);
+  //   }
     res.json(scores);
-  });
+  // });
 });
 
 //create: post new score
