@@ -92,7 +92,7 @@ $(document).ready(function() {
     console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
-      $scoresList.append(`<th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th>`);
+      $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
     allScores = topDogs;
   }

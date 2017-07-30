@@ -122,21 +122,24 @@ nav {
   margin-left: 20px;
 }
 
+.scores-target {
+  margin-left: 12px;
+}
+
 .score-name {
   font-weight: normal;
   font-size: 17px;
-  padding: 3px;
-  margin-left: 5px;
+  padding: 10px 3px 3px 0px;
 }
 
 .score-num {
   font-weight: normal;
   font-size: 17px;
-  padding: 3px 3px 3px 20px;
+  padding: 10px 3px 3px 10px;
 }
 
-.score-header {
-  padding: 12px 0 5px 0;
+.top-dogs-header {
+  padding: 12px 0 5px 0px;
 }
 
 .instructions-header {
@@ -189,7 +192,6 @@ nav {
   width: 100%;
   margin: auto;
 }
-
 
 .game-grid.chapter-2 {
   width: 407px;
