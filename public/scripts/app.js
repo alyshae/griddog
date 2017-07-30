@@ -4,6 +4,7 @@
 console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
+let topDs = [];
 
 //feed the right objects to browsers for speech recognition compatibility
 //////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
@@ -93,12 +94,15 @@ $(document).ready(function() {
     let topScores = allScores.sort(function(a,b) {
       return b.highScore - a.highScore
     });
-    console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
       $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
     allScores = topDogs;
+    //below: topDs for use later when checking new score against existing HS's
+    allScores.forEach(function(item) {
+      topDs.push(item.highScore);
+    });
   }
 
   //error with GET all scores
@@ -117,12 +121,14 @@ $(document).ready(function() {
 
   //error with POST new high score
   function newHSError() {
+    $scoresList.text("Error adding new high score")
     console.log('error posting new high score');
   }
 
 /**************************
  *   PLAYER/GAME SET-UP   *
  *************************/
+
 
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
@@ -194,27 +200,28 @@ $(document).ready(function() {
 
     //timer function
     function timer() {
-      $('.timer').removeClass("animated tada");
+      $(".timer").removeClass("animated tada");
       count = count -1;
       if (count < 0) {
         clearInterval(counter);
         return;
       };
       if (count < 6) {
-        $('.timer').addClass("animated swing infinite");
+        $(".timer").addClass("animated swing infinite");
       };
+      //check for win or loss when timer runs out
       if (count === 0 && !checkForWin()) {
-        console.log("loss");
-        //checkForHS
-        $('.loserModal').modal('open');
+        //if it is a loss, check to see if the user got a high score
+        $(".HS").attr("value", `${g1.score}`);
+        $(".newHSModal").modal("open");
       } else if (count === 0) {
-        document.getElementById('timer').innerHTML = 'TIME UP!';
-        $('.timer').removeClass("animated swing infinite");
-        $('.timer').addClass("animated tada");
+        document.getElementById(".timer").innerHTML = 'TIME UP!';
+        $(".timer").removeClass("animated swing infinite");
+        $(".timer").addClass("animated tada");
       } else if (count === 1) {
-        document.getElementById('timer').innerHTML = count + ' second';
+        document.getElementById("timer").innerHTML = count + ' second';
       } else {
-        document.getElementById('timer').innerHTML = count + ' seconds';
+        document.getElementById("timer").innerHTML = count + ' seconds';
       };
     }; //end of timer function
 
@@ -332,6 +339,55 @@ $(document).ready(function() {
   function reset() {
     location.reload(true);
   };
+
+
+
+
+/******************/
+
+  function checkForHS() {
+    console.log("hit checkForHS function", topDs, g1.score);
+
+    return topDs.forEach(function(el) {
+      if (g1.score >= el) {
+        $(".newHSModal").modal("open");
+        return true;
+      }
+    });
+  }
+
+
+
+
+  // // function checkForHS(nmbr) {
+  // //
+  // //   if (nmbr >= )
+  // // }
+  //
+  // // let scoresToCheck = $scoresList[0].children;
+  // // console.log(scoresToCheck);
+  // // let bbb = scoresToCheck.each(function(e) {
+  // //   return e.highScore;
+  // // })
+  // // console.log(bbb);
+  //
+  // // let hh = document.getElementsByTagName("th");
+  // // // let rr = hh[0];
+  // //
+  // // console.log(hh);
+  //
+  //
+  //
+  // document.getElementsByTagName("th").each( function( index, element ){
+  //   console.log( $( this ).text() );
+  // });
+
+/******************/
+
+
+
+
+
 }); //end of doc.ready function
 
 /***************
@@ -396,9 +452,9 @@ class Game {
   calcSeconds() {
     let secs;
     if (this.level < 4) {
-      secs = 15;
+      secs = 16;
     } else {
-      secs = 30;
+      secs = 31;
     }
     return secs;
   }
@@ -423,6 +479,9 @@ class Game {
     }
   }
 } //end of GAME class
+
+
+
 
 /* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
 /* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
