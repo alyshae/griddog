@@ -100,9 +100,10 @@ $(document).ready(function() {
     });
     allScores = topDogs;
     //below: topDs for use later when checking new score against existing HS's
-    allScores.forEach(function(item) {
+    topDogs.forEach(function(item) {
       topDs.push(item.highScore);
     });
+    console.log("indexing the top 3 scores: " + allScores);
   }
 
   //error with GET all scores
@@ -350,43 +351,10 @@ $(document).ready(function() {
 
     return topDs.forEach(function(el) {
       if (g1.score >= el) {
-        $(".newHSModal").modal("open");
         return true;
       }
     });
   }
-
-
-
-
-  // // function checkForHS(nmbr) {
-  // //
-  // //   if (nmbr >= )
-  // // }
-  //
-  // // let scoresToCheck = $scoresList[0].children;
-  // // console.log(scoresToCheck);
-  // // let bbb = scoresToCheck.each(function(e) {
-  // //   return e.highScore;
-  // // })
-  // // console.log(bbb);
-  //
-  // // let hh = document.getElementsByTagName("th");
-  // // // let rr = hh[0];
-  // //
-  // // console.log(hh);
-  //
-  //
-  //
-  // document.getElementsByTagName("th").each( function( index, element ){
-  //   console.log( $( this ).text() );
-  // });
-
-/******************/
-
-
-
-
 
 }); //end of doc.ready function
 
