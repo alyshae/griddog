@@ -18,6 +18,10 @@ nav {
   margin: 3px;
 }
 
+.continue-btn, .no-continue-btn {
+  margin: 3px;
+}
+
 .logo {
   margin-top: 4px;
   height: 90%;
@@ -143,7 +147,7 @@ nav {
 }
 
 .top-dogs-header {
-  padding: 12px 0 5px 0px;
+  padding: 12px 0px 5px 8px;
 }
 
 .instructions-header {

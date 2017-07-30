@@ -125,12 +125,14 @@ $(document).ready(function() {
   let p3 = new Player(1,1);
   let p4 = new Player(1,4);
   let p5 = new Player(2,2);
+  let p6 = new Player(4,3);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
   let trgt3 = new Player(2,3);
   let trgt4 = new Player(4,1);
   let trgt5 = new Player(1,1);
+  let trgt6 = new Player(2,2);
 
   const levels = [
     [],
@@ -138,7 +140,8 @@ $(document).ready(function() {
     [p2, trgt2],
     [p3, trgt3],
     [p4, trgt4],
-    [p5, trgt5]
+    [p5, trgt5],
+    [p6, trgt6]
   ];
 
   let g1 = new Game(levels[1][0], levels[1][1], 1);
