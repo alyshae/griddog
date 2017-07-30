@@ -203,7 +203,11 @@ $(document).ready(function() {
       if (count < 6) {
         $('.timer').addClass("animated swing infinite");
       };
-      if (count === 0) {
+      if (count === 0 && !checkForWin()) {
+        console.log("loss");
+        //checkForHS
+        $('.loserModal').modal('open');
+      } else if (count === 0) {
         document.getElementById('timer').innerHTML = 'TIME UP!';
         $('.timer').removeClass("animated swing infinite");
         $('.timer').addClass("animated tada");
