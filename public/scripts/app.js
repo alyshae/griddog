@@ -293,11 +293,11 @@ $(document).ready(function() {
    *************************/
 
   function setLevel(level) {
-    g1 = new Game(levels[level][0], levels[level][1], level);
-    if (g1.level > 3) {
+    if (g1.level >= 3) {
       $('.chapter-1').hide();
       $('.chapter-2').show();
     }
+    g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
     setTarget();
     renderLevelAndScore();

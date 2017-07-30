@@ -9,165 +9,160 @@
     <link type="text/css" rel="stylesheet" href="styles/materialize.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="styles/style.css"/>
   </head>
-  <body>
-    <nav>
-      <div class="nav-wrapper amber">
-        <img src="images/logo-3.png" class="logo"/>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="score"></li>
-          <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
-          <li><a class="waves-effect waves-light btn modal-trigger red accent-2 new-game" href="#newGameModal">New Game</a></li>
-        </ul>
-      </div>
-    </nav>
 
-    <div class="gameOver init-hidden">
-      <div class="gameOverText">
-        <h1>Game over</h1>
-      </div>
-    </div>
+    <body>
+      <nav>
+        <div class="nav-wrapper amber">
+          <img src="images/logo-3.png" class="logo"/>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="score"></li>
+            <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
+            <li><a class="waves-effect waves-light btn modal-trigger red accent-2 new-game" href="#newGameModal">New Game</a></li>
+          </ul>
+        </div>
+      </nav>
 
-    <!-- New High Score Modal -->
-    <div id="newHSmodal" class="modal">
-      <div class="modal-content">
-        <form id="newHSForm" class="col s12">
-          <h4>CONGRATS, you're a TOP DOG!</h4>
-          <p>
-            Enter your name to appear on the TOP DOGS list!
-          </p>
+      <!-- New High Score Modal -->
+      <div id="newHSmodal" class="modal">
+        <div class="modal-content">
+          <form id="newHSForm" class="col s12">
+            <h4>CONGRATS, you're a TOP DOG!</h4>
+            <p>
+              Enter your name to appear on the TOP DOGS list!
+            </p>
+            <div class="row">
+              <div class="input-field col s6" >
+                <input placeholder="max 10 characters" id="name" type="text" class="validate" name="name">
+                <label for="name">Name</label>
+              </div>
+              <div class="col s2"></div>
+              <div class="col s4">
+                <img src="images/party-dog.png" class="party-dog" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <!--the input field below will need to be modified to grab the game score -->
+                <input id="highScore" type="number" class="validate" name="highScore">
+                <label for="highScore">Score</label>
+              </div>
+            </div>
+            <div class="row">
+              <button class="right btn waves-effect waves-light modal-action modal-close" type="submit" name="action">Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div> <!-- End of New High Score Modal -->
+
+      <!-- Level Win Modal -->
+      <div id="levelWinModal" class="modal levelWinModal">
+        <div class="modal-content">
           <div class="row">
-            <div class="input-field col s6" >
-              <input placeholder="max 10 characters" id="name" type="text" class="validate" name="name">
-              <label for="name">Name</label>
-            </div>
-            <div class="col s2"></div>
-            <div class="col s4">
-              <img src="images/party-dog.png" class="party-dog" />
-            </div>
+            <h4>NICE FETCH!</h4>
+            <p>Would you like to continue to the next level (fetch again)?</p>
           </div>
           <div class="row">
-            <div class="input-field col s6">
-              <!--the input field below will need to be modified to grab the game score -->
-              <input id="highScore" type="number" class="validate" name="highScore">
-              <label for="highScore">Score</label>
-            </div>
-          </div>
-          <div class="row">
-            <button class="right btn waves-effect waves-light modal-action modal-close" type="submit" name="action">Submit
+            <button class="right btn waves-effect waves-light modal-action modal-close continue-btn" type="button" name="action">YES
             </button>
           </div>
-        </form>
-      </div>
-    </div> <!-- End of New High Score Modal -->
-
-    <!-- Level Win Modal -->
-    <div id="levelWinModal" class="modal levelWinModal">
-      <div class="modal-content">
-        <div class="row">
-          <h4>NICE FETCH!</h4>
-          <p>Would you like to continue to the next level (fetch again)?</p>
         </div>
-        <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close continue-btn" type="button" name="action">YES
-          </button>
-        </div>
-      </div>
-    </div> <!-- End of Level Win Modal -->
+      </div> <!-- End of Level Win Modal -->
 
-    <!-- New Game Modal -->
-    <div id="newGameModal" class="modal newGameModal">
-      <div class="modal-content">
-        <div class="row">
-          <h4>NEW GAME</h4>
-          <p>Are you sure you want to start over?</p>
-        </div>
-        <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close agree-btn" type="button" name="action">YES
-          </button>
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">NO
-          </button>
-        </div>
-      </div>
-    </div> <!-- End of New Game Modal -->
-
-    <div class="container-A">
-
-      <div class="container-B flex-item vert-2">
-        <div class="game-grid-box flex-item flex-1">
-          <div id="game-grid" class="game-grid chapter-1">
-            <div class="row grid-row">
-              <div class="column grid-column row-1 col-1"></div>
-              <div class="column grid-column row-1 col-2"></div>
-              <div class="column grid-column row-1 col-3"><img src='images/ball-2.png' class='ball target'/></div>
-            </div>
-            <div class="row grid-row">
-              <div class="column grid-column row-2 col-1"></div>
-              <div class="column grid-column row-2 col-2"></div>
-              <div class="column grid-column row-2 col-3"></div>
-            </div>
-            <div class="row grid-row">
-              <div class="column grid-column row-3 col-1"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
-              <div class="column grid-column row-3 col-2"></div>
-              <div class="column grid-column row-3 col-3"></div>
-            </div>
+      <!-- New Game Modal -->
+      <div id="newGameModal" class="modal newGameModal">
+        <div class="modal-content">
+          <div class="row">
+            <h4>NEW GAME</h4>
+            <p>Are you sure you want to start over?</p>
           </div>
-          <div id="game-grid" class="game-grid chapter-2 init-hidden">
-            <div class="row grid-row">
-              <div class="column grid-column row-1 col-1"></div>
-              <div class="column grid-column row-1 col-2"></div>
-              <div class="column grid-column row-1 col-3"></div>
-              <div class="column grid-column row-1 col-4"></div>
-            </div>
-            <div class="row grid-row">
-              <div class="column grid-column row-2 col-1"></div>
-              <div class="column grid-column row-2 col-2"></div>
-              <div class="column grid-column row-2 col-3"></div>
-              <div class="column grid-column row-2 col-4"></div>
-            </div>
-            <div class="row grid-row">
-              <div class="column grid-column row-3 col-1"></div>
-              <div class="column grid-column row-3 col-2"></div>
-              <div class="column grid-column row-3 col-3"></div>
-              <div class="column grid-column row-3 col-4"></div>
-            </div>
-            <div class="row grid-row">
-              <div class="column grid-column row-4 col-1"></div>
-              <div class="column grid-column row-4 col-2"></div>
-              <div class="column grid-column row-4 col-3"></div>
-              <div class="column grid-column row-4 col-4"></div>
-            </div>
+          <div class="row">
+            <button class="right btn waves-effect waves-light modal-action modal-close agree-btn" type="button" name="action">YES
+            </button>
+            <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">NO
+            </button>
           </div>
-        </div> <!-- End of game-grid-box -->
-
-        <!-- Game Info Box -->
-        <div class="game-info-box flex-item flex-1">
-          <div class="game-info-text level"></div>
-          <a class="waves-effect waves-light btn lime black-text go-fetch">GO FETCH!</a>
-          <div class="command-btn-target"></div>
-          <h4 class="game-info-text command" id="command">COMMAND: <h4 class="output"></h4></h4>
-          <h4 class="game-info-text timer" id="timer"></h4>
-        </div> <!-- End of game-info-box -->
-      </div> <!-- End of container-B -->
-
-      <div class="container-C flex-item vert-1">
-        <div class="top-dogs-box flex-item flex-1">
-          <br />
-          <h5 class="top-dogs-header">TOP DOGS</h5>
-          <table class="scores-target"></table>
         </div>
-        <div class="instructions-box flex-item flex-2">
-          <br />
-          <h5 class="instructions-header">INSTRUCTIONS: </h5>
-          <h6>
-            Make sure you have a quiet environment. Click "GO FETCH" to begin the level. Speak clearly using the commands <p class="commands"> -- UP -- DOWN -- LEFT -- RIGHT --</p> to guide Elmer the GridDog through the grid to his ball before the time runs out.
-          </h6>
-        </div>
-        <div class="full-dog-box flex-item flex-1">
-          <img class="full-dog elmer" src="images/grid-dog-full-dog.png"  />
-        </div>
-      </div> <!-- End of container-C -->
+      </div> <!-- End of New Game Modal -->
 
-    </div> <!-- End of container-A -->
+      <div class="container-A">
+
+        <div class="container-B flex-item vert-2">
+          <div class="game-grid-box flex-item flex-1">
+            <div id="game-grid" class="game-grid chapter-1">
+              <div class="row grid-row">
+                <div class="column grid-column row-1 col-1"></div>
+                <div class="column grid-column row-1 col-2"></div>
+                <div class="column grid-column row-1 col-3"><img src='images/ball-2.png' class='ball target'/></div>
+              </div>
+              <div class="row grid-row">
+                <div class="column grid-column row-2 col-1"></div>
+                <div class="column grid-column row-2 col-2"></div>
+                <div class="column grid-column row-2 col-3"></div>
+              </div>
+              <div class="row grid-row">
+                <div class="column grid-column row-3 col-1"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
+                <div class="column grid-column row-3 col-2"></div>
+                <div class="column grid-column row-3 col-3"></div>
+              </div>
+            </div>
+            <div id="game-grid" class="game-grid chapter-2 init-hidden">
+              <div class="row grid-row">
+                <div class="column grid-column row-1 col-1"></div>
+                <div class="column grid-column row-1 col-2"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
+                <div class="column grid-column row-1 col-3"></div>
+                <div class="column grid-column row-1 col-4"></div>
+              </div>
+              <div class="row grid-row">
+                <div class="column grid-column row-2 col-1"></div>
+                <div class="column grid-column row-2 col-2"></div>
+                <div class="column grid-column row-2 col-3"></div>
+                <div class="column grid-column row-2 col-4"></div>
+              </div>
+              <div class="row grid-row">
+                <div class="column grid-column row-3 col-1"></div>
+                <div class="column grid-column row-3 col-2"></div>
+                <div class="column grid-column row-3 col-3"></div>
+                <div class="column grid-column row-3 col-4"></div>
+              </div>
+              <div class="row grid-row">
+                <div class="column grid-column row-4 col-1"></div>
+                <div class="column grid-column row-4 col-2"></div>
+                <div class="column grid-column row-4 col-3"></div>
+                <div class="column grid-column row-4 col-4"></div>
+              </div>
+            </div>
+          </div> <!-- End of game-grid-box -->
+
+          <!-- Game Info Box -->
+          <div class="game-info-box flex-item flex-1">
+            <div class="game-info-text level"></div>
+            <a class="waves-effect waves-light btn lime black-text go-fetch">GO FETCH!</a>
+            <div class="command-btn-target"></div>
+            <h4 class="game-info-text command" id="command">COMMAND: <h4 class="output"></h4></h4>
+            <h4 class="game-info-text timer" id="timer"></h4>
+          </div> <!-- End of game-info-box -->
+        </div> <!-- End of container-B -->
+
+        <div class="container-C flex-item vert-1">
+          <div class="top-dogs-box flex-item flex-1">
+            <br />
+            <h5 class="top-dogs-header">TOP DOGS</h5>
+            <table class="scores-target"></table>
+          </div>
+          <div class="instructions-box flex-item flex-2">
+            <br />
+            <h5 class="instructions-header">INSTRUCTIONS: </h5>
+            <h6>
+              Make sure you have a quiet environment. Click "GO FETCH" to begin the level. Speak clearly using the commands <p class="commands"> -- UP -- DOWN -- LEFT -- RIGHT --</p> to guide Elmer the GridDog through the grid to his ball before the time runs out.
+            </h6>
+          </div>
+          <div class="full-dog-box flex-item flex-1">
+            <img class="full-dog elmer" src="images/grid-dog-full-dog.png"  />
+          </div>
+        </div> <!-- End of container-C -->
+
+      </div> <!-- End of container-A -->
 
 
     <!-- VENDOR SCRIPTS -->
