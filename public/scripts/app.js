@@ -216,7 +216,7 @@ $(document).ready(function() {
         $(".HS").attr("value", `${g1.score}`);
         $(".newHSModal").modal("open");
       } else if (count === 0) {
-        document.getElementById(".timer").innerHTML = 'TIME UP!';
+        document.getElementById("timer").innerHTML = 'TIME UP!';
         $(".timer").removeClass("animated swing infinite");
         $(".timer").addClass("animated tada");
       } else if (count === 1) {
