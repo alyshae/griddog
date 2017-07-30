@@ -6,6 +6,10 @@ nav {
   height: 70px;
 }
 
+.init-hidden {
+  display: none;
+}
+
 .modal {
   color: #144A74;
 }
@@ -122,21 +126,24 @@ nav {
   margin-left: 20px;
 }
 
+.scores-target {
+  margin-left: 12px;
+}
+
 .score-name {
   font-weight: normal;
   font-size: 17px;
-  padding: 3px;
-  margin-left: 5px;
+  padding: 10px 3px 3px 0px;
 }
 
 .score-num {
   font-weight: normal;
   font-size: 17px;
-  padding: 3px 3px 3px 20px;
+  padding: 10px 3px 3px 10px;
 }
 
-.score-header {
-  padding: 12px 0 5px 0;
+.top-dogs-header {
+  padding: 12px 0 5px 0px;
 }
 
 .instructions-header {
@@ -162,15 +169,14 @@ nav {
 }
 
 
-/**********
- GAME GRID
- *********/
+/*********************
+*   GAME GRID CH-1   *
+ ********************/
 
 /* whole grid */
 .game-grid.chapter-1 {
   width: 355px;
-  margin: 10%;
-  color: #cddc39;
+  margin: 40px 0px 0px 70px;
   /*background-color: #eceff1;*/
 }
 
@@ -190,18 +196,21 @@ nav {
   margin: auto;
 }
 
+/*********************
+*   GAME GRID CH-2   *
+ ********************/
 
 .game-grid.chapter-2 {
-  width: 407px;
-  margin: 10%;
+  width: 408px;
+  margin: 15px 0px 0px 70px;
   /*background-color: #eceff1;*/
 }
 
 /* grid columns */
 .game-grid.chapter-2 .grid-column {
   border: solid 3px #144A74;
-  width: 132px;
-  height: 132px;
+  width: 102px;
+  height: 102px;
   display: inline;
   float: left;
   margin: auto;

@@ -123,13 +123,13 @@ $(document).ready(function() {
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
   let p3 = new Player(1,1);
-  let p4 = new Player(3,3);
+  let p4 = new Player(1,4);
   let p5 = new Player(2,2);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
   let trgt3 = new Player(2,3);
-  let trgt4 = new Player(1,1);
+  let trgt4 = new Player(4,1);
   let trgt5 = new Player(1,1);
 
   const levels = [
@@ -155,6 +155,7 @@ $(document).ready(function() {
 
   //set the dog in its square on the grid
   function setPlayer() {
+    console.log("setting player");
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
     square.appendChild(dog);
@@ -163,6 +164,7 @@ $(document).ready(function() {
 
   //set the ball in its square on the grid
   function setTarget() {
+    console.log("setting target");
     //these 3 lines don't work when you hit level 2
     // let box = document.querySelector(g1.target.loc);
     // let ball = document.querySelector(".target");
@@ -292,12 +294,16 @@ $(document).ready(function() {
    *   WIN/LOSE FUNCTIONS   *
    *************************/
 
-   function setLevel(level) {
-     g1 = new Game(levels[level][0], levels[level][1], level);
-     setPlayer();
-     setTarget();
-     renderLevelAndScore();
-   }
+  function setLevel(level) {
+    if (g1.level === 3) {
+      $(".chapter-1").toggleClass("chapter-2");
+      $(".init-hidden").show();
+    }
+    g1 = new Game(levels[level][0], levels[level][1], level);
+    setPlayer();
+    setTarget();
+    renderLevelAndScore();
+  }
 
    function levelUp() {
      setLevel(g1.level + 1);
@@ -379,7 +385,7 @@ class Game {
   }
   calcSeconds() {
     let secs;
-    if (this.level <= 3) {
+    if (this.level < 4) {
       secs = 15;
     } else {
       secs = 30;
@@ -393,14 +399,14 @@ class Game {
     return this.calcColMax();
   }
   calcRowMax() {
-    if (this.level < 6) {
+    if (this.level <= 3) {
       return 3;
     } else {
       return 4;
     }
   }
   calcColMax() {
-    if (this.level < 6) {
+    if (this.level <= 3) {
       return 3;
     } else {
       return 4;
