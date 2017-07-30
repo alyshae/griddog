@@ -6,6 +6,10 @@ nav {
   height: 70px;
 }
 
+.init-hidden {
+  display: none;
+}
+
 .modal {
   color: #144A74;
 }
@@ -194,7 +198,7 @@ nav {
 }
 
 .game-grid.chapter-2 {
-  width: 407px;
+  width: 408px;
   margin: 10%;
   /*background-color: #eceff1;*/
 }
@@ -202,8 +206,8 @@ nav {
 /* grid columns */
 .game-grid.chapter-2 .grid-column {
   border: solid 3px #144A74;
-  width: 132px;
-  height: 132px;
+  width: 102px;
+  height: 102px;
   display: inline;
   float: left;
   margin: auto;
