@@ -295,7 +295,7 @@ $(document).ready(function() {
    *************************/
 
   function setLevel(level) {
-    if (g1.level >= 3) {
+    if (g1.level === 3) {
       $(".chapter-1").toggleClass("chapter-2");
       $(".init-hidden").show();
     }
