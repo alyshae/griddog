@@ -123,7 +123,7 @@ $(document).ready(function() {
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
   let p3 = new Player(1,1);
-  let p4 = new Player(1,3);
+  let p4 = new Player(1,4);
   let p5 = new Player(2,2);
 
   let trgt1 = new Player(1,3);
@@ -296,8 +296,8 @@ $(document).ready(function() {
 
   function setLevel(level) {
     if (g1.level >= 3) {
-      $('.chapter-1').hide();
-      $('.chapter-2').show();
+      $(".chapter-1").toggleClass("chapter-2");
+      $(".init-hidden").show();
     }
     g1 = new Game(levels[level][0], levels[level][1], level);
     setPlayer();
