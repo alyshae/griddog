@@ -155,6 +155,7 @@ $(document).ready(function() {
 
   //set the dog in its square on the grid
   function setPlayer() {
+    console.log("setting player");
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
     square.appendChild(dog);
@@ -163,6 +164,7 @@ $(document).ready(function() {
 
   //set the ball in its square on the grid
   function setTarget() {
+    console.log("setting target");
     //these 3 lines don't work when you hit level 2
     // let box = document.querySelector(g1.target.loc);
     // let ball = document.querySelector(".target");
@@ -383,7 +385,7 @@ class Game {
   }
   calcSeconds() {
     let secs;
-    if (this.level <= 3) {
+    if (this.level < 4) {
       secs = 15;
     } else {
       secs = 30;
@@ -397,14 +399,14 @@ class Game {
     return this.calcColMax();
   }
   calcRowMax() {
-    if (this.level < 6) {
+    if (this.level <= 3) {
       return 3;
     } else {
       return 4;
     }
   }
   calcColMax() {
-    if (this.level < 6) {
+    if (this.level <= 3) {
       return 3;
     } else {
       return 4;

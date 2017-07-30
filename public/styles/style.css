@@ -169,15 +169,14 @@ nav {
 }
 
 
-/**********
- GAME GRID
- *********/
+/*********************
+*   GAME GRID CH-1   *
+ ********************/
 
 /* whole grid */
 .game-grid.chapter-1 {
   width: 355px;
-  margin: 10%;
-  color: #cddc39;
+  margin: 40px 0px 0px 70px;
   /*background-color: #eceff1;*/
 }
 
@@ -197,9 +196,13 @@ nav {
   margin: auto;
 }
 
+/*********************
+*   GAME GRID CH-1   *
+ ********************/
+
 .game-grid.chapter-2 {
   width: 408px;
-  margin: 10%;
+  margin: 15px 0px 0px 70px;
   /*background-color: #eceff1;*/
 }
 
