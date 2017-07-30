@@ -209,12 +209,16 @@ $(document).ready(function() {
       };
       if (count < 6) {
         $(".timer").addClass("animated swing infinite");
-      };
+      }
       //check for win or loss when timer runs out
       if (count === 0 && !checkForWin()) {
-        //if it is a loss, check to see if the user got a high score
-        $(".HS").attr("value", `${g1.score}`);
-        $(".newHSModal").modal("open");
+        if (checkForHS) {
+          //if it is a loss, check to see if the user got a high score
+          $(".HS").attr("value", `${g1.score}`);
+          $(".newHSModal").modal("open");
+        } else {
+          $(".loserModal").modal("open");
+        }
       } else if (count === 0) {
         document.getElementById("timer").innerHTML = 'TIME UP!';
         $(".timer").removeClass("animated swing infinite");
@@ -341,20 +345,14 @@ $(document).ready(function() {
     location.reload(true);
   };
 
-
-
-
-/******************/
-
   function checkForHS() {
     console.log("hit checkForHS function", topDs, g1.score);
-
     return topDs.forEach(function(el) {
       if (g1.score >= el) {
         return true;
       }
     });
-  }
+  };
 
 }); //end of doc.ready function
 
