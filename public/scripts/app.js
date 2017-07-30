@@ -135,7 +135,7 @@ $(document).ready(function() {
   let p2 = new Player(1,2);
   let p3 = new Player(1,1);
   let p4 = new Player(1,4);
-  let p5 = new Player(2,2);
+  let p5 = new Player(3,4);
   let p6 = new Player(4,3);
 
   let trgt1 = new Player(1,3);
@@ -144,6 +144,8 @@ $(document).ready(function() {
   let trgt4 = new Player(4,1);
   let trgt5 = new Player(1,1);
   let trgt6 = new Player(2,2);
+
+  const fences = [[], [], [], [], [], [2,2], [3,2]]
 
   const levels = [
     [],
@@ -188,6 +190,15 @@ $(document).ready(function() {
     document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
   }
   setTarget();
+
+  //set up obstacles on the grid
+  function setFences() {
+    let fence = fences[g1.level];
+    let rw = fence[0];
+    let cl = fence[1];
+    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence.png' class='fence'/>"
+  }
+
 
 /**************************
  *   GAME PLAY FUNCTIONS  *
@@ -332,6 +343,9 @@ $(document).ready(function() {
       $(".init-hidden").show();
     }
     g1 = new Game(levels[level][0], levels[level][1], level);
+    if (g1.level > 4) {
+      setFences();
+    }
     setPlayer();
     setTarget();
     renderLevelAndScore();
