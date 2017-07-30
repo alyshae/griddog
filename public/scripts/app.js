@@ -199,7 +199,6 @@ $(document).ready(function() {
     document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence.png' class='fence'/>"
   }
 
-
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
@@ -309,7 +308,7 @@ $(document).ready(function() {
 
     window.addEventListener('keypress', function(ele) {
       if (count > 0) {
-        if ((ele.keyCode === 119)) {
+        if (ele.keyCode === 119) {
           g1.player.moveUp();
         } else if (ele.keyCode === 115) {
           g1.player.moveDown();
@@ -325,13 +324,14 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
-          $('#levelWinModal').modal('open');
+          $("#levelWinModal").modal("open");
         }
         setPlayer();
       }
     });
   }); //end of GO-FETCH on-click function
-  $('.continue-btn').on('click', levelUp);
+  $(".continue-btn").on("click", levelUp);
+  $(".no-continue-btn").on("click", newHSModalOpen);
 
   /**************************
    *   WIN/LOSE FUNCTIONS   *
@@ -375,6 +375,22 @@ $(document).ready(function() {
       }
     });
   };
+
+  function checkUpForFence() {
+    console.log("hit funct checkUpForFence");
+    let rw = g1.player.row - 1;
+    let cl = g1.player.col;
+    let sqr = document.querySelector(`.row-${rw}.col-${cl}`).innerHTML;
+    if (sqr.hasClass("fence")) {
+      return true;
+    }
+  }
+
+  function newHSModalOpen() {
+    $(".HS").attr("value", `${g1.score}`);
+    $(".newHSModal").modal("open");
+  };
+
 
 }); //end of doc.ready function
 
