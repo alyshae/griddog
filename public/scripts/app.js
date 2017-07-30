@@ -202,24 +202,18 @@ $(document).ready(function() {
     //timer function
     function timer() {
       $(".timer").removeClass("animated tada");
-      count = count -1;
+
+      count = count - 1;
       if (count < 0) {
         clearInterval(counter);
         return;
       };
+
       if (count < 6) {
         $(".timer").addClass("animated swing infinite");
       }
       //check for win or loss when timer runs out
-      if (count === 0 && !checkForWin()) {
-        if (checkForHS) {
-          //if it is a loss, check to see if the user got a high score
-          $(".HS").attr("value", `${g1.score}`);
-          $(".newHSModal").modal("open");
-        } else {
-          $(".loserModal").modal("open");
-        }
-      } else if (count === 0) {
+      if (count === 0) {
         document.getElementById("timer").innerHTML = 'TIME UP!';
         $(".timer").removeClass("animated swing infinite");
         $(".timer").addClass("animated tada");
@@ -227,6 +221,20 @@ $(document).ready(function() {
         document.getElementById("timer").innerHTML = count + ' second';
       } else {
         document.getElementById("timer").innerHTML = count + ' seconds';
+      };
+
+      if (count === 0 && !checkForWin()) {
+        //if it is a loss, check to see if the user got a high score
+        // if (checkForHS) {
+        //   $(".HS").attr("value", `${g1.score}`);
+        //   $(".newHSModal").modal("open");
+        //   $(".loserModal").modal("hide");
+        // }
+        // $(".loserModal").modal("open");
+
+        $(".HS").attr("value", `${g1.score}`);
+        $(".newHSModal").modal("open");
+
       };
     }; //end of timer function
 
@@ -263,7 +271,7 @@ $(document).ready(function() {
             recognition.stop();
             count = 1;
             sq.removeChild(end);
-            $('.levelWinModal').modal('open');
+            $(".levelWinModal").modal("open");
           }
           setPlayer();
         });
