@@ -33,7 +33,7 @@ recognition.lang = "en-US";
 recognition.interimResults = false;
 //set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
-
+//set whether SR will continue to recognize or stop after endofspeech each time
 recognition.continuous = true;
 
 //starting the speech recognition & telling it what to do with the speech received:
@@ -48,6 +48,10 @@ let directionHTML = "";
 directions.forEach(function(ele) {
   directionHTML += "<span class='directionHTML'>" + ele + " </span>";
 });
+
+/******************************
+ *   DOCUMENT.READY Function  *
+ ******************************/
 
 $(document).ready(function() {
   //give the array of all the scores as HTML to the scores-target
@@ -144,6 +148,7 @@ $(document).ready(function() {
     [p6, trgt6]
   ];
 
+//TODO: Why does the line below work & the following line doesn't now????
   let g1 = new Game(levels[1][0], levels[1][1], 1);
   // setLevel(1);
 
@@ -168,7 +173,7 @@ $(document).ready(function() {
   //set the ball in its square on the grid
   function setTarget() {
     console.log("setting target");
-    //these 3 lines don't work when you hit level 2
+    //TODO: WHY???? these 3 lines don't work when you hit level 2
     // let box = document.querySelector(g1.target.loc);
     // let ball = document.querySelector(".target");
     // box.appendChild(ball);
@@ -182,7 +187,7 @@ $(document).ready(function() {
  *************************/
   $(".go-fetch").on("click", function() {
 
-    //////////********************************** TIMER **********************************//////////
+  //////////********************************** TIMER **********************************//////////
     //timer-related variables
     var count = g1.seconds;
     var counter=setInterval(timer, 1000);
@@ -245,9 +250,9 @@ $(document).ready(function() {
             $('.levelWinModal').modal('open');
           }
           setPlayer();
-      });
+        });
+      }
     };
-  };
 
     recognition.onspeechend = function() {
       recognition.stop();
@@ -255,7 +260,7 @@ $(document).ready(function() {
 
     recognition.onspeechstart = function() {
       recognition.start();
-    }
+    };
 
     recognition.onnomatch = function(event) {
       diagnostic.textContent = "GridDog doesn't recognize that command."
@@ -263,13 +268,12 @@ $(document).ready(function() {
 
     recognition.onerror = function(event) {
       diagnostic.textContent = "Error occured in recognition " + event.error;
-    }
+    };
 
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
     window.addEventListener('keypress', function(ele) {
       if (count > 0) {
-
         if ((ele.keyCode === 119)) {
           g1.player.moveUp();
         } else if (ele.keyCode === 115) {
@@ -293,6 +297,7 @@ $(document).ready(function() {
     });
   }); //end of GO-FETCH on-click function
   $('.continue-btn').on('click', levelUp);
+
   /**************************
    *   WIN/LOSE FUNCTIONS   *
    *************************/
@@ -308,21 +313,21 @@ $(document).ready(function() {
     renderLevelAndScore();
   }
 
-   function levelUp() {
-     setLevel(g1.level + 1);
-     diagnostic.textContent = "";
-   }
+  function levelUp() {
+    setLevel(g1.level + 1);
+    diagnostic.textContent = "";
+  };
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  }
+  };
 
   function reset() {
     location.reload(true);
-  }
+  };
 }); //end of doc.ready function
 
 /***************
@@ -367,9 +372,7 @@ class Player {
   }
 } //end of PLAYER class
 
-
-
-//   GAME CLASS, CONSTRUCTOR & METHODS:
+//GAME CLASS, CONSTRUCTOR & METHODS:
 class Game {
   constructor(player, target, level) {
     this.player = player;
@@ -416,7 +419,6 @@ class Game {
     }
   }
 } //end of GAME class
-
 
 /* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
 /* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
