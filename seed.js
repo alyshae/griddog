@@ -16,8 +16,8 @@ var scoreList = [
   }
 ];
 
-Score.remove({}, function(err, scores) {
-  Score.create(scoreList, function(err, score) {
+Score.remove({}, function() {
+  Score.create(scoreList, function(err) {
     if (err) {
       return console.log("error seeding: ", err);
     }

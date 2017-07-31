@@ -1,7 +1,7 @@
 //////****     mongoose docs imply use of "var" rather than "let"     ****//////
 
-var mongoose = require("mongoose");
-var promise = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/griddog", {
+let mongoose = require("mongoose");
+let promise = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/griddog", {
   useMongoClient: true
 });
 

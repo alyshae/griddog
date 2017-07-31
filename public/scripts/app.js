@@ -1,7 +1,7 @@
 /******************************
  *   CLIENT SIDE JAVASCRIPT   *
  ******************************/
-console.log("Sanity Check!")
+console.log("Sanity Check!");
 let $scoresList;
 let allScores = [];
 let topDs = [];
@@ -16,7 +16,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 let directions = ["up", "down", "left", "right"];
 
 //set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
-let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
+let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;";
 
 //define a speech recogntion instance to control the recognition for the app
 let recognition = new SpeechRecognition();
@@ -41,8 +41,6 @@ recognition.continuous = true;
 
 //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
 let diagnostic = document.querySelector(".output");
-//grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
-let bg = document.querySelector(".player")
 //can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
 let directionHTML = "";
 //populate the directionHTML variable with the list of words
@@ -66,18 +64,18 @@ $(document).ready(function() {
 
   //ajax INDEX 'GET' request
   $.ajax({
-    method: 'GET',
-    url: '/scores',
+    method: "GET",
+    url: "/scores",
     success: indexSuccess,
     error: indexError
   });
 
   //ajax NEW 'POST' request
-  $('#newHSForm').on('submit', function(ele) {
+  $(".newHSForm").on("submit", function(ele) {
     ele.preventDefault();
     $.ajax({
-      method: 'POST',
-      url: '/scores',
+      method: "POST",
+      url: "/scores",
       data: $(this).serialize(),
       success: newHSSuccess,
       error: newHSError
@@ -114,12 +112,12 @@ $(document).ready(function() {
 
   //error with GET all scores
   function indexError() {
-    $scoresList.text("Failed to load TOP DOGS.")
+    $scoresList.text("Failed to load TOP DOGS.");
   }
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    console.log('reached new high score success function' + jsonData)
+    console.log("reached new high score success function" + jsonData);
     allScores.push(jsonData);
     console.log(allScores);
     $scoresList.empty();
@@ -128,65 +126,45 @@ $(document).ready(function() {
 
   //error with POST new high score
   function newHSError() {
-    $scoresList.text("Error adding new high score")
-    console.log('error posting new high score');
+    $scoresList.text("Error adding new high score");
+    console.log("error posting new high score");
   }
 
 /**************************
  *   PLAYER/GAME SET-UP   *
  *************************/
 
+  $(".agree-btn").on("click", reset);
 
-  let p1 = new Player(3,1);
-  let p2 = new Player(1,2);
-  let p3 = new Player(1,1);
-  let p4 = new Player(1,4);
-  let p5 = new Player(3,4);
-  let p6 = new Player(4,3);
-  let p7 = new Player(2,2);
-  let p8 = new Player(2,1);
-  let p9 = new Player(4,1);
-  let p10 = new Player(4,4);
+  let p1 = new Player(3,1), p2 = new Player(1,2), p3 = new Player(1,1);
+  let p4 = new Player(1,4), p5 = new Player(3,4), p6 = new Player(4,3);
+  let p7 = new Player(2,2), p8 = new Player(2,1), p9 = new Player(4,1), p10 = new Player(4,4);
 
-  let trgt1 = new Player(1,3);
-  let trgt2 = new Player(3,3);
-  let trgt3 = new Player(2,3);
-  let trgt4 = new Player(4,1);
-  let trgt5 = new Player(1,1);
-  let trgt6 = new Player(2,2);
-  let trgt7 = new Player(3,4);
-  let trgt8 = new Player(4,4);
-  let trgt9 = new Player(1,3);
-  let trgt10 = new Player(1,2);
+  let trgt1 = new Player(1,3), trgt2 = new Player(3,3), trgt3 = new Player(2,3);
+  let trgt4 = new Player(4,1), trgt5 = new Player(1,1), trgt6 = new Player(2,2);
+  let trgt7 = new Player(3,4), trgt8 = new Player(4,4), trgt9 = new Player(1,3), trgt10 = new Player(1,2);
 
   const fences = [[], [], [], [], [], [2,2], [3,2], [2,3], [3,3], [3,2], [3,3]];
 
-  const levels = [
+  const levels =
+  [
     [],
-    [p1, trgt1],
-    [p2, trgt2],
-    [p3, trgt3],
-    [p4, trgt4],
-    [p5, trgt5],
-    [p6, trgt6],
-    [p7, trgt7],
-    [p8, trgt8],
-    [p9, trgt9],
-    [p10,trgt10],
-    []
+    [p1, trgt1],[p2, trgt2],
+    [p3, trgt3],[p4, trgt4],
+    [p5, trgt5],[p6, trgt6],
+    [p7, trgt7],[p8, trgt8],
+    [p9, trgt9],[p10,trgt10],
   ];
 
 //TODO: Why does the line below work & the following line doesn't now????
   let g1 = new Game(levels[1][0], levels[1][1], 1);
   // setLevel(1);
 
-  $(".agree-btn").on("click", reset);
-
   //Level & Score appear on page:
   function renderLevelAndScore() {
-    document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
-    document.querySelector('.level').innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
-  };
+    document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
+    document.querySelector(".level").innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
+  }
   renderLevelAndScore();
 
   //set the dog in its square on the grid
@@ -206,7 +184,7 @@ $(document).ready(function() {
     // let ball = document.querySelector(".target");
     // box.appendChild(ball);
 
-    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
+    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>";
   }
   setTarget();
 
@@ -215,7 +193,7 @@ $(document).ready(function() {
     let fence = fences[g1.level];
     let rw = fence[0];
     let cl = fence[1];
-    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>"
+    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>";
   }
 
 /**************************
@@ -225,8 +203,8 @@ $(document).ready(function() {
 
   //////////********************************** TIMER **********************************//////////
     //timer-related variables
-    var count = g1.seconds;
-    var counter=setInterval(timer, 1000);
+    let count = g1.seconds;
+    let counter=setInterval(timer, 1000);
 
     //timer function
     function timer() {
@@ -236,21 +214,21 @@ $(document).ready(function() {
       if (count < 0) {
         clearInterval(counter);
         return;
-      };
+      }
 
       if (count < 6) {
         $(".timer").addClass("animated swing infinite");
       }
       //check for win or loss when timer runs out
       if (count === 0) {
-        document.getElementById("timer").innerHTML = 'TIME UP!';
+        document.querySelector(".timer").innerHTML = "TIME UP!";
         $(".timer").removeClass("animated swing infinite");
         $(".timer").addClass("animated tada");
       } else if (count === 1) {
-        document.getElementById("timer").innerHTML = count + ' second';
+        document.querySelector(".timer").innerHTML = count + " second";
       } else {
-        document.getElementById("timer").innerHTML = count + ' seconds';
-      };
+        document.querySelector(".timer").innerHTML = count + " seconds";
+      }
 
       if (count === 0 && !checkForWin()) {
         //if it is a loss, check to see if the user got a high score
@@ -259,12 +237,12 @@ $(document).ready(function() {
         } else {
           newHSModalOpen();
         }
-      };
-    }; //end of timer function
+      }
+    } //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
     recognition.start();
-    console.log("Ready to receive command.")
+    console.log("Ready to receive command.");
 
     recognition.onresult = function(event) {
       if (count > 0) {
@@ -275,7 +253,7 @@ $(document).ready(function() {
         //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
         diagnostic.textContent = direction;
 
-        let commands = direction.split(" ")
+        let commands = direction.split(" ");
         commands.forEach(function(ele) {
           if (ele === "up") {
             g1.player.moveUp();
@@ -287,7 +265,7 @@ $(document).ready(function() {
             g1.player.moveDown();
           }
           //see how sure/confident the web speech API is in the word(s) it has identified
-          console.log('Confidence: ' + event.results[0][0].confidence);
+          console.log("Confidence: " + event.results[0][0].confidence);
           //if WIN:
           if (checkForWin()) {
             let end = document.querySelector(".target");
@@ -310,8 +288,8 @@ $(document).ready(function() {
       recognition.start();
     };
 
-    recognition.onnomatch = function(event) {
-      diagnostic.textContent = "GridDog doesn't recognize that command."
+    recognition.onnomatch = function() {
+      diagnostic.textContent = "GridDog doesn't recognize that command.";
     };
 
     recognition.onerror = function(event) {
@@ -320,7 +298,7 @@ $(document).ready(function() {
 
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
-    window.addEventListener('keypress', function(ele) {
+    window.addEventListener("keypress", function(ele) {
       if (count > 0) {
         if (ele.keyCode === 119) {
           g1.player.moveUp();
@@ -338,7 +316,7 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
-          $("#levelWinModal").modal("open");
+          $(".levelWinModal").modal("open");
         }
         setPlayer();
       }
@@ -370,23 +348,23 @@ $(document).ready(function() {
       setLevel(g1.level + 1);
       diagnostic.textContent = "";
     } else {
-      document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
+      document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
       $(".HS").attr("readonly", "readonly");
       $(".newHSModal").modal("open");
     }
-  };
+  }
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  };
+  }
 
   function reset() {
     location.reload(true);
-  };
+  }
 
   function checkForHS() {
     console.log("hit checkForHS function", topDs, g1.score);
@@ -398,14 +376,13 @@ $(document).ready(function() {
     });
     console.log(result.includes("yes"));
     return result.includes("yes");
-  };
+  }
 
   function newHSModalOpen() {
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
-  };
-
+  }
 }); //end of doc.ready function
 
 /***************
@@ -497,18 +474,3 @@ class Game {
     }
   }
 } //end of GAME class
-
-
-
-
-/* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
-/* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
-
-/* TODO: IMPORTANT  add ids to each game-grid square with the names currently in the boxes (A1-C3) */
-/* TODO: "P" or some symbol representing Player rendering on game-grid in bottom-left corner */
-/* TODO: "T" or some symbol representing Target rendering in random square of game-grid other than
-    bottom-left corner */
-/* QUESTION: should the "P" & "T" appear on doc.ready or when go-fetch is clicked? */
-
-/* TODO: initialize score variable to zero */
-/* TODO: connect value of the score variable to be displayed as "SCORE: " in navbar */
