@@ -139,7 +139,7 @@ nav {
 .score-name {
   font-weight: normal;
   font-size: 17px;
-  padding: 10px 3px 3px 0px;
+  padding: 10px 3px 3px;
 }
 
 .score-num {
@@ -149,7 +149,7 @@ nav {
 }
 
 .top-dogs-header {
-  padding: 12px 0px 5px 8px;
+  padding: 12px 0 5px 8px;
 }
 
 .instructions-header {
@@ -159,15 +159,13 @@ nav {
 
 .instructions {
   font-size: 16px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
 }
 
 .commands {
   font-weight: bold;
   font-size: 21px;
   color: #5CBAAD;
-  margin: 12px 0px 12px 0px;
+  margin: 12px 0 12px 0;
 }
 
 .instructions-box {
@@ -188,7 +186,7 @@ nav {
 /* whole grid */
 .game-grid.chapter-1 {
   width: 355px;
-  margin: 40px 0px 0px 70px;
+  margin: 40px 0 0 70px;
 }
 
 /* grid columns */
@@ -214,7 +212,7 @@ nav {
 /* whole grid */
 .game-grid.chapter-2 {
   width: 408px;
-  margin: 15px 0px 0px 70px;
+  margin: 15px 0 0 70px;
 }
 
 /* grid columns */
