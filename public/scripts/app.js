@@ -209,7 +209,7 @@ $(document).ready(function() {
     let fence = fences[g1.level];
     let rw = fence[0];
     let cl = fence[1];
-    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence.png' class='fence'/>"
+    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>"
   }
 
 /**************************
