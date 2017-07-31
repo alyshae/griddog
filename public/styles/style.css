@@ -114,12 +114,10 @@ nav {
 }
 
 .timer {
-  background-color: #FF5252;
-  color: white;
-  box-shadow: 2px 2px 5px #888888;
+  color: #FF5252;
+  font-size: 45px;
   width: 60%;
   margin-left: 20%;
-  border-radius: 3px;
 }
 
 .top-dogs-header {
