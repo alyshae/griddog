@@ -7,7 +7,8 @@
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="styles/animate.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link type="text/css" rel="stylesheet" href="styles/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="styles/materialize.css"
+          media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="styles/style.css"/>
   </head>
   <body>
@@ -16,11 +17,14 @@
         <img src="images/logo-3.png" class="logo"/>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="score"></li>
-          <li><a class="waves-effect waves-light btn modal-trigger red accent-2 new-game" href="#newGameModal">New Game</a></li>
+          <li>
+            <a class="waves-effect waves-light btn modal-trigger red accent-2 new-game"
+               href="#newGameModal">New Game
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
-
     <!-- Loser Modal -->
     <div class="modal loserModal">
       <div class="modal-content">
@@ -28,20 +32,21 @@
           <h4>YOU MISSED THE BALL THIS TIME!</h4>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">CLOSE
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button"
+            name="action">CLOSE
           </button>
         </div>
       </div>
     </div> <!-- End of Loser Modal -->
-
     <!-- New High Score Modal -->
     <div class="modal newHSModal">
       <div class="modal-content">
         <form class="col s12 newHSForm">
-          <h4>CONGRATS, you're a TOP DOG!</h4>
-          <p>
-            Enter your name for the TOP DOGS list!
-          </p>
+          <div class="row">
+            <h4>CONGRATS, you're a TOP DOG!</h4>
+            <p>Enter your name for the TOP DOGS list!</p>
+          </div>
           <div class="row">
             <div class="input-field col s6" >
               <input placeholder="max 10 characters" class="name" type="text" name="name">
@@ -55,12 +60,14 @@
             </div>
           </div>
           <div class="row">
-            <input class="right btn waves-effect waves-light modal-action modal-close" type="submit" value="Submit" />
+            <input
+              class="right btn waves-effect waves-light modal-action modal-close"
+              type="submit"
+              value="Submit" />
           </div>
         </form>
       </div>
     </div> <!-- End of New High Score Modal -->
-
     <!-- Level Win Modal -->
     <div class="modal levelWinModal">
       <div class="modal-content">
@@ -69,14 +76,18 @@
           <p>Would you like to continue to the next level (fetch again)?</p>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close continue-btn" type="button" name="action">YES
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close continue-btn"
+            type="button"
+            name="action">YES
           </button>
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 no-continue-btn" type="button" name="action">NO
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 no-continue-btn" type="button"
+            name="action">NO
           </button>
         </div>
       </div>
     </div> <!-- End of Level Win Modal -->
-
     <!-- New Game Modal -->
     <div class="modal newGameModal">
       <div class="modal-content">
@@ -85,22 +96,31 @@
           <p>Are you sure you want to start over?</p>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close agree-btn" type="button" name="action">YES
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close agree-btn"
+            type="button"
+            name="action">YES
           </button>
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">NO
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button"
+            name="action">NO
           </button>
         </div>
       </div>
     </div> <!-- End of New Game Modal -->
-
+    <!-- Container-A -->
     <div class="container-A">
+      <!-- Container-B -->
       <div class="container-B flex-item vert-2">
+        <!-- Game Grid Box -->
         <div class="game-grid-box flex-item flex-1">
           <div class="game-grid chapter-1">
             <div class="row grid-row chapter-1">
               <div class="column grid-column row-1 col-1"></div>
               <div class="column grid-column row-1 col-2"></div>
-              <div class="column grid-column row-1 col-3"><img src='images/ball-2.png' class='ball target'/></div>
+              <div class="column grid-column row-1 col-3">
+                <img src='images/ball-2.png' class='ball target'/>
+              </div>
               <div class="chapter-2 init-hidden">
                 <div class="column grid-column row-1 col-4"></div>
               </div>
@@ -114,7 +134,9 @@
               </div>
             </div>
             <div class="row grid-row chapter-1">
-              <div class="column grid-column row-3 col-1"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
+              <div class="column grid-column row-3 col-1">
+                <img src="images/grid-dog-head.png" class="dog-head player"/>
+              </div>
               <div class="column grid-column row-3 col-2"></div>
               <div class="column grid-column row-3 col-3"></div>
               <div class="chapter-2 init-hidden">
@@ -130,8 +152,7 @@
               </div>
             </div>
           </div>
-        </div> <!-- End of game-grid-box -->
-
+        </div> <!-- End of Game Grid Box -->
         <!-- Game Info Box -->
         <div class="game-info-box flex-item flex-1">
           <div class="game-info-text level"></div>
@@ -139,21 +160,24 @@
           <div class="command-btn-target"></div>
           <h4 class="game-info-text command">COMMAND: <h4 class="output"></h4></h4>
           <h4 class="game-info-text timer"></h4>
-        </div> <!-- End of game-info-box -->
+        </div> <!-- End of Game Info Box -->
       </div> <!-- End of container-B -->
-
+      <!-- Container-C -->
       <div class="container-C flex-item vert-1">
         <div class="top-dogs-box flex-item flex-1">
-          <br />
           <h5 class="top-dogs-header">TOP DOGS</h5>
           <table class="scores-target"></table>
         </div>
         <div class="instructions-box flex-item flex-2">
           <br />
-          <h5 class="instructions-header">INSTRUCTIONS: </h5>
+          <h5 class="instructions-header">INSTRUCTIONS</h5>
           <div class="container-D">
             <h6 class="instructions">
-              Make sure you have a quiet environment. Click "GO FETCH" to begin the level.<br /> Speak clearly using the commands <p class="commands"> -- UP -- DOWN -- LEFT -- RIGHT --</p> to guide Elmer the GridDog through the grid to his ball before the time runs out.<br /> If there are fences you'll have to guide Elmer around them.
+              Make sure you have a quiet environment. Click "GO FETCH" to begin the level.<br />
+              Speak clearly using the commands
+              <p class="commands"> -- UP -- DOWN -- LEFT -- RIGHT --</p>
+              to guide Elmer the GridDog through the grid to his ball before the time runs out.<br />
+              If there are fences you'll have to guide Elmer around them.
             </h6>
           </div>
         </div>
@@ -162,7 +186,6 @@
         </div>
       </div> <!-- End of container-C -->
     </div> <!-- End of container-A -->
-
     <!-- VENDOR SCRIPTS -->
     <script src="scripts/jquery.js"></script>
     <script type="text/javascript" src="scripts/materialize.js"></script>
