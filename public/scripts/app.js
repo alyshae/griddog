@@ -71,7 +71,7 @@ $(document).ready(function() {
   });
 
   //ajax NEW 'POST' request
-  $("#newHSForm").on("submit", function(ele) {
+  $(".newHSForm").on("submit", function(ele) {
     ele.preventDefault();
     $.ajax({
       method: "POST",
@@ -134,51 +134,31 @@ $(document).ready(function() {
  *   PLAYER/GAME SET-UP   *
  *************************/
 
+  $(".agree-btn").on("click", reset);
 
-  let p1 = new Player(3,1);
-  let p2 = new Player(1,2);
-  let p3 = new Player(1,1);
-  let p4 = new Player(1,4);
-  let p5 = new Player(3,4);
-  let p6 = new Player(4,3);
-  let p7 = new Player(2,2);
-  let p8 = new Player(2,1);
-  let p9 = new Player(4,1);
-  let p10 = new Player(4,4);
+  let p1 = new Player(3,1), p2 = new Player(1,2), p3 = new Player(1,1);
+  let p4 = new Player(1,4), p5 = new Player(3,4), p6 = new Player(4,3);
+  let p7 = new Player(2,2), p8 = new Player(2,1), p9 = new Player(4,1), p10 = new Player(4,4);
 
-  let trgt1 = new Player(1,3);
-  let trgt2 = new Player(3,3);
-  let trgt3 = new Player(2,3);
-  let trgt4 = new Player(4,1);
-  let trgt5 = new Player(1,1);
-  let trgt6 = new Player(2,2);
-  let trgt7 = new Player(3,4);
-  let trgt8 = new Player(4,4);
-  let trgt9 = new Player(1,3);
-  let trgt10 = new Player(1,2);
+  let trgt1 = new Player(1,3), trgt2 = new Player(3,3), trgt3 = new Player(2,3);
+  let trgt4 = new Player(4,1), trgt5 = new Player(1,1), trgt6 = new Player(2,2);
+  let trgt7 = new Player(3,4), trgt8 = new Player(4,4), trgt9 = new Player(1,3), trgt10 = new Player(1,2);
 
   const fences = [[], [], [], [], [], [2,2], [3,2], [2,3], [3,3], [3,2], [3,3]];
 
-  const levels = [
+  const levels =
+  [
     [],
-    [p1, trgt1],
-    [p2, trgt2],
-    [p3, trgt3],
-    [p4, trgt4],
-    [p5, trgt5],
-    [p6, trgt6],
-    [p7, trgt7],
-    [p8, trgt8],
-    [p9, trgt9],
-    [p10,trgt10],
-    []
+    [p1, trgt1],[p2, trgt2],
+    [p3, trgt3],[p4, trgt4],
+    [p5, trgt5],[p6, trgt6],
+    [p7, trgt7],[p8, trgt8],
+    [p9, trgt9],[p10,trgt10],
   ];
 
 //TODO: Why does the line below work & the following line doesn't now????
   let g1 = new Game(levels[1][0], levels[1][1], 1);
   // setLevel(1);
-
-  $(".agree-btn").on("click", reset);
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
@@ -223,8 +203,8 @@ $(document).ready(function() {
 
   //////////********************************** TIMER **********************************//////////
     //timer-related variables
-    var count = g1.seconds;
-    var counter=setInterval(timer, 1000);
+    let count = g1.seconds;
+    let counter=setInterval(timer, 1000);
 
     //timer function
     function timer() {
@@ -241,13 +221,13 @@ $(document).ready(function() {
       }
       //check for win or loss when timer runs out
       if (count === 0) {
-        document.getElementById("timer").innerHTML = "TIME UP!";
+        document.querySelector(".timer").innerHTML = "TIME UP!";
         $(".timer").removeClass("animated swing infinite");
         $(".timer").addClass("animated tada");
       } else if (count === 1) {
-        document.getElementById("timer").innerHTML = count + " second";
+        document.querySelector(".timer").innerHTML = count + " second";
       } else {
-        document.getElementById("timer").innerHTML = count + " seconds";
+        document.querySelector(".timer").innerHTML = count + " seconds";
       }
 
       if (count === 0 && !checkForWin()) {
@@ -336,7 +316,7 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
-          $("#levelWinModal").modal("open");
+          $(".levelWinModal").modal("open");
         }
         setPlayer();
       }
