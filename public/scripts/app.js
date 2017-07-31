@@ -137,6 +137,10 @@ $(document).ready(function() {
   let p4 = new Player(1,4);
   let p5 = new Player(3,4);
   let p6 = new Player(4,3);
+  let p7 = new Player(2,2);
+  let p8 = new Player(2,1);
+  let p9 = new Player(4,1);
+  let p10 = new Player(4,4);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
@@ -144,8 +148,12 @@ $(document).ready(function() {
   let trgt4 = new Player(4,1);
   let trgt5 = new Player(1,1);
   let trgt6 = new Player(2,2);
+  let trgt7 = new Player(3,4);
+  let trgt8 = new Player(4,4);
+  let trgt9 = new Player(1,3);
+  let trgt10 = new Player(1,2);
 
-  const fences = [[], [], [], [], [], [2,2], [3,2]]
+  const fences = [[], [], [], [], [], [2,2], [3,2], [2,3], [3,3], [3,2], [3,3]];
 
   const levels = [
     [],
