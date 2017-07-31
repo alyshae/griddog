@@ -158,10 +158,18 @@ nav {
   font-size: 30px;
 }
 
+.instructions {
+  font-size: 14px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
 .commands {
   font-weight: bold;
   font-size: 21px;
   color: #5CBAAD;
+  padding-bottom: 3px;
+  margin: 0px;
 }
 
 .instructions-box {
