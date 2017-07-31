@@ -41,8 +41,6 @@ recognition.continuous = true;
 
 //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
 let diagnostic = document.querySelector(".output");
-//grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
-let bg = document.querySelector(".player");
 //can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
 let directionHTML = "";
 //populate the directionHTML variable with the list of words
@@ -66,18 +64,18 @@ $(document).ready(function() {
 
   //ajax INDEX 'GET' request
   $.ajax({
-    method: 'GET',
-    url: '/scores',
+    method: "GET",
+    url: "/scores",
     success: indexSuccess,
     error: indexError
   });
 
   //ajax NEW 'POST' request
-  $('#newHSForm').on('submit', function(ele) {
+  $("#newHSForm").on("submit", function(ele) {
     ele.preventDefault();
     $.ajax({
-      method: 'POST',
-      url: '/scores',
+      method: "POST",
+      url: "/scores",
       data: $(this).serialize(),
       success: newHSSuccess,
       error: newHSError
@@ -119,7 +117,7 @@ $(document).ready(function() {
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    console.log('reached new high score success function' + jsonData);
+    console.log("reached new high score success function" + jsonData);
     allScores.push(jsonData);
     console.log(allScores);
     $scoresList.empty();
@@ -129,7 +127,7 @@ $(document).ready(function() {
   //error with POST new high score
   function newHSError() {
     $scoresList.text("Error adding new high score");
-    console.log('error posting new high score');
+    console.log("error posting new high score");
   }
 
 /**************************
@@ -184,9 +182,9 @@ $(document).ready(function() {
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
-    document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
-    document.querySelector('.level').innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
-  };
+    document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
+    document.querySelector(".level").innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
+  }
   renderLevelAndScore();
 
   //set the dog in its square on the grid
@@ -243,13 +241,13 @@ $(document).ready(function() {
       }
       //check for win or loss when timer runs out
       if (count === 0) {
-        document.getElementById("timer").innerHTML = 'TIME UP!';
+        document.getElementById("timer").innerHTML = "TIME UP!";
         $(".timer").removeClass("animated swing infinite");
         $(".timer").addClass("animated tada");
       } else if (count === 1) {
-        document.getElementById("timer").innerHTML = count + ' second';
+        document.getElementById("timer").innerHTML = count + " second";
       } else {
-        document.getElementById("timer").innerHTML = count + ' seconds';
+        document.getElementById("timer").innerHTML = count + " seconds";
       }
 
       if (count === 0 && !checkForWin()) {
@@ -260,7 +258,7 @@ $(document).ready(function() {
           newHSModalOpen();
         }
       }
-    }; //end of timer function
+    } //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
     recognition.start();
@@ -275,7 +273,7 @@ $(document).ready(function() {
         //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
         diagnostic.textContent = direction;
 
-        let commands = direction.split(" ")
+        let commands = direction.split(" ");
         commands.forEach(function(ele) {
           if (ele === "up") {
             g1.player.moveUp();
@@ -287,7 +285,7 @@ $(document).ready(function() {
             g1.player.moveDown();
           }
           //see how sure/confident the web speech API is in the word(s) it has identified
-          console.log('Confidence: ' + event.results[0][0].confidence);
+          console.log("Confidence: " + event.results[0][0].confidence);
           //if WIN:
           if (checkForWin()) {
             let end = document.querySelector(".target");
@@ -310,8 +308,8 @@ $(document).ready(function() {
       recognition.start();
     };
 
-    recognition.onnomatch = function(event) {
-      diagnostic.textContent = "GridDog doesn't recognize that command."
+    recognition.onnomatch = function() {
+      diagnostic.textContent = "GridDog doesn't recognize that command.";
     };
 
     recognition.onerror = function(event) {
@@ -320,7 +318,7 @@ $(document).ready(function() {
 
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
-    window.addEventListener('keypress', function(ele) {
+    window.addEventListener("keypress", function(ele) {
       if (count > 0) {
         if (ele.keyCode === 119) {
           g1.player.moveUp();
@@ -370,23 +368,23 @@ $(document).ready(function() {
       setLevel(g1.level + 1);
       diagnostic.textContent = "";
     } else {
-      document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
+      document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
       $(".HS").attr("readonly", "readonly");
       $(".newHSModal").modal("open");
     }
-  };
+  }
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  };
+  }
 
   function reset() {
     location.reload(true);
-  };
+  }
 
   function checkForHS() {
     console.log("hit checkForHS function", topDs, g1.score);
@@ -398,14 +396,13 @@ $(document).ready(function() {
     });
     console.log(result.includes("yes"));
     return result.includes("yes");
-  };
+  }
 
   function newHSModalOpen() {
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
-  };
-
+  }
 }); //end of doc.ready function
 
 /***************
@@ -497,18 +494,3 @@ class Game {
     }
   }
 } //end of GAME class
-
-
-
-
-/* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */
-/* TODO: add some more basic styling to instructions-box (padding, justify <p>) */
-
-/* TODO: IMPORTANT  add ids to each game-grid square with the names currently in the boxes (A1-C3) */
-/* TODO: "P" or some symbol representing Player rendering on game-grid in bottom-left corner */
-/* TODO: "T" or some symbol representing Target rendering in random square of game-grid other than
-    bottom-left corner */
-/* QUESTION: should the "P" & "T" appear on doc.ready or when go-fetch is clicked? */
-
-/* TODO: initialize score variable to zero */
-/* TODO: connect value of the score variable to be displayed as "SCORE: " in navbar */
