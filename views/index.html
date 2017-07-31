@@ -2,13 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
     <title>GridDog</title>
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="styles/animate.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link type="text/css" rel="stylesheet" href="styles/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+    <link rel="stylesheet"
+          href="styles/animate.css" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css"
+          rel="stylesheet"
+          href="styles/materialize.css"
+          media="screen,projection"/>
+    <link type="text/css"
+          rel="stylesheet" href="styles/style.css"/>
   </head>
   <body>
     <nav>
@@ -16,7 +23,11 @@
         <img src="images/logo-3.png" class="logo"/>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="score"></li>
-          <li><a class="waves-effect waves-light btn modal-trigger red accent-2 new-game" href="#newGameModal">New Game</a></li>
+          <li>
+            <a class="waves-effect waves-light btn modal-trigger red accent-2 new-game"
+               href="#newGameModal">New Game
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -28,7 +39,9 @@
           <h4>YOU MISSED THE BALL THIS TIME!</h4>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">CLOSE
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button"
+            name="action">CLOSE
           </button>
         </div>
       </div>
@@ -55,7 +68,10 @@
             </div>
           </div>
           <div class="row">
-            <input class="right btn waves-effect waves-light modal-action modal-close" type="submit" value="Submit" />
+            <input
+              class="right btn waves-effect waves-light modal-action modal-close"
+              type="submit"
+              value="Submit" />
           </div>
         </form>
       </div>
@@ -69,9 +85,14 @@
           <p>Would you like to continue to the next level (fetch again)?</p>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close continue-btn" type="button" name="action">YES
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close continue-btn"
+            type="button"
+            name="action">YES
           </button>
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 no-continue-btn" type="button" name="action">NO
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 no-continue-btn" type="button"
+            name="action">NO
           </button>
         </div>
       </div>
@@ -85,9 +106,14 @@
           <p>Are you sure you want to start over?</p>
         </div>
         <div class="row">
-          <button class="right btn waves-effect waves-light modal-action modal-close agree-btn" type="button" name="action">YES
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close agree-btn"
+            type="button"
+            name="action">YES
           </button>
-          <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">NO
+          <button
+            class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button"
+            name="action">NO
           </button>
         </div>
       </div>
@@ -100,7 +126,9 @@
             <div class="row grid-row chapter-1">
               <div class="column grid-column row-1 col-1"></div>
               <div class="column grid-column row-1 col-2"></div>
-              <div class="column grid-column row-1 col-3"><img src='images/ball-2.png' class='ball target'/></div>
+              <div class="column grid-column row-1 col-3">
+                <img src='images/ball-2.png' class='ball target'/>
+              </div>
               <div class="chapter-2 init-hidden">
                 <div class="column grid-column row-1 col-4"></div>
               </div>
@@ -114,7 +142,9 @@
               </div>
             </div>
             <div class="row grid-row chapter-1">
-              <div class="column grid-column row-3 col-1"><img src="images/grid-dog-head.png" class="dog-head player"/></div>
+              <div class="column grid-column row-3 col-1">
+                <img src="images/grid-dog-head.png" class="dog-head player"/>
+              </div>
               <div class="column grid-column row-3 col-2"></div>
               <div class="column grid-column row-3 col-3"></div>
               <div class="chapter-2 init-hidden">
@@ -144,7 +174,6 @@
 
       <div class="container-C flex-item vert-1">
         <div class="top-dogs-box flex-item flex-1">
-          <br />
           <h5 class="top-dogs-header">TOP DOGS</h5>
           <table class="scores-target"></table>
         </div>

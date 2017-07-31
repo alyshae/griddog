@@ -121,8 +121,9 @@ nav {
 
 .top-dogs-header {
   text-align: left;
-  margin: 20px 0 0 17px;
+  margin: 38px 0 0 17px;
   font-size: 30px;
+  padding: 12px 0 5px 8px;
 }
 
 .top-dogs-box {
@@ -146,10 +147,6 @@ nav {
   font-weight: normal;
   font-size: 17px;
   padding: 10px 3px 3px 10px;
-}
-
-.top-dogs-header {
-  padding: 12px 0 5px 8px;
 }
 
 .instructions-header {
