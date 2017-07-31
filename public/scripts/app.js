@@ -378,6 +378,7 @@ $(document).ready(function() {
 
   function newHSModalOpen() {
     $(".HS").attr("value", `${g1.score}`);
+    $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
   };
 
