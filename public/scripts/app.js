@@ -162,7 +162,11 @@ $(document).ready(function() {
     [p3, trgt3],
     [p4, trgt4],
     [p5, trgt5],
-    [p6, trgt6]
+    [p6, trgt6],
+    [p7, trgt7],
+    [p8, trgt8],
+    [p9, trgt9],
+    [p10,trgt10]
   ];
 
 //TODO: Why does the line below work & the following line doesn't now????
