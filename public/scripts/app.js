@@ -235,16 +235,11 @@ $(document).ready(function() {
 
       if (count === 0 && !checkForWin()) {
         //if it is a loss, check to see if the user got a high score
-        // if (checkForHS) {
-        //   $(".HS").attr("value", `${g1.score}`);
-        //   $(".newHSModal").modal("open");
-        //   $(".loserModal").modal("hide");
-        // }
-        // $(".loserModal").modal("open");
-
-        $(".HS").attr("value", `${g1.score}`);
-        $(".newHSModal").modal("open");
-
+        if (!checkForHS()) {
+          $(".loserModal").modal("open");
+        } else {
+          newHSModalOpen();
+        }
       };
     }; //end of timer function
 
@@ -369,28 +364,22 @@ $(document).ready(function() {
 
   function checkForHS() {
     console.log("hit checkForHS function", topDs, g1.score);
-    return topDs.forEach(function(el) {
+    let result = [];
+    topDs.forEach(function(el) {
       if (g1.score >= el) {
-        return true;
+        result.push("yes");
+      } else {
+        result.push("no");
       }
     });
+    console.log(result.includes("yes"));
+    return result.includes("yes");
   };
-
-  function checkUpForFence() {
-    console.log("hit funct checkUpForFence");
-    let rw = g1.player.row - 1;
-    let cl = g1.player.col;
-    let sqr = document.querySelector(`.row-${rw}.col-${cl}`).innerHTML;
-    if (sqr.hasClass("fence")) {
-      return true;
-    }
-  }
 
   function newHSModalOpen() {
     $(".HS").attr("value", `${g1.score}`);
     $(".newHSModal").modal("open");
   };
-
 
 }); //end of doc.ready function
 
