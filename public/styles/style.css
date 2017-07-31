@@ -114,12 +114,10 @@ nav {
 }
 
 .timer {
-  background-color: #FF5252;
-  color: white;
-  box-shadow: 2px 2px 5px #888888;
+  color: #FF5252;
+  font-size: 45px;
   width: 60%;
   margin-left: 20%;
-  border-radius: 3px;
 }
 
 .top-dogs-header {
@@ -160,10 +158,18 @@ nav {
   font-size: 30px;
 }
 
+.instructions {
+  font-size: 16px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
 .commands {
   font-weight: bold;
   font-size: 21px;
   color: #5CBAAD;
+  /*padding-bottom: 3px;*/
+  margin: 12px 0px 12px 0px;
 }
 
 .instructions-box {
