@@ -91,10 +91,16 @@ $(document).ready(function() {
   //GET all scores
   function indexSuccess(jsonData) {
     allScores = jsonData;
+    allScores.reverse();
     let topScores = allScores.sort(function(a,b) {
-      return b.highScore - a.highScore
+      return b.highScore - a.highScore;
     });
-    let topDogs = topScores.splice(0,3);
+
+    let scoreOrder = topScores.sort(function(c,d) {
+      return d.id - c.id;
+    });
+
+    let topDogs = scoreOrder.splice(0,3);
     topDogs.forEach(function(el) {
       $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
