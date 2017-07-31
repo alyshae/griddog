@@ -16,23 +16,35 @@
           <img src="images/logo-3.png" class="logo"/>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="score"></li>
-            <li><a id="hs-test-button" class="waves-effect waves-light btn modal-trigger red accent-2" href="#newHSmodal">HIGH SCORE (test)</a></li>
             <li><a class="waves-effect waves-light btn modal-trigger red accent-2 new-game" href="#newGameModal">New Game</a></li>
           </ul>
         </div>
       </nav>
 
+      <!-- Loser Modal -->
+      <div id="loserModal" class="modal loserModal">
+        <div class="modal-content">
+          <div class="row">
+            <h4>YOU MISSED THE BALL THIS TIME!</h4>
+          </div>
+          <div class="row">
+            <button class="right btn waves-effect waves-light modal-action modal-close red accent-2 disagree-btn" type="button" name="action">CLOSE
+            </button>
+          </div>
+        </div>
+      </div> <!-- End of Loser Modal -->
+
       <!-- New High Score Modal -->
-      <div id="newHSmodal" class="modal">
+      <div id="newHSModal" class="modal newHSModal">
         <div class="modal-content">
           <form id="newHSForm" class="col s12">
             <h4>CONGRATS, you're a TOP DOG!</h4>
             <p>
-              Enter your name to appear on the TOP DOGS list!
+              Enter your name for the TOP DOGS list!
             </p>
             <div class="row">
               <div class="input-field col s6" >
-                <input placeholder="max 10 characters" id="name" type="text" class="validate" name="name">
+                <input placeholder="max 10 characters" id="name" type="text" name="name">
                 <label for="name">Name</label>
               </div>
               <div class="col s2"></div>
@@ -41,15 +53,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s6">
+              <div class="input-field col s6 scorefield">
                 <!--the input field below will need to be modified to grab the game score -->
-                <input id="highScore" type="number" class="validate" name="highScore">
-                <label for="highScore">Score</label>
+                <input id="highScore" type="number" class="HS" name="highScore" />
               </div>
             </div>
             <div class="row">
-              <button class="right btn waves-effect waves-light modal-action modal-close" type="submit" name="action">Submit
-              </button>
+              <input class="right btn waves-effect waves-light modal-action modal-close" type="submit" value="Submit" />
             </div>
           </form>
         </div>

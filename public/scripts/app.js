@@ -4,6 +4,7 @@
 console.log("Sanity Check!")
 let $scoresList;
 let allScores = [];
+let topDs = [];
 
 //feed the right objects to browsers for speech recognition compatibility
 //////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
@@ -33,7 +34,7 @@ recognition.lang = "en-US";
 recognition.interimResults = false;
 //set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
-
+//set whether SR will continue to recognize or stop after endofspeech each time
 recognition.continuous = true;
 
 //starting the speech recognition & telling it what to do with the speech received:
@@ -48,6 +49,10 @@ let directionHTML = "";
 directions.forEach(function(ele) {
   directionHTML += "<span class='directionHTML'>" + ele + " </span>";
 });
+
+/******************************
+ *   DOCUMENT.READY Function  *
+ ******************************/
 
 $(document).ready(function() {
   //give the array of all the scores as HTML to the scores-target
@@ -89,12 +94,16 @@ $(document).ready(function() {
     let topScores = allScores.sort(function(a,b) {
       return b.highScore - a.highScore
     });
-    console.log(topScores)
     let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
       $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
     allScores = topDogs;
+    //below: topDs for use later when checking new score against existing HS's
+    topDogs.forEach(function(item) {
+      topDs.push(item.highScore);
+    });
+    console.log("indexing the top 3 scores: " + allScores);
   }
 
   //error with GET all scores
@@ -113,6 +122,7 @@ $(document).ready(function() {
 
   //error with POST new high score
   function newHSError() {
+    $scoresList.text("Error adding new high score")
     console.log('error posting new high score');
   }
 
@@ -120,12 +130,17 @@ $(document).ready(function() {
  *   PLAYER/GAME SET-UP   *
  *************************/
 
+
   let p1 = new Player(3,1);
   let p2 = new Player(1,2);
   let p3 = new Player(1,1);
   let p4 = new Player(1,4);
-  let p5 = new Player(2,2);
+  let p5 = new Player(3,4);
   let p6 = new Player(4,3);
+  let p7 = new Player(2,2);
+  let p8 = new Player(2,1);
+  let p9 = new Player(4,1);
+  let p10 = new Player(4,4);
 
   let trgt1 = new Player(1,3);
   let trgt2 = new Player(3,3);
@@ -133,6 +148,12 @@ $(document).ready(function() {
   let trgt4 = new Player(4,1);
   let trgt5 = new Player(1,1);
   let trgt6 = new Player(2,2);
+  let trgt7 = new Player(3,4);
+  let trgt8 = new Player(4,4);
+  let trgt9 = new Player(1,3);
+  let trgt10 = new Player(1,2);
+
+  const fences = [[], [], [], [], [], [2,2], [3,2], [2,3], [3,3], [3,2], [3,3]];
 
   const levels = [
     [],
@@ -141,9 +162,14 @@ $(document).ready(function() {
     [p3, trgt3],
     [p4, trgt4],
     [p5, trgt5],
-    [p6, trgt6]
+    [p6, trgt6],
+    [p7, trgt7],
+    [p8, trgt8],
+    [p9, trgt9],
+    [p10,trgt10]
   ];
 
+//TODO: Why does the line below work & the following line doesn't now????
   let g1 = new Game(levels[1][0], levels[1][1], 1);
   // setLevel(1);
 
@@ -168,7 +194,7 @@ $(document).ready(function() {
   //set the ball in its square on the grid
   function setTarget() {
     console.log("setting target");
-    //these 3 lines don't work when you hit level 2
+    //TODO: WHY???? these 3 lines don't work when you hit level 2
     // let box = document.querySelector(g1.target.loc);
     // let ball = document.querySelector(".target");
     // box.appendChild(ball);
@@ -177,35 +203,55 @@ $(document).ready(function() {
   }
   setTarget();
 
+  //set up obstacles on the grid
+  function setFences() {
+    let fence = fences[g1.level];
+    let rw = fence[0];
+    let cl = fence[1];
+    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence.png' class='fence'/>"
+  }
+
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
   $(".go-fetch").on("click", function() {
 
-    //////////********************************** TIMER **********************************//////////
+  //////////********************************** TIMER **********************************//////////
     //timer-related variables
     var count = g1.seconds;
     var counter=setInterval(timer, 1000);
 
     //timer function
     function timer() {
-      $('.timer').removeClass("animated tada");
-      count = count -1;
+      $(".timer").removeClass("animated tada");
+
+      count = count - 1;
       if (count < 0) {
         clearInterval(counter);
         return;
       };
+
       if (count < 6) {
-        $('.timer').addClass("animated swing infinite");
-      };
+        $(".timer").addClass("animated swing infinite");
+      }
+      //check for win or loss when timer runs out
       if (count === 0) {
-        document.getElementById('timer').innerHTML = 'TIME UP!';
-        $('.timer').removeClass("animated swing infinite");
-        $('.timer').addClass("animated tada");
+        document.getElementById("timer").innerHTML = 'TIME UP!';
+        $(".timer").removeClass("animated swing infinite");
+        $(".timer").addClass("animated tada");
       } else if (count === 1) {
-        document.getElementById('timer').innerHTML = count + ' second';
+        document.getElementById("timer").innerHTML = count + ' second';
       } else {
-        document.getElementById('timer').innerHTML = count + ' seconds';
+        document.getElementById("timer").innerHTML = count + ' seconds';
+      };
+
+      if (count === 0 && !checkForWin()) {
+        //if it is a loss, check to see if the user got a high score
+        if (!checkForHS()) {
+          $(".loserModal").modal("open");
+        } else {
+          newHSModalOpen();
+        }
       };
     }; //end of timer function
 
@@ -242,12 +288,12 @@ $(document).ready(function() {
             recognition.stop();
             count = 1;
             sq.removeChild(end);
-            $('.levelWinModal').modal('open');
+            $(".levelWinModal").modal("open");
           }
           setPlayer();
-      });
+        });
+      }
     };
-  };
 
     recognition.onspeechend = function() {
       recognition.stop();
@@ -255,7 +301,7 @@ $(document).ready(function() {
 
     recognition.onspeechstart = function() {
       recognition.start();
-    }
+    };
 
     recognition.onnomatch = function(event) {
       diagnostic.textContent = "GridDog doesn't recognize that command."
@@ -263,14 +309,13 @@ $(document).ready(function() {
 
     recognition.onerror = function(event) {
       diagnostic.textContent = "Error occured in recognition " + event.error;
-    }
+    };
 
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
     window.addEventListener('keypress', function(ele) {
       if (count > 0) {
-
-        if ((ele.keyCode === 119)) {
+        if (ele.keyCode === 119) {
           g1.player.moveUp();
         } else if (ele.keyCode === 115) {
           g1.player.moveDown();
@@ -286,13 +331,15 @@ $(document).ready(function() {
           sq.removeChild(end);
           count = 1;
           recognition.stop();
-          $('#levelWinModal').modal('open');
+          $("#levelWinModal").modal("open");
         }
         setPlayer();
       }
     });
   }); //end of GO-FETCH on-click function
-  $('.continue-btn').on('click', levelUp);
+  $(".continue-btn").on("click", levelUp);
+  $(".no-continue-btn").on("click", newHSModalOpen);
+
   /**************************
    *   WIN/LOSE FUNCTIONS   *
    *************************/
@@ -303,26 +350,50 @@ $(document).ready(function() {
       $(".init-hidden").show();
     }
     g1 = new Game(levels[level][0], levels[level][1], level);
+    if (g1.level > 4) {
+      setFences();
+    }
     setPlayer();
     setTarget();
     renderLevelAndScore();
   }
 
-   function levelUp() {
-     setLevel(g1.level + 1);
-     diagnostic.textContent = "";
-   }
+  function levelUp() {
+    setLevel(g1.level + 1);
+    diagnostic.textContent = "";
+  };
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  }
+  };
 
   function reset() {
     location.reload(true);
-  }
+  };
+
+  function checkForHS() {
+    console.log("hit checkForHS function", topDs, g1.score);
+    let result = [];
+    topDs.forEach(function(el) {
+      if (g1.score >= el) {
+        result.push("yes");
+      } else {
+        result.push("no");
+      }
+    });
+    console.log(result.includes("yes"));
+    return result.includes("yes");
+  };
+
+  function newHSModalOpen() {
+    $(".HS").attr("value", `${g1.score}`);
+    $(".HS").attr("readonly", "readonly");
+    $(".newHSModal").modal("open");
+  };
+
 }); //end of doc.ready function
 
 /***************
@@ -367,9 +438,7 @@ class Player {
   }
 } //end of PLAYER class
 
-
-
-//   GAME CLASS, CONSTRUCTOR & METHODS:
+//GAME CLASS, CONSTRUCTOR & METHODS:
 class Game {
   constructor(player, target, level) {
     this.player = player;
@@ -389,9 +458,9 @@ class Game {
   calcSeconds() {
     let secs;
     if (this.level < 4) {
-      secs = 15;
+      secs = 16;
     } else {
-      secs = 30;
+      secs = 31;
     }
     return secs;
   }
@@ -416,6 +485,8 @@ class Game {
     }
   }
 } //end of GAME class
+
+
 
 
 /* TODO: update game-grid appearance, include background-color, makes lines slate-blue & thicker */

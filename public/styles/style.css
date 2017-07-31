@@ -94,6 +94,11 @@ nav {
   height: 80%;
 }
 
+.fence {
+  margin-top: 8px;
+  height: 90%;
+}
+
 .ball {
   margin-top: 18px;
   height: 70%;
