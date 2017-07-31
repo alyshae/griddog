@@ -1,7 +1,7 @@
 /******************************
  *   CLIENT SIDE JAVASCRIPT   *
  ******************************/
-console.log("Sanity Check!")
+console.log("Sanity Check!");
 let $scoresList;
 let allScores = [];
 let topDs = [];
@@ -16,7 +16,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 let directions = ["up", "down", "left", "right"];
 
 //set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
-let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;"
+let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;";
 
 //define a speech recogntion instance to control the recognition for the app
 let recognition = new SpeechRecognition();
@@ -42,7 +42,7 @@ recognition.continuous = true;
 //grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
 let diagnostic = document.querySelector(".output");
 //grab the player HTML element so we can move it (this MAY not be needed with the way I have already set-up the player to move via WASD keys)
-let bg = document.querySelector(".player")
+let bg = document.querySelector(".player");
 //can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
 let directionHTML = "";
 //populate the directionHTML variable with the list of words
@@ -114,12 +114,12 @@ $(document).ready(function() {
 
   //error with GET all scores
   function indexError() {
-    $scoresList.text("Failed to load TOP DOGS.")
+    $scoresList.text("Failed to load TOP DOGS.");
   }
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    console.log('reached new high score success function' + jsonData)
+    console.log('reached new high score success function' + jsonData);
     allScores.push(jsonData);
     console.log(allScores);
     $scoresList.empty();
@@ -128,7 +128,7 @@ $(document).ready(function() {
 
   //error with POST new high score
   function newHSError() {
-    $scoresList.text("Error adding new high score")
+    $scoresList.text("Error adding new high score");
     console.log('error posting new high score');
   }
 
@@ -206,7 +206,7 @@ $(document).ready(function() {
     // let ball = document.querySelector(".target");
     // box.appendChild(ball);
 
-    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>"
+    document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>";
   }
   setTarget();
 
@@ -215,7 +215,7 @@ $(document).ready(function() {
     let fence = fences[g1.level];
     let rw = fence[0];
     let cl = fence[1];
-    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>"
+    document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>";
   }
 
 /**************************
@@ -236,7 +236,7 @@ $(document).ready(function() {
       if (count < 0) {
         clearInterval(counter);
         return;
-      };
+      }
 
       if (count < 6) {
         $(".timer").addClass("animated swing infinite");
@@ -250,7 +250,7 @@ $(document).ready(function() {
         document.getElementById("timer").innerHTML = count + ' second';
       } else {
         document.getElementById("timer").innerHTML = count + ' seconds';
-      };
+      }
 
       if (count === 0 && !checkForWin()) {
         //if it is a loss, check to see if the user got a high score
@@ -259,12 +259,12 @@ $(document).ready(function() {
         } else {
           newHSModalOpen();
         }
-      };
+      }
     }; //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
     recognition.start();
-    console.log("Ready to receive command.")
+    console.log("Ready to receive command.");
 
     recognition.onresult = function(event) {
       if (count > 0) {

@@ -17,6 +17,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-session": "^1.15.4",
+    "jshint": "^2.9.4",
     "materialize-css": "^0.100.1",
     "mongoose": "^4.11.4"
   }
