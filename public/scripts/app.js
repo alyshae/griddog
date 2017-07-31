@@ -166,7 +166,8 @@ $(document).ready(function() {
     [p7, trgt7],
     [p8, trgt8],
     [p9, trgt9],
-    [p10,trgt10]
+    [p10,trgt10],
+    []
   ];
 
 //TODO: Why does the line below work & the following line doesn't now????
@@ -359,8 +360,15 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-    setLevel(g1.level + 1);
-    diagnostic.textContent = "";
+    if (g1.level !== 10) {
+      setLevel(g1.level + 1);
+      diagnostic.textContent = "";
+    } else {
+      document.querySelector('.score').innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
+      $(".HS").attr("value", "1000");
+      $(".HS").attr("readonly", "readonly");
+      $(".newHSModal").modal("open");
+    }
   };
 
   function checkForWin() {
@@ -380,8 +388,6 @@ $(document).ready(function() {
     topDs.forEach(function(el) {
       if (g1.score >= el) {
         result.push("yes");
-      } else {
-        result.push("no");
       }
     });
     console.log(result.includes("yes"));
