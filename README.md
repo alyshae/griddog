@@ -47,6 +47,7 @@ The Web Speech API is a privileged API which requires the following permissions 
 ## Existing Issues
 - Modals can be triggered if user clicks faster than certain timer-related actions/animations
 - A bunch more I can't think of at the moment because I am trying to fix some of them before I have to present this project
+- Fences are persistent
 
 ## Future Features
 - increased accuracy for recognizing the 4 directional commands

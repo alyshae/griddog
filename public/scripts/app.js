@@ -88,16 +88,11 @@ $(document).ready(function() {
   //GET all scores
   function indexSuccess(jsonData) {
     allScores = jsonData;
-    allScores.reverse();
     let topScores = allScores.sort(function(a,b) {
       return b.highScore - a.highScore;
     });
 
-    let scoreOrder = topScores.sort(function(c,d) {
-      return d.id - c.id;
-    });
-
-    let topDogs = scoreOrder.splice(0,3);
+    let topDogs = topScores.splice(0,3);
     topDogs.forEach(function(el) {
       $scoresList.append(`<tr><th class="score-name">${el.name}</th><th class="score-num">${el.highScore}</th></tr>`);
     });
@@ -115,7 +110,7 @@ $(document).ready(function() {
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    allScores.push(jsonData);
+    allScores.unshift(jsonData);
     $scoresList.empty();
     indexSuccess(allScores);
   }
@@ -172,20 +167,13 @@ $(document).ready(function() {
 
   //set the ball in its square on the grid
   function setTarget() {
-    //TODO: WHY???? these 3 lines don't work when you hit level 2
-    // let box = document.querySelector(g1.target.loc);
-    // let ball = document.querySelector(".target");
-    // box.appendChild(ball);
-
     document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>";
   }
   setTarget();
 
   //set up obstacles on the grid
   function setFences() {
-    let fence = fences[g1.level];
-    let rw = fence[0];
-    let cl = fence[1];
+    let fence = fences[g1.level], rw = fence[0], cl = fence[1];
     document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>";
   }
 
@@ -195,11 +183,9 @@ $(document).ready(function() {
   $(".go-fetch").on("click", function() {
 
   //////////********************************** TIMER **********************************//////////
-    //timer-related variables
     let count = g1.seconds;
     let counter=setInterval(timer, 1000);
 
-    //timer function
     function timer() {
       $(".timer").removeClass("animated tada");
 
@@ -269,6 +255,7 @@ $(document).ready(function() {
       }
     };
 
+    //Need to test site with lines 260-266 commented-out
     recognition.onspeechend = function() {
       recognition.stop();
     };
