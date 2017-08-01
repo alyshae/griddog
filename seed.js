@@ -4,7 +4,7 @@ var Score = db.Score;
 var scoreList = [
   {
     name: "Bo Obama",
-    highScore: 100
+    highScore: 200
   },
   {
     name: "Lassie",
@@ -12,7 +12,7 @@ var scoreList = [
   },
   {
     name: "Clifford",
-    highScore: 100
+    highScore: 0
   }
 ];
 
