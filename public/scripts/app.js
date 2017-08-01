@@ -350,10 +350,10 @@ $(document).ready(function() {
   }
 
   function noContinue() {
+    levelUp();
     if (!checkForHS()) {
       loserModalOpen();
     } else {
-      levelUp();
       newHSModalOpen();
     }
   }
