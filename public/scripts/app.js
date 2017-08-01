@@ -353,7 +353,7 @@ $(document).ready(function() {
     if (!checkForHS()) {
       loserModalOpen();
     } else {
-      g1.level = g1.level +1;
+      levelUp();
       newHSModalOpen();
     }
   }
