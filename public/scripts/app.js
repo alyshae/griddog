@@ -1,7 +1,6 @@
 /******************************
  *   CLIENT SIDE JAVASCRIPT   *
  ******************************/
-console.log("Sanity Check!");
 let $scoresList;
 let allScores = [];
 let topDs = [];
@@ -107,7 +106,6 @@ $(document).ready(function() {
     topDogs.forEach(function(item) {
       topDs.push(item.highScore);
     });
-    console.log("indexing the top 3 scores: " + allScores);
   }
 
   //error with GET all scores
@@ -117,9 +115,7 @@ $(document).ready(function() {
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    console.log("reached new high score success function" + jsonData);
     allScores.push(jsonData);
-    console.log(allScores);
     $scoresList.empty();
     indexSuccess(allScores);
   }
@@ -127,7 +123,6 @@ $(document).ready(function() {
   //error with POST new high score
   function newHSError() {
     $scoresList.text("Error adding new high score");
-    console.log("error posting new high score");
   }
 
 /**************************
@@ -169,7 +164,6 @@ $(document).ready(function() {
 
   //set the dog in its square on the grid
   function setPlayer() {
-    console.log("setting player");
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
     square.appendChild(dog);
@@ -178,7 +172,6 @@ $(document).ready(function() {
 
   //set the ball in its square on the grid
   function setTarget() {
-    console.log("setting target");
     //TODO: WHY???? these 3 lines don't work when you hit level 2
     // let box = document.querySelector(g1.target.loc);
     // let ball = document.querySelector(".target");
@@ -242,8 +235,6 @@ $(document).ready(function() {
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
     recognition.start();
-    console.log("Ready to receive command.");
-
     recognition.onresult = function(event) {
       if (count > 0) {
         //identify/grab the last element in the event.results array
@@ -264,8 +255,6 @@ $(document).ready(function() {
           } else if (ele === "down") {
             g1.player.moveDown();
           }
-          //see how sure/confident the web speech API is in the word(s) it has identified
-          console.log("Confidence: " + event.results[0][0].confidence);
           //if WIN:
           if (checkForWin()) {
             let end = document.querySelector(".target");
@@ -367,14 +356,12 @@ $(document).ready(function() {
   }
 
   function checkForHS() {
-    console.log("hit checkForHS function", topDs, g1.score);
     let result = [];
     topDs.forEach(function(el) {
       if (g1.score >= el) {
         result.push("yes");
       }
     });
-    console.log(result.includes("yes"));
     return result.includes("yes");
   }
 
