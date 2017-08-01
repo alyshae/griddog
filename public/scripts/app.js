@@ -213,6 +213,7 @@ $(document).ready(function() {
         //if it is a loss, check to see if the user got a high score
         if (!checkForHS()) {
           recognition.stop();
+          $(".go-fetch").addClass('disabled');
           $(".loserModal").modal("open");
         } else {
           newHSModalOpen();
@@ -350,6 +351,7 @@ $(document).ready(function() {
   }
 
   function newHSModalOpen() {
+    $(".go-fetch").addClass('disabled');
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
