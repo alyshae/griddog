@@ -1,4 +1,4 @@
-![photo #1] (https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png)
+![photo #1](https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png)
 
 # GridDog
 
@@ -6,7 +6,7 @@ GridDog is a simple game inspired by simple curiosity. I wanted to experience wo
 
 Heroku Link: https://griddog.herokuapp.com/
 
-![photo #3] (https://github.com/alyshae/griddog/blob/master/public/images/screenshot2.png)
+![photo #2](https://github.com/alyshae/griddog/blob/master/public/images/screenshot2.png)
 
 ## Technologies Used
 - JavaScript
@@ -37,7 +37,7 @@ The Web Speech API is a privileged API which requires the following permissions 
 ```
 
 ## Wire Frames
-![photo #4] (https://github.com/alyshae/griddog/blob/master/public/images/wireframe.jpg)
+![photo #3](https://github.com/alyshae/griddog/blob/master/public/images/wireframe.jpg)
 
 ## Existing Issues
 -
