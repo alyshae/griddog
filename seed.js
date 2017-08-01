@@ -8,7 +8,7 @@ var scoreList = [
   },
   {
     name: "Lassie",
-    highScore: 100
+    highScore: 0
   },
   {
     name: "Clifford",

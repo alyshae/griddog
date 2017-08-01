@@ -212,8 +212,7 @@ $(document).ready(function() {
       if (count === 0 && !checkForWin()) {
         //if it is a loss, check to see if the user got a high score
         if (!checkForHS()) {
-          recognition.stop();
-          $(".loserModal").modal("open");
+          loserModalOpen();
         } else {
           newHSModalOpen();
         }
@@ -296,7 +295,7 @@ $(document).ready(function() {
     });
   }); //end of GO-FETCH on-click function
   $(".continue-btn").on("click", levelUp);
-  $(".no-continue-btn").on("click", newHSModalOpen);
+  $(".no-continue-btn").on("click", noContinue);
 
   /**************************
    *   WIN/LOSE FUNCTIONS   *
@@ -340,6 +339,7 @@ $(document).ready(function() {
   }
 
   function checkForHS() {
+    recognition.stop();
     let result = [];
     topDs.forEach(function(el) {
       if (g1.score >= el) {
@@ -349,7 +349,22 @@ $(document).ready(function() {
     return result.includes("yes");
   }
 
+  function noContinue() {
+    if (!checkForHS()) {
+      loserModalOpen();
+    } else {
+      levelUp();
+      newHSModalOpen();
+    }
+  }
+
+  function loserModalOpen() {
+    $(".go-fetch").addClass('disabled');
+    $(".loserModal").modal("open");
+  }
+
   function newHSModalOpen() {
+    $(".go-fetch").addClass('disabled');
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
