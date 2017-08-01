@@ -2,7 +2,7 @@
 
 # GridDog
 
-GridDog is a simple game inspired by simple curiosity. I wanted to experience working with a technology which allows users to interact with the web in an unconventional way (not through a mouse, keyboard or touch-screen). The goal is to guide Elmer, the GridDog, through the grid to his ball using spoken commands before the time runs out. Currently, the game is designed for use on a desktop or laptop browser (compatible browsers listed below).
+GridDog is a simple game inspired by simple curiosity. I wanted to experience working with a technology which allows users to interact with the web in an unconventional way (not through a mouse, keyboard or touch-screen). The goal is to guide Elmer, the GridDog, through the grid to his ball using spoken commands before the time runs out. The Web Speech API converts the users speech into text and I have used JavaScript and jQuery to connect specific text to control Elmer's moves. Currently, the game is designed for use on a desktop or laptop browser (compatible browsers listed below).
 
 Heroku Link: https://griddog.herokuapp.com/
 
