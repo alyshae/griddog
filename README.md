@@ -8,7 +8,7 @@ Heroku Link: https://griddog.herokuapp.com/
 
 ![photo #2](https://github.com/alyshae/griddog/blob/TUE1-finishingTchs/public/images/screenshot4.png)
 
-## Technologies Used
+## Technologies/Resources Used
 - JavaScript
 - jQuery
 - ajax
@@ -18,6 +18,7 @@ Heroku Link: https://griddog.herokuapp.com/
 - Web Speech API
 - Materialize.CSS
 - Animate.CSS
+- Graph Paper
 
 ## Installation Steps
 
@@ -43,6 +44,9 @@ The Web Speech API is a privileged API which requires the following permissions 
 
 ## Wire Frames/Planning
 ![photo #3](https://github.com/alyshae/griddog/blob/master/public/images/wireframe.jpg)
+
+## User Stories
+Trello Board Link: https://trello.com/b/6FgSESrx/griddog
 
 ## Existing Issues
 - Modals can be triggered if user clicks faster than certain timer-related actions/animations
