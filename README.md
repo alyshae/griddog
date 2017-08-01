@@ -6,7 +6,7 @@ GridDog is a simple game inspired by simple curiosity. I wanted to experience wo
 
 Heroku Link: https://griddog.herokuapp.com/
 
-![photo #2](https://github.com/alyshae/griddog/blob/master/public/images/screenshot2.png)
+![photo #2](https://github.com/alyshae/griddog/blob/master/public/images/screenshot3.png)
 
 ## Technologies Used
 - JavaScript
