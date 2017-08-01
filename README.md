@@ -1,4 +1,4 @@
-<img src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" max-width="600px">
+<img src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" max-width="300px">
 
 # GridDog
 
