@@ -1,4 +1,6 @@
-<img src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" width="200px" align="center">
+<p align="center">
+  <img src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" width="200px">
+<p>
 
 # GridDog
 
@@ -6,7 +8,7 @@ GridDog is a simple game inspired by simple curiosity. I wanted to experience wo
 
 Heroku Link: https://griddog.herokuapp.com/
 
-<img src="https://github.com/alyshae/griddog/blob/TUE1-finishingTchs/public/images/screenshot4.png" width="300px">
+<img src="https://github.com/alyshae/griddog/blob/TUE1-finishingTchs/public/images/screenshot4.png" width="450px">
 
 ## Technologies/Resources Used
 - JavaScript
@@ -43,7 +45,7 @@ The Web Speech API is a privileged API which requires the following permissions 
 - Firefox
 
 ## Wire Frames/Planning
-<img src="https://github.com/alyshae/griddog/blob/master/public/images/wireframe.jpg" width="300px">
+<img src="https://github.com/alyshae/griddog/blob/master/public/images/wireframe.jpg" width="450px">
 
 ## User Stories
 Trello Board Link: https://trello.com/b/6FgSESrx/griddog
