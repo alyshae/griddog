@@ -1,14 +1,11 @@
-<p align="center">
-  <img src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" width="200px">
-<p>
+# GridDog <img align="right" src="https://github.com/alyshae/griddog/blob/master/public/images/grid-dog-full-dog.png" width="200px">
 
-# GridDog
 
 GridDog is a simple game inspired by simple curiosity. I wanted to experience working with a technology which allows users to interact with the web in an unconventional way (not through a mouse, keyboard or touch-screen). The goal is to guide Elmer, the GridDog, through the grid to his ball using spoken commands before the time runs out. The Web Speech API converts the users speech into text and I have used JavaScript and jQuery to connect specific text to control Elmer's moves. Currently, the game is designed for use on a desktop or laptop browser (compatible browsers listed below).
 
 Heroku Link: https://griddog.herokuapp.com/
 
-<img src="https://github.com/alyshae/griddog/blob/TUE1-finishingTchs/public/images/screenshot4.png" width="450px">
+<img src="https://github.com/alyshae/griddog/blob/TUE1-finishingTchs/public/images/screenshot4.png" width="500px">
 
 ## Technologies/Resources Used
 - JavaScript
