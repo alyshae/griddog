@@ -40,10 +40,11 @@ app.get("/", function(req, res) {
 
 //index: get all scores
 app.get("/scores", function(req, res) {
-  Score.find(function(err, scores) {
+  Score.find().sort({_id: "asc"}).exec(function(err, scores) {
     if (err) {
       return console.log("index error: " + err);
     }
+    console.log(scores);
     res.json(scores);
   });
 });

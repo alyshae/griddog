@@ -3,16 +3,16 @@ var Score = db.Score;
 
 var scoreList = [
   {
-    name: "Aly",
+    name: "Bo Obama",
+    highScore: 200
+  },
+  {
+    name: "Lassie",
     highScore: 100
   },
   {
-    name: "Aly2",
-    highScore: 100
-  },
-  {
-    name: "Aly3",
-    highScore: 100
+    name: "Clifford",
+    highScore: 0
   }
 ];
 
