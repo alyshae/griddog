@@ -297,9 +297,9 @@ $(document).ready(function() {
   $(".continue-btn").on("click", levelUp);
   $(".no-continue-btn").on("click", noContinue);
 
-  /**************************
-   *   WIN/LOSE FUNCTIONS   *
-   *************************/
+/**************************
+ *   WIN/LOSE FUNCTIONS   *
+ *************************/
 
   function setLevel(level) {
     if (g1.level === 3) {

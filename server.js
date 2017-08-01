@@ -44,6 +44,7 @@ app.get("/scores", function(req, res) {
     if (err) {
       return console.log("index error: " + err);
     }
+    console.log(scores);
     res.json(scores);
   });
 });
