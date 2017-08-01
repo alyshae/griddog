@@ -6,7 +6,7 @@ let allScores = [];
 let topDs = [];
 
 //feed the right objects to browsers for speech recognition compatibility
-//////////*************** must use "var" on lines 11, 12 & 13 ***************//////////
+///********************** must use "var" on lines 11, 12 & 13 ***********************//////////
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
@@ -103,19 +103,16 @@ $(document).ready(function() {
     });
   }
 
-  //error with GET all scores
   function indexError() {
     $scoresList.text("Failed to load TOP DOGS.");
   }
 
-  //POST new high score
   function newHSSuccess(jsonData) {
     allScores.unshift(jsonData);
     $scoresList.empty();
     indexSuccess(allScores);
   }
 
-  //error with POST new high score
   function newHSError() {
     $scoresList.text("Error adding new high score");
   }
@@ -146,9 +143,7 @@ $(document).ready(function() {
     [p9, trgt9],[p10,trgt10],
   ];
 
-//TODO: Why does the line below work & the following line doesn't now????
   let g1 = new Game(levels[1][0], levels[1][1], 1);
-  // setLevel(1);
 
   //Level & Score appear on page:
   function renderLevelAndScore() {
@@ -255,7 +250,6 @@ $(document).ready(function() {
       }
     };
 
-    //Need to test site with lines 260-266 commented-out
     recognition.onspeechend = function() {
       recognition.stop();
     };
