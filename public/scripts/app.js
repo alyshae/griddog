@@ -110,7 +110,7 @@ $(document).ready(function() {
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    allScores.push(jsonData);
+    allScores.unshift(jsonData);
     $scoresList.empty();
     indexSuccess(allScores);
   }
