@@ -110,7 +110,7 @@ $(document).ready(function() {
 
   //POST new high score
   function newHSSuccess(jsonData) {
-    allScores.unshift(jsonData);
+    allScores.push(jsonData);
     $scoresList.empty();
     indexSuccess(allScores);
   }
@@ -212,6 +212,7 @@ $(document).ready(function() {
       if (count === 0 && !checkForWin()) {
         //if it is a loss, check to see if the user got a high score
         if (!checkForHS()) {
+          recognition.stop();
           $(".loserModal").modal("open");
         } else {
           newHSModalOpen();
@@ -260,12 +261,8 @@ $(document).ready(function() {
       recognition.stop();
     };
 
-    recognition.onspeechstart = function() {
-      recognition.start();
-    };
-
-    recognition.onnomatch = function() {
-      diagnostic.textContent = "GridDog doesn't recognize that command.";
+    recognition.onnomatch = function(event) {
+      diagnostic.textContent = "GridDog doesn't recognize that command. " + event.error;
     };
 
     recognition.onerror = function(event) {
