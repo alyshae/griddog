@@ -1,48 +1,31 @@
 /******************************
  *   CLIENT SIDE JAVASCRIPT   *
  ******************************/
-let $scoresList;
-let allScores = [];
-let topDs = [];
+let $scoresList, allScores = [], topDs = [];
 
-//feed the right objects to browsers for speech recognition compatibility
-///********************** must use "var" on lines 11, 12 & 13 ***********************//////////
+///********************** MUST use "var" on lines 7-9 ***********************//////////
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-//words to recognize which will be used to trigger the player's move functions
-let directions = ["up", "down", "left", "right"];
 
-//set grammar format to use (in this case JSpeech Grammar Format) and properly format each element in the directions array;
+let directions = ["up", "down", "left", "right"];
+//set grammar format to use
 let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;";
 
-//define a speech recogntion instance to control the recognition for the app
 let recognition = new SpeechRecognition();
-//create a new speech grammar list to contain our grammar
 let speechRecognitionList = new SpeechGrammarList();
-//add our grammar to the SpeechGrammarList
 speechRecognitionList.addFromString(grammar, 1);
-//add the above to the speech recognition instance by setting it as the value of the "grammars" property/key.
+//setting speech recognition properties
 recognition.grammars = speechRecognitionList;
-
-//setting additional SR properties:
-//set the language
 recognition.lang = "en-US";
-//set whether or not the SR system should return interim results
 recognition.interimResults = false;
-//set the number of alternative potenetial matches which should be returned per result
 recognition.maxAlternatives = 1;
-//set whether SR will continue to recognize or stop after endofspeech each time
 recognition.continuous = true;
 
-//starting the speech recognition & telling it what to do with the speech received:
-
-//grab references to the output div and the HTML element so we can output disgnostic messages and use the transcribed words to trigger the move functions
 let diagnostic = document.querySelector(".output");
-//can use this (below) variable inside the INSTRUCTIONS text to print out a list of the acceptable words
 let directionHTML = "";
-//populate the directionHTML variable with the list of words
+
 directions.forEach(function(ele) {
   directionHTML += "<span class='directionHTML'>" + ele + " </span>";
 });
@@ -52,16 +35,14 @@ directions.forEach(function(ele) {
  ******************************/
 
 $(document).ready(function() {
-  //give the array of all the scores as HTML to the scores-target
-  $scoresList = $(".scores-target");
 
+  $scoresList = $(".scores-target");
   $(".modal").modal();
 
 /********************************
  *   AJAX REQUESTS to Express   *
  *******************************/
 
-  //ajax INDEX 'GET' request
   $.ajax({
     method: "GET",
     url: "/scores",
@@ -69,7 +50,6 @@ $(document).ready(function() {
     error: indexError
   });
 
-  //ajax NEW 'POST' request
   $(".newHSForm").on("submit", function(ele) {
     ele.preventDefault();
     $.ajax({
@@ -85,7 +65,6 @@ $(document).ready(function() {
  *   SUCCESS & ERROR FUNCTIONS   *
  ********************************/
 
-  //GET all scores
   function indexSuccess(jsonData) {
     allScores = jsonData;
     let topScores = allScores.sort(function(a,b) {
@@ -145,14 +124,12 @@ $(document).ready(function() {
 
   let g1 = new Game(levels[1][0], levels[1][1], 1);
 
-  //Level & Score appear on page:
   function renderLevelAndScore() {
     document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
     document.querySelector(".level").innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
   }
   renderLevelAndScore();
 
-  //set the dog in its square on the grid
   function setPlayer() {
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
@@ -160,13 +137,11 @@ $(document).ready(function() {
   }
   setPlayer();
 
-  //set the ball in its square on the grid
   function setTarget() {
     document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>";
   }
   setTarget();
 
-  //set up obstacles on the grid
   function setFences() {
     let fence = fences[g1.level], rw = fence[0], cl = fence[1];
     document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>";
@@ -175,7 +150,8 @@ $(document).ready(function() {
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
-  $(".go-fetch").on("click", function() {
+  let goFetch = document.querySelector(".go-fetch");
+  goFetch.addEventListener("click", function() {
 
   //////////********************************** TIMER **********************************//////////
     let count = g1.seconds;
@@ -218,11 +194,8 @@ $(document).ready(function() {
     recognition.start();
     recognition.onresult = function(event) {
       if (count > 0) {
-        //identify/grab the last element in the event.results array
         let last = event.results.length -1;
-        //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
         let direction = event.results[last][0].transcript;
-        //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
         diagnostic.textContent = direction;
 
         let commands = direction.split(" ");
@@ -313,6 +286,7 @@ $(document).ready(function() {
     if (g1.level !== 10) {
       setLevel(g1.level + 1);
       diagnostic.textContent = "";
+      document.querySelector(".timer").innerHTML = "";
     } else {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
@@ -345,11 +319,7 @@ $(document).ready(function() {
 
   function noContinue() {
     levelUp();
-    if (!checkForHS()) {
-      loserModalOpen();
-    } else {
-      newHSModalOpen();
-    }
+    checkForHS() ? newHSModalOpen() : loserModalOpen();
   }
 
   function loserModalOpen() {
@@ -363,13 +333,13 @@ $(document).ready(function() {
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
   }
+
 }); //end of doc.ready function
 
 /***************
  *   CLASSES   *
  **************/
 
-//   PLAYER CLASS, CONSTRUCTOR & METHODS:
 class Player {
   constructor(row, col) {
     this.row = row;
@@ -407,7 +377,6 @@ class Player {
   }
 } //end of PLAYER class
 
-//GAME CLASS, CONSTRUCTOR & METHODS:
 class Game {
   constructor(player, target, level) {
     this.player = player;
@@ -425,32 +394,15 @@ class Game {
     return this.calcSeconds();
   }
   calcSeconds() {
-    let secs;
-    if (this.level < 4) {
-      secs = 16;
-    } else {
-      secs = 31;
-    }
-    return secs;
+    return this.level < 4 ? 16 : 31;
   }
   get rowMax() {
-    return this.calcRowMax();
+    return this.calcMax();
   }
   get colMax() {
-    return this.calcColMax();
+    return this.calcMax();
   }
-  calcRowMax() {
-    if (this.level <= 3) {
-      return 3;
-    } else {
-      return 4;
-    }
-  }
-  calcColMax() {
-    if (this.level <= 3) {
-      return 3;
-    } else {
-      return 4;
-    }
+  calcMax() {
+    return this.level <= 3 ? 3 : 4;
   }
 } //end of GAME class
