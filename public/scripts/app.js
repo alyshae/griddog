@@ -293,22 +293,20 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-/*  SWAP THIS CONDITIONAL ******************/
     if (g1.level !== 10) {
-      setLevel(g1.level + 1);
-      diagnostic.textContent = "";
-      document.querySelector(".timer").innerHTML = "";
-    } else {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
       $(".HS").attr("readonly", "readonly");
       $(".newHSModal").modal("open");
+    } else {
+      setLevel(g1.level + 1);
+      diagnostic.textContent = "";
+      document.querySelector(".timer").innerHTML = "";
     }
   }
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
-
       return true;
     }
     return false;
