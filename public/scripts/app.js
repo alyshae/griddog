@@ -395,13 +395,7 @@ class Game {
     return this.calcSeconds();
   }
   calcSeconds() {
-    let secs;
-    if (this.level < 4) {
-      secs = 16;
-    } else {
-      secs = 31;
-    }
-    return secs;
+    return this.level < 4 ? 16 : 31;
   }
   get rowMax() {
     return this.calcRowMax();
