@@ -154,10 +154,10 @@ $(document).ready(function() {
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
-
+    let counter = null;
     let goFetch = document.querySelector(".go-fetch");
     goFetch.addEventListener("click", function() {
-      let counter=setInterval(timer, 1000);
+      counter=setInterval(timer, 1000);
     });
 
   //////////********************************** TIMER **********************************//////////
@@ -303,6 +303,7 @@ $(document).ready(function() {
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
+
       return true;
     }
     return false;
