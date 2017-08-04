@@ -157,7 +157,6 @@ $(document).ready(function() {
     goFetch.addEventListener("click", function() {
       counter=setInterval(timer, 1000);
       speech();
-      keyPlay();
     });
 
   //////////********************************** TIMER **********************************//////////
@@ -241,33 +240,6 @@ $(document).ready(function() {
       diagnostic.textContent = "Error occured in recognition " + event.error;
     };
   }
-  
-  //////////***************************** KEYPRESS MOVES *******************************//////////
-  function keyPlay() {
-    window.addEventListener("keypress", function(ele) {
-      if (count > 0) {
-        if (ele.keyCode === 119) {
-          g1.player.moveUp();
-        } else if (ele.keyCode === 115) {
-          g1.player.moveDown();
-        } else if (ele.keyCode === 97) {
-          g1.player.moveLeft();
-        } else if (ele.keyCode === 100) {
-          g1.player.moveRight();
-        }
-        //if WIN:
-        if (checkForWin()) {
-          let end = document.querySelector(".target");
-          let sq = document.querySelector(g1.player.loc);
-          sq.removeChild(end);
-          count = 1;
-          recognition.stop();
-          $(".levelWinModal").modal("open");
-        }
-        setPlayer();
-      }
-    });
-  };
 
   $(".continue-btn").on("click", levelUp);
   $(".no-continue-btn").on("click", noContinue);
