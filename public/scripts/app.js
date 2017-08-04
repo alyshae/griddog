@@ -158,6 +158,7 @@ $(document).ready(function() {
     let goFetch = document.querySelector(".go-fetch");
     goFetch.addEventListener("click", function() {
       counter=setInterval(timer, 1000);
+      speech();
     });
 
   //////////********************************** TIMER **********************************//////////
@@ -196,50 +197,51 @@ $(document).ready(function() {
   } //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
-  recognition.start();
-  recognition.onresult = function(event) {
-    if (count > 0) {
-      let last = event.results.length -1;
-      let direction = event.results[last][0].transcript;
-      diagnostic.textContent = direction;
+  function speech() {
+    recognition.start();
+    recognition.onresult = function(event) {
+      if (count > 0) {
+        let last = event.results.length -1;
+        let direction = event.results[last][0].transcript;
+        diagnostic.textContent = direction;
 
-      let commands = direction.split(" ");
-      commands.forEach(function(ele) {
-        if (ele === "up") {
-          g1.player.moveUp();
-        } else if (ele === "right") {
-          g1.player.moveRight();
-        } else if (ele === "left") {
-          g1.player.moveLeft();
-        } else if (ele === "down") {
-          g1.player.moveDown();
-        }
-        //if WIN:
-        if (checkForWin()) {
-          let end = document.querySelector(".target");
-          let sq = document.querySelector(g1.player.loc);
-          recognition.stop();
-          count = 1;
-          sq.removeChild(end);
-          $(".levelWinModal").modal("open");
-        }
-        setPlayer();
-      });
-    }
-  };
+        let commands = direction.split(" ");
+        commands.forEach(function(ele) {
+          if (ele === "up") {
+            g1.player.moveUp();
+          } else if (ele === "right") {
+            g1.player.moveRight();
+          } else if (ele === "left") {
+            g1.player.moveLeft();
+          } else if (ele === "down") {
+            g1.player.moveDown();
+          }
+          //if WIN:
+          if (checkForWin()) {
+            let end = document.querySelector(".target");
+            let sq = document.querySelector(g1.player.loc);
+            recognition.stop();
+            count = 1;
+            sq.removeChild(end);
+            $(".levelWinModal").modal("open");
+          }
+          setPlayer();
+        });
+      }
+    };
 
-  recognition.onspeechend = function() {
-    recognition.stop();
-  };
+    recognition.onspeechend = function() {
+      recognition.stop();
+    };
 
-  recognition.onnomatch = function(event) {
-    diagnostic.textContent = "GridDog doesn't recognize that command. " + event.error;
-  };
+    recognition.onnomatch = function(event) {
+      diagnostic.textContent = "GridDog doesn't recognize that command. " + event.error;
+    };
 
-  recognition.onerror = function(event) {
-    diagnostic.textContent = "Error occured in recognition " + event.error;
-  };
-
+    recognition.onerror = function(event) {
+      diagnostic.textContent = "Error occured in recognition " + event.error;
+    };
+  }
   //////////***************************** KEYPRESS MOVES *******************************//////////
 
   window.addEventListener("keypress", function(ele) {
