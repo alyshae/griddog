@@ -291,7 +291,7 @@ $(document).ready(function() {
   }
 
   function levelUp() {
-    if (g1.level !== 10) {
+    if (g1.level === 10) {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
       $(".HS").attr("readonly", "readonly");
