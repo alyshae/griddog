@@ -8,7 +8,6 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-
 let directions = ["up", "down", "left", "right"];
 //set grammar format to use
 let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;";
@@ -103,7 +102,6 @@ $(document).ready(function() {
  *************************/
 
   $(".agree-btn").on("click", reset);
-
 
   let p1 = new Player(3,1), p2 = new Player(1,2), p3 = new Player(1,1);
   let p4 = new Player(1,4), p5 = new Player(3,4), p6 = new Player(4,3);
@@ -268,7 +266,7 @@ $(document).ready(function() {
         setPlayer();
       }
     });
-  }
+  };
 
   $(".continue-btn").on("click", levelUp);
   $(".no-continue-btn").on("click", noContinue);
