@@ -124,14 +124,12 @@ $(document).ready(function() {
 
   let g1 = new Game(levels[1][0], levels[1][1], 1);
 
-  //Level & Score appear on page:
   function renderLevelAndScore() {
     document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
     document.querySelector(".level").innerHTML = `<h4 class="level-header">LEVEL: ${g1.level}</h5>`;
   }
   renderLevelAndScore();
 
-  //set the dog in its square on the grid
   function setPlayer() {
     let square = document.querySelector(g1.player.loc);
     let dog = document.querySelector(".player");
@@ -139,13 +137,11 @@ $(document).ready(function() {
   }
   setPlayer();
 
-  //set the ball in its square on the grid
   function setTarget() {
     document.querySelector(g1.target.loc).innerHTML = "<img src='images/ball-2.png' class='ball target'/>";
   }
   setTarget();
 
-  //set up obstacles on the grid
   function setFences() {
     let fence = fences[g1.level], rw = fence[0], cl = fence[1];
     document.querySelector(`.row-${rw}.col-${cl}`).innerHTML = "<img src='images/fence-2.png' class='fence'/>";
@@ -197,11 +193,8 @@ $(document).ready(function() {
     recognition.start();
     recognition.onresult = function(event) {
       if (count > 0) {
-        //identify/grab the last element in the event.results array
         let last = event.results.length -1;
-        //grab the first thing inside the "last" element identified above & pull the text from its "transcript"
         let direction = event.results[last][0].transcript;
-        //my HTML tag with class ".output" will render the text of the transcript I set to the variable "direction"
         diagnostic.textContent = direction;
 
         let commands = direction.split(" ");
@@ -348,7 +341,6 @@ $(document).ready(function() {
  *   CLASSES   *
  **************/
 
-//   PLAYER CLASS, CONSTRUCTOR & METHODS:
 class Player {
   constructor(row, col) {
     this.row = row;
@@ -386,7 +378,6 @@ class Player {
   }
 } //end of PLAYER class
 
-//GAME CLASS, CONSTRUCTOR & METHODS:
 class Game {
   constructor(player, target, level) {
     this.player = player;
