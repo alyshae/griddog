@@ -8,7 +8,6 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-
 let directions = ["up", "down", "left", "right"];
 //set grammar format to use
 let grammar = "#JSGF V1.0; grammar directions; public <direction> = " + directions.join(" | ") + " ;";
@@ -29,6 +28,8 @@ let directionHTML = "";
 directions.forEach(function(ele) {
   directionHTML += "<span class='directionHTML'>" + ele + " </span>";
 });
+
+let count;
 
 /******************************
  *   DOCUMENT.READY Function  *
@@ -123,6 +124,7 @@ $(document).ready(function() {
   ];
 
   let g1 = new Game(levels[1][0], levels[1][1], 1);
+  count = g1.seconds
 
   function renderLevelAndScore() {
     document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: ${g1.score}</h5>`;
@@ -150,47 +152,50 @@ $(document).ready(function() {
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
-  let goFetch = document.querySelector(".go-fetch");
-  goFetch.addEventListener("click", function() {
+    let counter = null;
+    let goFetch = document.querySelector(".go-fetch");
+    goFetch.addEventListener("click", function() {
+      counter=setInterval(timer, 1000);
+      speech();
+    });
 
   //////////********************************** TIMER **********************************//////////
-    let count = g1.seconds;
-    let counter=setInterval(timer, 1000);
+  function timer() {
 
-    function timer() {
-      $(".timer").removeClass("animated tada");
+    $(".timer").removeClass("animated tada");
 
-      count = count - 1;
-      if (count < 0) {
-        clearInterval(counter);
-        return;
-      }
+    count = count - 1;
+    if (count < 0) {
+      clearInterval(counter);
+      return;
+    }
 
-      if (count < 6) {
-        $(".timer").addClass("animated swing infinite");
-      }
-      //check for win or loss when timer runs out
-      if (count === 0) {
-        document.querySelector(".timer").innerHTML = "TIME UP!";
-        $(".timer").removeClass("animated swing infinite");
-        $(".timer").addClass("animated tada");
-      } else if (count === 1) {
-        document.querySelector(".timer").innerHTML = count + " second";
+    if (count < 6) {
+      $(".timer").addClass("animated swing infinite");
+    }
+    //check for win or loss when timer runs out
+    if (count === 0) {
+      document.querySelector(".timer").innerHTML = "TIME UP!";
+      $(".timer").removeClass("animated swing infinite");
+      $(".timer").addClass("animated tada");
+    } else if (count === 1) {
+      document.querySelector(".timer").innerHTML = count + " second";
+    } else {
+      document.querySelector(".timer").innerHTML = count + " seconds";
+    }
+
+    if (count === 0 && !checkForWin()) {
+      //if it is a loss, check to see if the user got a high score
+      if (!checkForHS()) {
+        loserModalOpen();
       } else {
-        document.querySelector(".timer").innerHTML = count + " seconds";
+        newHSModalOpen();
       }
-
-      if (count === 0 && !checkForWin()) {
-        //if it is a loss, check to see if the user got a high score
-        if (!checkForHS()) {
-          loserModalOpen();
-        } else {
-          newHSModalOpen();
-        }
-      }
-    } //end of timer function
+    }
+  } //end of timer function
 
   //////////**************************** SPEECH RECOGNITION ****************************//////////
+  function speech() {
     recognition.start();
     recognition.onresult = function(event) {
       if (count > 0) {
@@ -234,33 +239,8 @@ $(document).ready(function() {
     recognition.onerror = function(event) {
       diagnostic.textContent = "Error occured in recognition " + event.error;
     };
+  }
 
-  //////////***************************** KEYPRESS MOVES *******************************//////////
-
-    window.addEventListener("keypress", function(ele) {
-      if (count > 0) {
-        if (ele.keyCode === 119) {
-          g1.player.moveUp();
-        } else if (ele.keyCode === 115) {
-          g1.player.moveDown();
-        } else if (ele.keyCode === 97) {
-          g1.player.moveLeft();
-        } else if (ele.keyCode === 100) {
-          g1.player.moveRight();
-        }
-        //if WIN:
-        if (checkForWin()) {
-          let end = document.querySelector(".target");
-          let sq = document.querySelector(g1.player.loc);
-          sq.removeChild(end);
-          count = 1;
-          recognition.stop();
-          $(".levelWinModal").modal("open");
-        }
-        setPlayer();
-      }
-    });
-  }); //end of GO-FETCH on-click function
   $(".continue-btn").on("click", levelUp);
   $(".no-continue-btn").on("click", noContinue);
 
@@ -280,31 +260,32 @@ $(document).ready(function() {
     setPlayer();
     setTarget();
     renderLevelAndScore();
-  }
+    count = g1.seconds;
+  };
 
   function levelUp() {
-    if (g1.level !== 10) {
-      setLevel(g1.level + 1);
-      diagnostic.textContent = "";
-      document.querySelector(".timer").innerHTML = "";
-    } else {
+    if (g1.level === 10) {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
       $(".HS").attr("readonly", "readonly");
       $(".newHSModal").modal("open");
+    } else {
+      setLevel(g1.level + 1);
+      diagnostic.textContent = "";
+      document.querySelector(".timer").innerHTML = "";
     }
-  }
+  };
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  }
+  };
 
   function reset() {
     location.reload(true);
-  }
+  };
 
   function checkForHS() {
     recognition.stop();
@@ -315,24 +296,24 @@ $(document).ready(function() {
       }
     });
     return result.includes("yes");
-  }
+  };
 
   function noContinue() {
     levelUp();
     checkForHS() ? newHSModalOpen() : loserModalOpen();
-  }
+  };
 
   function loserModalOpen() {
     $(".go-fetch").addClass('disabled');
     $(".loserModal").modal("open");
-  }
+  };
 
   function newHSModalOpen() {
     $(".go-fetch").addClass('disabled');
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
-  }
+  };
 
 }); //end of doc.ready function
 
