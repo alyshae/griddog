@@ -150,7 +150,8 @@ $(document).ready(function() {
 /**************************
  *   GAME PLAY FUNCTIONS  *
  *************************/
-  $(".go-fetch").on("click", function() {
+  let goFetch = document.querySelector(".go-fetch");
+  goFetch.addEventListener("click", function() {
 
   //////////********************************** TIMER **********************************//////////
     let count = g1.seconds;
@@ -285,6 +286,7 @@ $(document).ready(function() {
     if (g1.level !== 10) {
       setLevel(g1.level + 1);
       diagnostic.textContent = "";
+      document.querySelector(".timer").innerHTML = "";
     } else {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
