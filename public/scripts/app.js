@@ -319,10 +319,10 @@ $(document).ready(function() {
 
   function noContinue() {
     levelUp();
-    if (!checkForHS()) {
-      loserModalOpen();
-    } else {
+    if (checkForHS()) {
       newHSModalOpen();
+    } else {
+      loserModalOpen();
     }
   }
 
