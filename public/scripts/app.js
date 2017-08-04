@@ -410,17 +410,9 @@ class Game {
     return this.calcColMax();
   }
   calcRowMax() {
-    if (this.level <= 3) {
-      return 3;
-    } else {
-      return 4;
-    }
+    return this.level <= 3 ? 3 : 4;
   }
   calcColMax() {
-    if (this.level <= 3) {
-      return 3;
-    } else {
-      return 4;
-    }
+    return this.level <= 3 ? 3 : 4;
   }
 } //end of GAME class
