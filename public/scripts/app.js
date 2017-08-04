@@ -288,7 +288,7 @@ $(document).ready(function() {
     setTarget();
     renderLevelAndScore();
     count = g1.seconds;
-  }
+  };
 
   function levelUp() {
     if (g1.level === 10) {
@@ -301,18 +301,18 @@ $(document).ready(function() {
       diagnostic.textContent = "";
       document.querySelector(".timer").innerHTML = "";
     }
-  }
+  };
 
   function checkForWin() {
     if (g1.player.loc === g1.target.loc) {
       return true;
     }
     return false;
-  }
+  };
 
   function reset() {
     location.reload(true);
-  }
+  };
 
   function checkForHS() {
     recognition.stop();
@@ -323,24 +323,24 @@ $(document).ready(function() {
       }
     });
     return result.includes("yes");
-  }
+  };
 
   function noContinue() {
     levelUp();
     checkForHS() ? newHSModalOpen() : loserModalOpen();
-  }
+  };
 
   function loserModalOpen() {
     $(".go-fetch").addClass('disabled');
     $(".loserModal").modal("open");
-  }
+  };
 
   function newHSModalOpen() {
     $(".go-fetch").addClass('disabled');
     $(".HS").attr("value", `${g1.score}`);
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
-  }
+  };
 
 }); //end of doc.ready function
 
