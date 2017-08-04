@@ -241,6 +241,7 @@ $(document).ready(function() {
       diagnostic.textContent = "Error occured in recognition " + event.error;
     };
   }
+  
   //////////***************************** KEYPRESS MOVES *******************************//////////
   function keyPlay() {
     window.addEventListener("keypress", function(ele) {
