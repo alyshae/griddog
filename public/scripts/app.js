@@ -161,7 +161,7 @@ $(document).ready(function() {
 
   //////////********************************** TIMER **********************************//////////
   function timer() {
-
+    $(".go-fetch").addClass('disabled');
     $(".timer").removeClass("animated tada");
 
     count = count - 1;
@@ -264,6 +264,7 @@ $(document).ready(function() {
   };
 
   function levelUp() {
+    $(".go-fetch").removeClass('disabled');
     if (g1.level === 10) {
       document.querySelector(".score").innerHTML = `<h5 class="score-text">SCORE: 1000</h5>`;
       $(".HS").attr("value", "1000");
