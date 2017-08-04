@@ -333,6 +333,7 @@ $(document).ready(function() {
     $(".HS").attr("readonly", "readonly");
     $(".newHSModal").modal("open");
   }
+
 }); //end of doc.ready function
 
 /***************
@@ -396,15 +397,12 @@ class Game {
     return this.level < 4 ? 16 : 31;
   }
   get rowMax() {
-    return this.calcRowMax();
+    return this.calcMax();
   }
   get colMax() {
-    return this.calcColMax();
+    return this.calcMax();
   }
-  calcRowMax() {
-    return this.level <= 3 ? 3 : 4;
-  }
-  calcColMax() {
+  calcMax() {
     return this.level <= 3 ? 3 : 4;
   }
 } //end of GAME class
